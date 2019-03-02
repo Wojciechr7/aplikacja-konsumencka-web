@@ -3,14 +3,41 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  MatButtonModule,
+  MatCardModule, MatDialogModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule, MatNativeDateModule, MatRadioModule, MatSelectModule,
+  MatSidenavModule, MatTableModule, MatTabsModule,
+  MatToolbarModule,
+  MatButtonToggleModule,
+  MatFormFieldModule,
+  MatProgressSpinnerModule, MatSortModule, MatPaginatorModule
+} from '@angular/material';
+import { NavigationComponent } from './components/navigation/navigation.component';
+import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavigationComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatCardModule, MatDialogModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule, MatNativeDateModule, MatRadioModule, MatSelectModule,
+    MatSidenavModule, MatTableModule, MatTabsModule,
+    MatToolbarModule,
+    MatButtonToggleModule,
+    MatFormFieldModule,
+    MatProgressSpinnerModule, MatSortModule, MatPaginatorModule, LayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]
