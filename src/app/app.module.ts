@@ -20,6 +20,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { LayoutModule } from '@angular/cdk/layout';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,9 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
     MatToolbarModule,
     MatButtonToggleModule,
     MatFormFieldModule,
-    MatProgressSpinnerModule, MatSortModule, MatPaginatorModule, LayoutModule
+    MatProgressSpinnerModule, MatSortModule, MatPaginatorModule, LayoutModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

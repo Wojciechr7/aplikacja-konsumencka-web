@@ -1,3 +1,27 @@
-<p>
-  sign-in works!
-</p>
+<mat-card class="signin-container">
+  <mat-toolbar color="primary">
+    <span>Logowanie</span>
+  </mat-toolbar>
+  <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <input matInput type="text" formControlName="login" placeholder="Login">
+      <mat-error *ngIf="f.login.errors">
+        Login is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="password" formControlName="pass" placeholder="Hasło" [type]="hide ? 'password' : 'text'">
+      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <mat-error *ngIf="f.pass.errors">
+        Password is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-progress-spinner [diameter]="50" *ngIf="loading" color="primary" mode="indeterminate"></mat-progress-spinner>
+    <button *ngIf="!loading" class="login-btn" mat-raised-button color="primary">
+      Login
+    </button>
+  </form>
+
+
+
+</mat-card>
