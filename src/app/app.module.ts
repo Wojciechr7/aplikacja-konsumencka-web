@@ -16,10 +16,13 @@ import {
   MatFormFieldModule,
   MatProgressSpinnerModule, MatSortModule, MatPaginatorModule
 } from '@angular/material';
+import { NavigationComponent } from './components/navigation/navigation.component';
+import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavigationComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +37,7 @@ import {
     MatToolbarModule,
     MatButtonToggleModule,
     MatFormFieldModule,
-    MatProgressSpinnerModule, MatSortModule, MatPaginatorModule
+    MatProgressSpinnerModule, MatSortModule, MatPaginatorModule, LayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]
