@@ -16,8 +16,8 @@
         Password is <strong>required</strong>
       </mat-error>
     </mat-form-field>
-    <mat-progress-spinner [diameter]="50" *ngIf="loading" color="primary" mode="indeterminate"></mat-progress-spinner>
-    <button *ngIf="!loading" class="login-btn" mat-raised-button color="primary">
+    <mat-progress-spinner [diameter]="50" *ngIf="authenticationService.loading" color="primary" mode="indeterminate"></mat-progress-spinner>
+    <button *ngIf="!authenticationService.loading" class="login-btn" mat-raised-button color="primary">
       Login
     </button>
   </form>

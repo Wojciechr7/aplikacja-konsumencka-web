@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AuthService} from '../../services/auth.service';
+import {LoginData} from '../../models/login';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sign-in',
@@ -8,12 +11,10 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class SignInComponent implements OnInit {
 
-  public loading: boolean;
   public hide: boolean;
   public signInForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
-    this.loading = false;
+  constructor(private formBuilder: FormBuilder, private authenticationService: AuthService) {
     this.hide = true;
   }
   get f(): any { return this.signInForm.controls; }
@@ -21,10 +22,12 @@ export class SignInComponent implements OnInit {
   public onSubmit(): void {
 
     if (!this.signInForm.invalid) {
-      this.loading = true;
-      console.log(this.signInForm.value);
+      this.authenticationService.loading = true;
+      this.authenticationService.login(this.signInForm.value as LoginData).pipe(first())
+          .subscribe((response) => {
+            this.authenticationService.loading = false;
+          });
     }
-
   }
 
   ngOnInit() {
@@ -33,5 +36,6 @@ export class SignInComponent implements OnInit {
       pass: ['', Validators.required]
     });
   }
+
 
 }
