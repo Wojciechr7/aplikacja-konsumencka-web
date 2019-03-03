@@ -4,9 +4,9 @@
   </mat-toolbar>
   <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
     <mat-form-field>
-      <input matInput type="text" formControlName="login" placeholder="Login">
-      <mat-error *ngIf="f.login.errors">
-        Login is <strong>required</strong>
+      <input matInput type="email" formControlName="email" placeholder="Email">
+      <mat-error *ngIf="f.email.errors">
+        Email is <strong>required</strong>
       </mat-error>
     </mat-form-field>
     <mat-form-field>

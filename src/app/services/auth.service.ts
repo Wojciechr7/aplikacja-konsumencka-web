@@ -39,6 +39,10 @@ export class AuthService {
             }));
     }
 
+    public register(data: LoginData): Observable<User> {
+        return this.http.post<any>(`${GLOBAL.URL}/register`, data);
+    }
+
     public logout(): void {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');

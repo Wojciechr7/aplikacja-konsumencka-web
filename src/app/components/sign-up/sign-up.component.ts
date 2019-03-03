@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AuthService} from '../../services/auth.service';
+import {LoginData} from '../../models/login';
+import {first} from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-sign-up',
@@ -7,9 +12,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignUpComponent implements OnInit {
 
-  constructor() { }
+  public hide: boolean;
+  public signUpForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder, private authenticationService: AuthService) {
+    this.hide = true;
+  }
+  get f(): any { return this.signUpForm.controls; }
+
+  public onSubmit(): void {
+
+    if (!this.signUpForm.invalid) {
+      this.authenticationService.loading = true;
+      this.authenticationService.register(this.signUpForm.value as LoginData).pipe(first())
+          .subscribe((response) => {
+            this.authenticationService.loading = false;
+          });
+    }
+  }
 
   ngOnInit() {
+    this.signUpForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      surname: ['', Validators.required],
+      email: ['', Validators.required],
+      pass: ['', Validators.required]
+    });
   }
 
 }
