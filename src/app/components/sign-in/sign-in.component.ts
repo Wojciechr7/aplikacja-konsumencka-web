@@ -32,7 +32,7 @@ export class SignInComponent implements OnInit {
 
   ngOnInit() {
     this.signInForm = this.formBuilder.group({
-      login: ['', Validators.required],
+      email: ['', Validators.required],
       pass: ['', Validators.required]
     });
   }
