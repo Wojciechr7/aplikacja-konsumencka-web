@@ -7,6 +7,7 @@ import { User } from '../models/user';
 import {GLOBAL} from '../config';
 import {LoginData} from '../models/login';
 import {RegisterData} from '../models/register';
+import {Router} from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -16,7 +17,7 @@ export class AuthService {
     public loading: boolean;
 
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private router: Router) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
         this.loading = false;
@@ -48,5 +49,6 @@ export class AuthService {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
         this.currentUserSubject.next(null);
+        this.router.navigate(['/sign-in']);
     }
 }

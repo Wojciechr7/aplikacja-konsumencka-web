@@ -26,7 +26,7 @@ export class SignInComponent implements OnInit {
       this.authenticationService.loading = true;
       this.authenticationService.login(this.signInForm.value as LoginData).pipe(first())
           .subscribe((response) => {
-            console.log(response);
+            // console.log(response);
             this.authenticationService.loading = false;
             this.router.navigate(['/home']);
           });
