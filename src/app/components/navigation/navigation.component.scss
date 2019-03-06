@@ -1,5 +1,15 @@
 .sidenav-container {
   height: 100%;
+
+
+  mat-sidenav-content {
+
+    a {
+      text-decoration: none;
+      color: white;
+    }
+  }
+
 }
 
 .sidenav {
