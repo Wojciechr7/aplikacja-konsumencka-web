@@ -14,7 +14,7 @@ export class SignInComponent implements OnInit {
   public hide: boolean;
   public signInForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private authenticationService: AuthService) {
+  constructor(private formBuilder: FormBuilder, public authenticationService: AuthService) {
     this.hide = true;
   }
   get f(): any { return this.signInForm.controls; }
@@ -25,6 +25,7 @@ export class SignInComponent implements OnInit {
       this.authenticationService.loading = true;
       this.authenticationService.login(this.signInForm.value as LoginData).pipe(first())
           .subscribe((response) => {
+            console.log(response);
             this.authenticationService.loading = false;
           });
     }
@@ -33,7 +34,7 @@ export class SignInComponent implements OnInit {
   ngOnInit() {
     this.signInForm = this.formBuilder.group({
       email: ['', Validators.required],
-      pass: ['', Validators.required]
+      password: ['', Validators.required]
     });
   }
 
