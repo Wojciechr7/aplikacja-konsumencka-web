@@ -10,9 +10,9 @@
       </mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput type="password" formControlName="pass" placeholder="Hasło" [type]="hide ? 'password' : 'text'">
+      <input matInput type="password" formControlName="password" placeholder="Hasło" [type]="hide ? 'password' : 'text'">
       <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-      <mat-error *ngIf="f.pass.errors">
+      <mat-error *ngIf="f.password.errors">
         Password is <strong>required</strong>
       </mat-error>
     </mat-form-field>
