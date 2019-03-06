@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../services/auth.service';
 import {LoginData} from '../../models/login';
 import {first} from 'rxjs/operators';
+import {RegisterData} from '../../models/register';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -15,7 +17,7 @@ export class SignUpComponent implements OnInit {
   public hide: boolean;
   public signUpForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private authenticationService: AuthService) {
+  constructor(private formBuilder: FormBuilder, private authenticationService: AuthService, private router: Router) {
     this.hide = true;
   }
   get f(): any { return this.signUpForm.controls; }
@@ -24,19 +26,25 @@ export class SignUpComponent implements OnInit {
 
     if (!this.signUpForm.invalid) {
       this.authenticationService.loading = true;
-      this.authenticationService.register(this.signUpForm.value as LoginData).pipe(first())
+      this.authenticationService.register(this.signUpForm.value as RegisterData)
           .subscribe((response) => {
             this.authenticationService.loading = false;
+            // TODO implement dialog boxes
+            alert('Registration complete');
+            this.router.navigate(['/sign-in']);
           });
+    } else {
+      // TODO implement dialog boxes
+      alert('Validation error!');
     }
   }
 
   ngOnInit() {
     this.signUpForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      surname: ['', Validators.required],
-      email: ['', Validators.required],
-      pass: ['', Validators.required]
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]]
     });
   }
 

@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { User } from '../models/user';
 import {GLOBAL} from '../config';
 import {LoginData} from '../models/login';
+import {RegisterData} from '../models/register';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -26,7 +27,7 @@ export class AuthService {
     }
 
     public login(data: LoginData): Observable<User> {
-        return this.http.post<any>(`${GLOBAL.URL}/Login`, data)
+        return this.http.post<User>(`${GLOBAL.URL}/Login`, data)
             .pipe(map(user => {
                 // login successful if there's a jwt token in the response
                 if (user && user.token) {
@@ -39,8 +40,8 @@ export class AuthService {
             }));
     }
 
-    public register(data: LoginData): Observable<User> {
-        return this.http.post<any>(`${GLOBAL.URL}/Registration`, data);
+    public register(data: RegisterData): Observable<User> {
+        return this.http.post<User>(`${GLOBAL.URL}/Registration`, data);
     }
 
     public logout(): void {
