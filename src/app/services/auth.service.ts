@@ -40,7 +40,7 @@ export class AuthService {
     }
 
     public register(data: LoginData): Observable<User> {
-        return this.http.post<any>(`${GLOBAL.URL}/register`, data);
+        return this.http.post<any>(`${GLOBAL.URL}/Registration`, data);
     }
 
     public logout(): void {
