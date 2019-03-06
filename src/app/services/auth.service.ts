@@ -6,6 +6,8 @@ import { map } from 'rxjs/operators';
 import { User } from '../models/user';
 import {GLOBAL} from '../config';
 import {LoginData} from '../models/login';
+import {RegisterData} from '../models/register';
+import {Router} from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -15,7 +17,7 @@ export class AuthService {
     public loading: boolean;
 
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private router: Router) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
         this.loading = false;
@@ -26,7 +28,7 @@ export class AuthService {
     }
 
     public login(data: LoginData): Observable<User> {
-        return this.http.post<any>(`${GLOBAL.URL}/Login`, data)
+        return this.http.post<User>(`${GLOBAL.URL}/Login`, data)
             .pipe(map(user => {
                 // login successful if there's a jwt token in the response
                 if (user && user.token) {
@@ -39,13 +41,14 @@ export class AuthService {
             }));
     }
 
-    public register(data: LoginData): Observable<User> {
-        return this.http.post<any>(`${GLOBAL.URL}/register`, data);
+    public register(data: RegisterData): Observable<User> {
+        return this.http.post<User>(`${GLOBAL.URL}/Registration`, data);
     }
 
     public logout(): void {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
         this.currentUserSubject.next(null);
+        this.router.navigate(['/sign-in']);
     }
 }
