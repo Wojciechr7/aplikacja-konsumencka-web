@@ -25,6 +25,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {JwtInterceptor} from './helpers/jwt.interceptor';
 import {ErrorInterceptor} from './helpers/error.interceptor';
 import { HomeComponent } from './components/home/home.component';
+import { AddAdComponent } from './components/add-ad/add-ad.component';
 
 @NgModule({
     declarations: [
@@ -32,7 +33,8 @@ import { HomeComponent } from './components/home/home.component';
         NavigationComponent,
         SignInComponent,
         SignUpComponent,
-        HomeComponent
+        HomeComponent,
+        AddAdComponent
     ],
     imports: [
         BrowserModule,
