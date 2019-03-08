@@ -1,0 +1,19 @@
+.conteiner{
+  display:flex;
+  flex-direction: column;
+  margin:auto;
+  width:80%;
+}
+.title{
+  width:100%;
+  font-size:23px;
+}
+.info{
+  width:20%;
+  min-width:150px;
+  margin-right:calc(40%/3);
+}
+.discription{
+  width: 100%;
+}
+

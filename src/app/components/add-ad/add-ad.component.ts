@@ -8,6 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddAdComponent implements OnInit {
 
+  caregories = ['Apartment', 'Room', 'House', 'Office'];
+  types = ['rent', 'sale'];
+
   constructor() { }
 
   ngOnInit() {

@@ -1,3 +1,55 @@
-<p>
-  add-ad works!
-</p>
+<mat-card class="conteiner">
+  <form>
+      <mat-toolbar color="primary">
+      <h2>Your advertisement tittle</h2>
+      </mat-toolbar>
+      <mat-form-field class="title" hintLabel="Max 25 characters" appearance="outline">
+          <input matInput type="text" maxlength="25" placeholder="Enter tittle *">
+        </mat-form-field>
+        <h3>Categorie</h3>
+        <mat-form-field>
+            <mat-select placeholder="Select categorie" required>
+              <mat-option *ngFor="let cat of caregories" [value]="cat">
+                {{cat}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        <h3>Location</h3>
+        <mat-form-field class="info">
+            <input matInput type="text" placeholder="City" required>
+        </mat-form-field>
+        <mat-form-field class="info">
+            <input matInput type="text" placeholder="Neighborhood">
+        </mat-form-field>
+        <mat-form-field class="info">
+            <input matInput type="text" placeholder="Street">
+        </mat-form-field>
+        <mat-form-field class="info">
+            <input matInput type="text" placeholder="Phone number" required>
+        </mat-form-field>
+        <h3>More information</h3>
+        <mat-form-field class="info">
+            <input matInput type="text" placeholder="Size">
+        </mat-form-field>
+        <mat-form-field class="info">
+            <input matInput type="text" placeholder="Floor">
+        </mat-form-field>
+        <mat-form-field class="info">
+            <input matInput type="number" placeholder="Price" required>
+        </mat-form-field>
+        <mat-form-field class="info">
+            <mat-select placeholder="Type" required>
+            <mat-option *ngFor="let type of types" [value]="type" disableRipple>
+                {{type}}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <h3>Discription</h3>
+        <mat-form-field class="discription">
+            <textarea rows="10" matInput placeholder="Leave a comment" required></textarea>
+        </mat-form-field>
+        <button mat-raised-button color="primary">Add advertisement</button>
+
+  </form>
+</mat-card>
