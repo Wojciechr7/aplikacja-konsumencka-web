@@ -1,0 +1,68 @@
+<mat-card class="conteiner">
+  <form [formGroup]="AdForm">
+      <mat-toolbar color="primary">
+      <h2>Your advertisement tittle</h2>
+      </mat-toolbar>
+      <mat-form-field class="title" hintLabel="Max 25 characters" appearance="outline">
+          <input matInput type="text" maxlength="25" placeholder="Enter tittle *" formControlName="TittleFormControl" >
+            <!-- <mat-error *ngIf="FormCon.TittleFormControl.errors.required " >Tittle is required</mat-error>
+            <mat-error *ngIf="FormCon.TittleFormControl.errors.minlength " >Tittle must be at least 5 characters</mat-error> -->
+            <mat-error>Tittle is required</mat-error>
+        </mat-form-field>
+        <h3>Categorie</h3>
+        <mat-form-field>
+            <mat-select placeholder="Select categorie" formControlName="CaregorieFormControl">
+              <mat-option *ngFor="let cat of caregories" [value]="cat">
+                {{cat}}
+              </mat-option>
+            </mat-select>
+            <mat-error>Caregorie is required</mat-error>
+          </mat-form-field>
+        <h3>Location</h3>
+        <mat-form-field class="info">
+            <input matInput type="text" placeholder="City" formControlName="CityFormControl">
+            <mat-error>City is required</mat-error>
+        </mat-form-field>
+        <mat-form-field class="info">
+            <input matInput type="text" placeholder="Neighborhood" formControlName="NeighborFormControl">
+        </mat-form-field>
+        <mat-form-field class="info">
+            <input matInput type="text" placeholder="Street" formControlName="StreetFormContorl" >
+        </mat-form-field>
+        <mat-form-field class="info">
+            <input matInput type="text" placeholder="Phone number" formControlName="PhoneNumberFormContorl">
+            <mat-error>Phone number is required</mat-error>
+        </mat-form-field>
+        <h3>More information</h3>
+        <mat-form-field class="info">
+            <input matInput type="text" placeholder="Size" formControlName="SizeFormControl">
+            <span matSuffix>m<sup>2</sup></span>
+        </mat-form-field>
+        <mat-form-field class="info">
+          <select matNativeControl placeholder = "Floor" formControlName="FloorFormControl">
+              <option *ngFor="let i of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]" [value]="i">{{i}}</option>
+          </select>
+        </mat-form-field>
+        <mat-form-field class="info">
+            <input matInput type="number" placeholder="Price" formControlName="PriceFomrControl">
+            <span matSuffix>zł</span>
+            <mat-error>Price is required</mat-error>
+        </mat-form-field>
+        <mat-form-field class="info">
+            <mat-select placeholder="Type" formControlName="TypeFormControl">
+            <mat-option *ngFor="let type of types" [value]="type" disableRipple>
+                {{type}}
+              </mat-option>
+            </mat-select>
+            <mat-error>Type is required</mat-error>
+        </mat-form-field>
+
+        <h3>Discription</h3>
+        <mat-form-field class="discription">
+            <textarea rows="10" matInput placeholder="describe the advertisement" formControlName="DiscriptionFormControl"></textarea>
+            <mat-error>Discription is required</mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary">Add advertisement</button>
+
+  </form>
+</mat-card>
