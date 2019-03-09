@@ -4,7 +4,10 @@
       <h2>Your advertisement tittle</h2>
       </mat-toolbar>
       <mat-form-field class="title" hintLabel="Max 25 characters" appearance="outline">
-          <input matInput type="text" maxlength="25" placeholder="Enter tittle *">
+          <input matInput type="text" maxlength="25" placeholder="Enter tittle *" [formControl]="TittleFormControl" >
+          <mat-error *ngIf="TittleFormControl.hasError('required')">
+            Tittle is required
+          </mat-error>
         </mat-form-field>
         <h3>Categorie</h3>
         <mat-form-field>
@@ -16,13 +19,13 @@
           </mat-form-field>
         <h3>Location</h3>
         <mat-form-field class="info">
-            <input matInput type="text" placeholder="City" required>
+            <input matInput type="text" placeholder="City" [(ngModel)]="city" name="city" (focusout)="cityCheck()" required>
         </mat-form-field>
         <mat-form-field class="info">
-            <input matInput type="text" placeholder="Neighborhood">
+            <input matInput type="text" placeholder="Neighborhood" [disabled]="disable" >
         </mat-form-field>
         <mat-form-field class="info">
-            <input matInput type="text" placeholder="Street">
+            <input matInput type="text" placeholder="Street" [disabled]="disable" >
         </mat-form-field>
         <mat-form-field class="info">
             <input matInput type="text" placeholder="Phone number" required>
@@ -30,12 +33,16 @@
         <h3>More information</h3>
         <mat-form-field class="info">
             <input matInput type="text" placeholder="Size">
+            <span matSuffix>m<sup>2</sup></span>
         </mat-form-field>
         <mat-form-field class="info">
-            <input matInput type="text" placeholder="Floor">
+          <select matNativeControl placeholder = "Floor" required>
+              <option *ngFor="let i of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]" [value]="i">{{i}}</option>
+          </select>
         </mat-form-field>
         <mat-form-field class="info">
             <input matInput type="number" placeholder="Price" required>
+            <span matSuffix>zł</span>
         </mat-form-field>
         <mat-form-field class="info">
             <mat-select placeholder="Type" required>
@@ -47,7 +54,7 @@
 
         <h3>Discription</h3>
         <mat-form-field class="discription">
-            <textarea rows="10" matInput placeholder="Leave a comment" required></textarea>
+            <textarea rows="10" matInput placeholder="describe the advertisement" required></textarea>
         </mat-form-field>
         <button mat-raised-button color="primary">Add advertisement</button>
 
