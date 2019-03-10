@@ -1,4 +1,4 @@
-<mat-card class="conteiner">
+<mat-card class="container">
   <form [formGroup]="AdForm">
       <mat-toolbar color="primary">
       <h2>Your advertisement tittle</h2>
@@ -9,14 +9,14 @@
             <mat-error *ngIf="FormCon.TittleFormControl.errors.minlength " >Tittle must be at least 5 characters</mat-error> -->
             <mat-error>Tittle is required</mat-error>
         </mat-form-field>
-        <h3>Categorie</h3>
+        <h3>Category</h3>
         <mat-form-field>
-            <mat-select placeholder="Select categorie" formControlName="CaregorieFormControl">
-              <mat-option *ngFor="let cat of caregories" [value]="cat">
+            <mat-select placeholder="Select category" formControlName="CategoryFormControl">
+              <mat-option *ngFor="let cat of category" [value]="cat">
                 {{cat}}
               </mat-option>
             </mat-select>
-            <mat-error>Caregorie is required</mat-error>
+            <mat-error>Category is required</mat-error>
           </mat-form-field>
         <h3>Location</h3>
         <mat-form-field class="info">
@@ -24,13 +24,13 @@
             <mat-error>City is required</mat-error>
         </mat-form-field>
         <mat-form-field class="info">
-            <input matInput type="text" placeholder="Neighborhood" formControlName="NeighborFormControl">
+            <input matInput type="text" placeholder="Neighbourhood" formControlName="NeighbourFormControl">
         </mat-form-field>
         <mat-form-field class="info">
-            <input matInput type="text" placeholder="Street" formControlName="StreetFormContorl" >
+            <input matInput type="text" placeholder="Street" formControlName="StreetFormControl" >
         </mat-form-field>
         <mat-form-field class="info">
-            <input matInput type="text" placeholder="Phone number" formControlName="PhoneNumberFormContorl">
+            <input matInput type="text" placeholder="Phone number" formControlName="PhoneNumberFormControl">
             <mat-error>Phone number is required</mat-error>
         </mat-form-field>
         <h3>More information</h3>
@@ -44,7 +44,7 @@
           </select>
         </mat-form-field>
         <mat-form-field class="info">
-            <input matInput type="number" placeholder="Price" formControlName="PriceFomrControl">
+            <input matInput type="number" placeholder="Price" formControlName="PriceFormControl">
             <span matSuffix>zł</span>
             <mat-error>Price is required</mat-error>
         </mat-form-field>
@@ -57,10 +57,10 @@
             <mat-error>Type is required</mat-error>
         </mat-form-field>
 
-        <h3>Discription</h3>
-        <mat-form-field class="discription">
-            <textarea rows="10" matInput placeholder="describe the advertisement" formControlName="DiscriptionFormControl"></textarea>
-            <mat-error>Discription is required</mat-error>
+        <h3>Description</h3>
+        <mat-form-field class="description">
+            <textarea rows="10" matInput placeholder="describe the advertisement" formControlName="DescriptionFormControl"></textarea>
+            <mat-error>Description is required</mat-error>
         </mat-form-field>
         <button mat-raised-button color="primary">Add advertisement</button>
 
