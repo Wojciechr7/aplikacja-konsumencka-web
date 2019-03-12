@@ -23,8 +23,9 @@ export class AddAdComponent implements OnInit {
   get f(): any { return this.AdForm.controls; }
 
   public onSubmit(): void {
-
+    console.log('before');
     if (!this.AdForm.invalid) {
+      console.log(this.AdForm.value as Ad);
       // this.authenticationService.loading = true;
       this.adService.addAd(this.AdForm.value as Ad).pipe(first())
           .subscribe((response) => {
