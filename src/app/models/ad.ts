@@ -1,4 +1,5 @@
-export interface AdData {
+export interface Ad {
+    id?: number;
     TitleFormControl: string;
     CategoryFormControl: string;
     CityFormControl: string;
