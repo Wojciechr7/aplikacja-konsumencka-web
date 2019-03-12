@@ -1,5 +1,5 @@
 <mat-card class="container">
-  <form [formGroup]="AdForm">
+  <form [formGroup]="AdForm" (ngSubmit)="onSubmit()">
       <mat-toolbar color="primary">
       <h2>Your advertisement tittle</h2>
       </mat-toolbar>
