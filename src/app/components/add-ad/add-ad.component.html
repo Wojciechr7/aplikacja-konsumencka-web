@@ -1,3 +1,4 @@
+
 <mat-card class="container">
   <form [formGroup]="AdForm" (ngSubmit)="onSubmit()">
       <mat-toolbar color="primary">
@@ -65,4 +66,12 @@
         <button mat-raised-button color="primary">Add advertisement</button>
 
   </form>
+
+        <input type="file" id="files" (change)="getFile()">
+        <mat-form-field class="info">
+            <input matInput type="text" placeholder="Image description">
+        </mat-form-field>
+
+
+
 </mat-card>
