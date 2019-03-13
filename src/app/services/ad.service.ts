@@ -20,6 +20,6 @@ export class AdService {
 
 
     public addAd(data: Ad): Observable<Ad> {
-        return this.http.post<Ad>(`${GLOBAL.URL}/AddAd`, data);
+        return this.http.post<Ad>(`${GLOBAL.URL}/Advertisements`, data);
     }
 }
