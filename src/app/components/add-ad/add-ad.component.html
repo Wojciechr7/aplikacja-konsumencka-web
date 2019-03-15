@@ -1,11 +1,10 @@
-
 <mat-card class="container">
-  <form [formGroup]="AdForm" (ngSubmit)="onSubmit()">
-      <mat-toolbar color="primary">
-      <h2>Your advertisement tittle</h2>
-      </mat-toolbar>
-      <mat-form-field class="title" hintLabel="Max 25 characters" appearance="outline">
-          <input matInput type="text" maxlength="25" placeholder="Enter tittle *" formControlName="TitleFormControl" >
+    <form [formGroup]="AdForm" (ngSubmit)="onSubmit()">
+        <mat-toolbar color="primary">
+            <h2>Your advertisement tittle</h2>
+        </mat-toolbar>
+        <mat-form-field class="title" hintLabel="Max 25 characters" appearance="outline">
+            <input matInput type="text" maxlength="25" placeholder="Enter tittle *" formControlName="TitleFormControl">
             <!-- <mat-error *ngIf="FormCon.TittleFormControl.errors.required " >Tittle is required</mat-error>
             <mat-error *ngIf="FormCon.TittleFormControl.errors.minlength " >Tittle must be at least 5 characters</mat-error> -->
             <mat-error>Tittle is required</mat-error>
@@ -13,12 +12,12 @@
         <h3>Category</h3>
         <mat-form-field>
             <mat-select placeholder="Select category" formControlName="CategoryFormControl">
-              <mat-option *ngFor="let cat of category" [value]="cat">
-                {{cat}}
-              </mat-option>
+                <mat-option *ngFor="let cat of category" [value]="cat">
+                    {{cat}}
+                </mat-option>
             </mat-select>
             <mat-error>Category is required</mat-error>
-          </mat-form-field>
+        </mat-form-field>
         <h3>Location</h3>
         <mat-form-field class="info">
             <input matInput type="text" placeholder="City" formControlName="CityFormControl">
@@ -28,7 +27,7 @@
             <input matInput type="text" placeholder="Neighbourhood" formControlName="NeighbourFormControl">
         </mat-form-field>
         <mat-form-field class="info">
-            <input matInput type="text" placeholder="Street" formControlName="StreetFormControl" >
+            <input matInput type="text" placeholder="Street" formControlName="StreetFormControl">
         </mat-form-field>
         <mat-form-field class="info">
             <input matInput type="text" placeholder="Phone number" formControlName="PhoneNumberFormControl">
@@ -40,9 +39,9 @@
             <span matSuffix>m<sup>2</sup></span>
         </mat-form-field>
         <mat-form-field class="info">
-          <select matNativeControl placeholder = "Floor" formControlName="FloorFormControl">
-              <option *ngFor="let i of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]" [value]="i">{{i}}</option>
-          </select>
+            <select matNativeControl placeholder="Floor" formControlName="FloorFormControl">
+                <option *ngFor="let i of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]" [value]="i">{{i}}</option>
+            </select>
         </mat-form-field>
         <mat-form-field class="info">
             <input matInput type="number" placeholder="Price" formControlName="PriceFormControl">
@@ -51,27 +50,37 @@
         </mat-form-field>
         <mat-form-field class="info">
             <mat-select placeholder="Type" formControlName="TypeFormControl">
-            <mat-option *ngFor="let type of types" [value]="type" disableRipple>
-                {{type}}
-              </mat-option>
+                <mat-option *ngFor="let type of types" [value]="type" disableRipple>
+                    {{type}}
+                </mat-option>
             </mat-select>
             <mat-error>Type is required</mat-error>
         </mat-form-field>
 
         <h3>Description</h3>
         <mat-form-field class="description">
-            <textarea rows="10" matInput placeholder="describe the advertisement" formControlName="DescriptionFormControl"></textarea>
+            <textarea rows="10" matInput placeholder="describe the advertisement"
+                      formControlName="DescriptionFormControl"></textarea>
             <mat-error>Description is required</mat-error>
         </mat-form-field>
+
+
+        <button type="button" mat-raised-button color="primary" (click)="imgInput.click()">Add Image</button>
+        <mat-tab-group>
+            <mat-tab *ngFor="let img of adService.files; index as i" [label]="img.Name">
+                <div class="image-desc">
+                    <input matInput type="text" placeholder="Image Description" [ngModelOptions]="{standalone: true}" [(ngModel)]="adService.files[i].Description">
+                    <mat-icon color="warn" (click)="removeImage(i)">remove_circle_outline</mat-icon>
+                </div>
+                <img [src]="img.Image">
+            </mat-tab>
+        </mat-tab-group>
+
+
         <button mat-raised-button color="primary">Add advertisement</button>
 
-  </form>
 
-        <input type="file" id="files" (change)="getFile()">
-        <mat-form-field class="info">
-            <input matInput type="text" placeholder="Image description">
-        </mat-form-field>
-
-
+    </form>
+    <input #imgInput hidden type="file" id="files" accept="image/*" (change)="adService.getFile()">
 
 </mat-card>

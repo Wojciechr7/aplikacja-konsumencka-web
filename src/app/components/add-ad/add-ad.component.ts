@@ -3,14 +3,7 @@ import {FormControl, Validators, FormGroup, FormBuilder} from '@angular/forms';
 import {AdService} from '../../services/ad.service';
 import {Router} from '@angular/router';
 import {Ad} from '../../models/ad';
-import {first} from 'rxjs/operators';
-import {ImageAd} from '../../models/image';
 
-export interface FileUp {
-    Name: string;
-    Image: string;
-    Description: string;
-}
 
 @Component({
     selector: 'app-add-ad',
@@ -19,14 +12,15 @@ export interface FileUp {
 })
 export class AddAdComponent implements OnInit {
     public hide: boolean;
-    AdForm: FormGroup;
-    category = ['Apartment', 'Room', 'House', 'Office'];
-    types = ['rent', 'sale'];
-    public files: Array<FileUp>;
+    public AdForm: FormGroup;
+    public category: Array<string>;
+    public types: Array<string>;
+
 
     constructor(private formBuilder: FormBuilder, public adService: AdService, private router: Router) {
         this.hide = true;
-        this.files = [];
+        this.category = ['Apartment', 'Room', 'House', 'Office'];
+        this.types = ['rent', 'sale'];
     }
 
     get f(): any {
@@ -34,16 +28,11 @@ export class AddAdComponent implements OnInit {
     }
 
     public onSubmit(): void {
-        /*if (!this.AdForm.invalid) {*/
+        if (!this.AdForm.invalid) {
 
         const ad = {
             Title: this.AdForm.value.TitleFormControl,
-            Images: [
-                {
-                    Image: 'string img',
-                    Description: 'opis img'
-                }
-            ],
+            Images: [...this.adService.files],
             Description: this.AdForm.value.DescriptionFormControl,
             PhoneNumber: this.AdForm.value.PhoneNumberFormControl,
             Price: parseInt(this.AdForm.value.PriceFormControl, 10),
@@ -54,18 +43,13 @@ export class AddAdComponent implements OnInit {
             Floor: parseInt(this.AdForm.value.FloorFormControl, 10)
         };
 
-        console.log(ad as Ad);
-
-
-        // this.authenticationService.loading = true;
-        // this.adService.addAd(ad as Ad).subscribe((response) => {
-        // console.log(response);
-        // this.authenticationService.loading = false;
-        // this.router.navigate(['/home']);
-        // });
-        /*} else {
+         this.adService.addAd(ad as Ad).subscribe(() => {
+         // this.router.navigate(['/home']);
+             alert('Advertisement has been added successfully');
+         });
+        } else {
           alert('Error');
-        }*/
+        }
     }
 
     ngOnInit() {
@@ -80,7 +64,7 @@ export class AddAdComponent implements OnInit {
             FloorFormControl: new FormControl(''),
             PriceFormControl: new FormControl('', [Validators.required]),
             TypeFormControl: new FormControl('', [Validators.required]),
-            DescriptionFormControl: new FormControl('', [Validators.required]),
+            DescriptionFormControl: new FormControl('', [Validators.required])
         });
 
     }
@@ -89,30 +73,9 @@ export class AddAdComponent implements OnInit {
         return this.AdForm.get('TitleFormControl');
     }
 
-    public getFile() {
-        function getBase64(filek) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(filek);
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = error => reject(error);
-            });
-        }
 
-        const file = (document.getElementById('files') as HTMLInputElement).files[0];
-        getBase64(file).then(
-            data =>  {
-                console.log(data);
-                const f = {
-                  Name: 'nazwa pliku',
-                  Image: data,
-                  Description: 'opis'
-                };
-                this.files.push(f as FileUp);
-            }
-
-        );
-
+    public removeImage(index: number) {
+        this.adService.files.splice(index, 1);
     }
 
 }
