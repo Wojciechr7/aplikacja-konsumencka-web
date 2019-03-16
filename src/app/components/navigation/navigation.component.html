@@ -8,7 +8,7 @@
       <a mat-list-item routerLink="/sign-in">Sign In</a>
       <a mat-list-item routerLink="/sign-up">Sign Up</a>
       <a mat-list-item routerLink="/add-ad">Add Advertisement</a>
-      <a mat-list-item href="javascript:void(0)" *ngIf="authenticationService.currentUserValue" (click)="authenticationService.logout()">Logout</a>
+      <a mat-list-item href="javascript:void(0)" *ngIf="authenticationService.currentUserValue" (click)="logout()">Logout</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
