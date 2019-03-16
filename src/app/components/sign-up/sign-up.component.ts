@@ -32,6 +32,8 @@ export class SignUpComponent implements OnInit {
             this.authenticationService.loading = false;
             this.toastr.success('Registration Complete', 'Success!');
             this.router.navigate(['/sign-in']);
+          }, error => {
+            this.authenticationService.loading = false;
           });
     }
   }
