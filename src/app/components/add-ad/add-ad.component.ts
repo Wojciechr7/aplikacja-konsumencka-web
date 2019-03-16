@@ -59,12 +59,13 @@ export class AddAdComponent implements OnInit {
             CityFormControl: new FormControl('', [Validators.required]),
             NeighbourFormControl: new FormControl(''),
             StreetFormControl: new FormControl(''),
-            PhoneNumberFormControl: new FormControl('', [Validators.required]),
-            SizeFormControl: new FormControl(''),
+            PhoneNumberFormControl: new FormControl('',
+              [Validators.required, Validators.pattern('^(?:\\(?\\+?48)?(?:[-\\.\\(\\)\\s]*(\\d)){9}\\)?$')]),
+            SizeFormControl: new FormControl('', [Validators.max(99999)]),
             FloorFormControl: new FormControl(''),
-            PriceFormControl: new FormControl('', [Validators.required]),
+            PriceFormControl: new FormControl('', [Validators.required, Validators.max(9999999)]),
             TypeFormControl: new FormControl('', [Validators.required]),
-            DescriptionFormControl: new FormControl('', [Validators.required])
+            DescriptionFormControl: new FormControl('', [Validators.required, Validators.maxLength(9999), Validators.minLength(30)])
         });
 
     }
