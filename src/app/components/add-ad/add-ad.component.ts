@@ -68,10 +68,10 @@ export class AddAdComponent implements OnInit {
         });
 
     }
-
+/*
     get FormCon(): any {
         return this.AdForm.get('TitleFormControl');
-    }
+    }*/
 
 
     public removeImage(index: number) {
