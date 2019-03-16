@@ -5,13 +5,14 @@ import {Observable} from 'rxjs';
 import {Ad} from '../models/ad';
 import {GLOBAL} from '../config';
 import {ImageAd} from '../models/image';
+import {ToastrService} from 'ngx-toastr';
 
 
 @Injectable({providedIn: 'root'})
 export class AdService {
     public files: Array<ImageAd>;
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private toastr: ToastrService) {
         this.files = [];
     }
 
@@ -44,7 +45,7 @@ export class AdService {
                 }
             );
         } else {
-            alert('Wrong image format');
+            this.toastr.error('Wrong Image Format', 'Error!');
         }
 
     }

@@ -18,7 +18,7 @@ export class SignUpComponent implements OnInit {
   public hide: boolean;
   public signUpForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private authenticationService: AuthService, private router: Router, private toastr: ToastrService) {
+  constructor(private formBuilder: FormBuilder, public authenticationService: AuthService, private router: Router, private toastr: ToastrService) {
     this.hide = true;
   }
   get f(): any { return this.signUpForm.controls; }

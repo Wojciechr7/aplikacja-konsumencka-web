@@ -3,6 +3,7 @@ import {FormControl, Validators, FormGroup, FormBuilder} from '@angular/forms';
 import {AdService} from '../../services/ad.service';
 import {Router} from '@angular/router';
 import {Ad} from '../../models/ad';
+import {ToastrService} from 'ngx-toastr';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class AddAdComponent implements OnInit {
     public types: Array<string>;
 
 
-    constructor(private formBuilder: FormBuilder, public adService: AdService, private router: Router) {
+    constructor(private formBuilder: FormBuilder, public adService: AdService, private router: Router, private toastr: ToastrService) {
         this.hide = true;
         this.category = ['Apartment', 'Room', 'House', 'Office'];
         this.types = ['rent', 'sale'];
@@ -44,11 +45,9 @@ export class AddAdComponent implements OnInit {
         };
 
          this.adService.addAd(ad as Ad).subscribe(() => {
-         // this.router.navigate(['/home']);
-             alert('Advertisement has been added successfully');
+             this.toastr.success('Advertisement Has Been Added Successfully', 'Success!');
+             this.router.navigate(['/home']);
          });
-        } else {
-          alert('Error');
         }
     }
 
