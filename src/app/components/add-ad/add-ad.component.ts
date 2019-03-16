@@ -67,6 +67,8 @@ export class AddAdComponent implements OnInit {
             DescriptionFormControl: new FormControl('', [Validators.required])
         });
 
+
+
     }
 
     get FormCon(): any {
@@ -77,5 +79,6 @@ export class AddAdComponent implements OnInit {
     public removeImage(index: number) {
         this.adService.files.splice(index, 1);
     }
+
 
 }

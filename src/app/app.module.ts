@@ -27,6 +27,7 @@ import {ErrorInterceptor} from './helpers/error.interceptor';
 import { HomeComponent } from './components/home/home.component';
 import { AddAdComponent } from './components/add-ad/add-ad.component';
 import { MatFileUploadModule } from 'angular-material-fileupload';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
     declarations: [
@@ -54,7 +55,8 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
-        MatFileUploadModule
+        MatFileUploadModule,
+        ToastrModule.forRoot()
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

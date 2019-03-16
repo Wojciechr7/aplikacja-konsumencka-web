@@ -5,6 +5,7 @@ import {LoginData} from '../../models/login';
 import {first} from 'rxjs/operators';
 import {RegisterData} from '../../models/register';
 import {Router} from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class SignUpComponent implements OnInit {
   public hide: boolean;
   public signUpForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private authenticationService: AuthService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private authenticationService: AuthService, private router: Router, private toastr: ToastrService) {
     this.hide = true;
   }
   get f(): any { return this.signUpForm.controls; }
@@ -27,15 +28,11 @@ export class SignUpComponent implements OnInit {
     if (!this.signUpForm.invalid) {
       this.authenticationService.loading = true;
       this.authenticationService.register(this.signUpForm.value as RegisterData)
-          .subscribe((response) => {
+          .subscribe(() => {
             this.authenticationService.loading = false;
-            // TODO implement dialog boxes
-            alert('Registration complete');
+            this.toastr.success('Registration Complete', 'Success!');
             this.router.navigate(['/sign-in']);
           });
-    } else {
-      // TODO implement dialog boxes
-      alert('Validation error!');
     }
   }
 

@@ -25,14 +25,11 @@ export class SignInComponent implements OnInit {
     if (!this.signInForm.invalid) {
       this.authenticationService.loading = true;
       this.authenticationService.login(this.signInForm.value as LoginData).pipe(first())
-          .subscribe((response) => {
-            // console.log(response);
-            this.authenticationService.loading = false;
+          .subscribe(() => {
             this.router.navigate(['/home']);
-          });
-    } else {
-      // TODO implement dialog boxes
-      alert('Wrong email or password!');
+          }, error => {
+            this.authenticationService.loading = false;
+      });
     }
   }
 
@@ -41,6 +38,8 @@ export class SignInComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
+
+    this.authenticationService.loading = false;
   }
 
 
