@@ -28,6 +28,7 @@ import { HomeComponent } from './components/home/home.component';
 import { AddAdComponent } from './components/add-ad/add-ad.component';
 import { MatFileUploadModule } from 'angular-material-fileupload';
 import { ToastrModule } from 'ngx-toastr';
+import {InfoDialogComponent} from './dialogs/info/info.dialog';
 
 @NgModule({
     declarations: [
@@ -36,7 +37,8 @@ import { ToastrModule } from 'ngx-toastr';
         SignInComponent,
         SignUpComponent,
         HomeComponent,
-        AddAdComponent
+        AddAdComponent,
+        InfoDialogComponent
     ],
     imports: [
         BrowserModule,
@@ -62,7 +64,8 @@ import { ToastrModule } from 'ngx-toastr';
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
         {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    entryComponents: [InfoDialogComponent]
 })
 export class AppModule {
 }
