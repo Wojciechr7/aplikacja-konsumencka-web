@@ -29,6 +29,7 @@ import { AddAdComponent } from './components/add-ad/add-ad.component';
 import { MatFileUploadModule } from 'angular-material-fileupload';
 import { ToastrModule } from 'ngx-toastr';
 import {InfoDialogComponent} from './dialogs/info/info.dialog';
+import { AdvertisementsComponent } from './components/advertisements/advertisements.component';
 
 @NgModule({
     declarations: [
@@ -38,7 +39,8 @@ import {InfoDialogComponent} from './dialogs/info/info.dialog';
         SignUpComponent,
         HomeComponent,
         AddAdComponent,
-        InfoDialogComponent
+        InfoDialogComponent,
+        AdvertisementsComponent
     ],
     imports: [
         BrowserModule,

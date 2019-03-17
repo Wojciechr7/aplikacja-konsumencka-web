@@ -5,13 +5,15 @@ import {SignUpComponent} from './components/sign-up/sign-up.component';
 import {HomeComponent} from './components/home/home.component';
 import {AuthGuard} from './guards/auth.guard';
 import { AddAdComponent } from './components/add-ad/add-ad.component';
+import {AdvertisementsComponent} from './components/advertisements/advertisements.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
   {path: 'sign-in', component: SignInComponent},
   {path: 'sign-up', component: SignUpComponent},
-  {path: 'add-ad', component: AddAdComponent, canActivate: [AuthGuard]}
+  {path: 'add-ad', component: AddAdComponent, canActivate: [AuthGuard]},
+  {path: 'advertisements', component: AdvertisementsComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({
