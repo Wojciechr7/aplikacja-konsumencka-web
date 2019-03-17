@@ -1,0 +1,22 @@
+h2 {
+  text-align: center;
+}
+.ad-container {
+  width: 95%;
+  margin: 20px auto;
+
+  .gallery {
+    height: fit-content;
+    display: flex;
+    flex-direction: column !important;
+
+    .mat-list-item-content {
+      display: flex;
+      flex-direction: column !important;
+    }
+  }
+
+  mat-progress-spinner {
+    margin: auto;
+  }
+}

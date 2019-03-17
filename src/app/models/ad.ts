@@ -1,14 +1,15 @@
 import {ImageAd} from './image';
 
 export interface Ad {
-    Title: string;
-    Images: Array<ImageAd>;
-    Description: string;
-    PhoneNumber: string;
-    Price: number;
-    City: string;
-    Street: string;
-    Size: number;
-    Category: string;
-    Floor: number;
+    id?: number;
+    title?: string;
+    images?: Array<ImageAd>;
+    description?: string;
+    phoneNumber?: string;
+    price: number;
+    city: string;
+    street: string;
+    size: number;
+    category: string;
+    floor?: number;
 }

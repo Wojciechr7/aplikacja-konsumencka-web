@@ -1,15 +1,16 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {catchError, map} from 'rxjs/operators';
 
-import { User } from '../models/user';
+import {User} from '../models/user';
 import {GLOBAL} from '../config';
 import {LoginData} from '../models/login';
 import {RegisterData} from '../models/register';
 import {Router} from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class AuthService {
 
     private currentUserSubject: BehaviorSubject<User>;
@@ -17,7 +18,7 @@ export class AuthService {
     public loading: boolean;
 
 
-    constructor(private http: HttpClient, private router: Router) {
+    constructor(private http: HttpClient, private router: Router, private toastr: ToastrService) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
         this.loading = false;
@@ -32,11 +33,11 @@ export class AuthService {
             .pipe(map(user => {
                 // login successful if there's a jwt token in the response
                 if (user && user.token) {
+                    this.loading = false;
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify(user));
                     this.currentUserSubject.next(user);
                 }
-
                 return user;
             }));
     }
@@ -46,9 +47,8 @@ export class AuthService {
     }
 
     public logout(): void {
-        // remove user from local storage to log user out
+        this.toastr.warning('User Logged Out', 'Warning!');
         localStorage.removeItem('currentUser');
         this.currentUserSubject.next(null);
-        this.router.navigate(['/sign-in']);
     }
 }

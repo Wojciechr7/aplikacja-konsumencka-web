@@ -27,6 +27,10 @@ import {ErrorInterceptor} from './helpers/error.interceptor';
 import { HomeComponent } from './components/home/home.component';
 import { AddAdComponent } from './components/add-ad/add-ad.component';
 import { MatFileUploadModule } from 'angular-material-fileupload';
+import { ToastrModule } from 'ngx-toastr';
+import {InfoDialogComponent} from './dialogs/info/info.dialog';
+import { AdvertisementsComponent } from './components/advertisements/advertisements.component';
+import { AdvertisementComponent } from './components/advertisement/advertisement.component';
 
 @NgModule({
     declarations: [
@@ -35,7 +39,10 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
         SignInComponent,
         SignUpComponent,
         HomeComponent,
-        AddAdComponent
+        AddAdComponent,
+        InfoDialogComponent,
+        AdvertisementsComponent,
+        AdvertisementComponent
     ],
     imports: [
         BrowserModule,
@@ -54,13 +61,15 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
-        MatFileUploadModule
+        MatFileUploadModule,
+        ToastrModule.forRoot()
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
         {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    entryComponents: [InfoDialogComponent]
 })
 export class AppModule {
 }

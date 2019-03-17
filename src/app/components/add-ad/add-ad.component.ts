@@ -3,6 +3,7 @@ import {FormControl, Validators, FormGroup, FormBuilder} from '@angular/forms';
 import {AdService} from '../../services/ad.service';
 import {Router} from '@angular/router';
 import {Ad} from '../../models/ad';
+import {ToastrService} from 'ngx-toastr';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class AddAdComponent implements OnInit {
     public types: Array<string>;
 
 
-    constructor(private formBuilder: FormBuilder, public adService: AdService, private router: Router) {
+    constructor(private formBuilder: FormBuilder, public adService: AdService, private router: Router, private toastr: ToastrService) {
         this.hide = true;
         this.category = ['Apartment', 'Room', 'House', 'Office'];
         this.types = ['rent', 'sale'];
@@ -31,24 +32,22 @@ export class AddAdComponent implements OnInit {
         if (!this.AdForm.invalid) {
 
         const ad = {
-            Title: this.AdForm.value.TitleFormControl,
-            Images: [...this.adService.files],
-            Description: this.AdForm.value.DescriptionFormControl,
-            PhoneNumber: this.AdForm.value.PhoneNumberFormControl,
-            Price: parseInt(this.AdForm.value.PriceFormControl, 10),
-            City: this.AdForm.value.CityFormControl,
-            Street: this.AdForm.value.StreetFormControl,
-            Size: parseInt(this.AdForm.value.SizeFormControl, 10),
-            Category: this.AdForm.value.CategoryFormControl,
-            Floor: parseInt(this.AdForm.value.FloorFormControl, 10)
+            title: this.AdForm.value.TitleFormControl,
+            images: [...this.adService.files],
+            description: this.AdForm.value.DescriptionFormControl,
+            phoneNumber: this.AdForm.value.PhoneNumberFormControl,
+            price: parseInt(this.AdForm.value.PriceFormControl, 10),
+            city: this.AdForm.value.CityFormControl,
+            street: this.AdForm.value.StreetFormControl,
+            size: parseInt(this.AdForm.value.SizeFormControl, 10),
+            category: this.AdForm.value.CategoryFormControl,
+            floor: parseInt(this.AdForm.value.FloorFormControl, 10)
         };
 
          this.adService.addAd(ad as Ad).subscribe(() => {
-         // this.router.navigate(['/home']);
-             alert('Advertisement has been added successfully');
+             this.toastr.success('Advertisement Has Been Added Successfully', 'Success!');
+             this.router.navigate(['/home']);
          });
-        } else {
-          alert('Error');
         }
     }
 
@@ -70,6 +69,8 @@ export class AddAdComponent implements OnInit {
             DescriptionFormControl: new FormControl('', [Validators.required, Validators.maxLength(9999), Validators.minLength(30)])
         });
 
+
+
     }
 /*
     get FormCon(): any {
@@ -80,5 +81,6 @@ export class AddAdComponent implements OnInit {
     public removeImage(index: number) {
         this.adService.files.splice(index, 1);
     }
+
 
 }

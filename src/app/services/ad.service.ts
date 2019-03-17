@@ -5,13 +5,14 @@ import {Observable} from 'rxjs';
 import {Ad} from '../models/ad';
 import {GLOBAL} from '../config';
 import {ImageAd} from '../models/image';
+import {ToastrService} from 'ngx-toastr';
 
 
 @Injectable({providedIn: 'root'})
 export class AdService {
     public files: Array<ImageAd>;
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private toastr: ToastrService) {
         this.files = [];
     }
 
@@ -19,6 +20,15 @@ export class AdService {
     public addAd(data: Ad): Observable<Ad> {
         return this.http.post<Ad>(`${GLOBAL.URL}/Advertisements`, data);
     }
+
+    public getAd(id: string): Observable<Ad> {
+        return this.http.get<Ad>(`${GLOBAL.URL}/Advertisements/${id}`);
+    }
+
+    public getAdvertisements(): Observable<Array<Ad>> {
+        return this.http.get<Array<Ad>>(`${GLOBAL.URL}/Advertisements`);
+    }
+
 
     public getFile() {
         function getBase64(f) {
@@ -36,15 +46,15 @@ export class AdService {
             getBase64(file).then(
                 data => {
                     const f = {
-                        Name: file.name,
-                        Image: data,
-                        Description: ''
+                        name: file.name,
+                        image: data,
+                        description: ''
                     };
                     this.files.push(f as ImageAd);
                 }
             );
         } else {
-            alert('Wrong image format');
+            this.toastr.error('Wrong Image Format', 'Error!');
         }
 
     }
