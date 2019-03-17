@@ -13,7 +13,7 @@ import {switchMap} from 'rxjs/operators';
 export class AdvertisementComponent implements OnInit {
 
     public adData: Observable<Ad>;
-    public adId: number;
+    public adId: string;
 
     constructor(private route: ActivatedRoute, private router: Router, public adService: AdService) {
     }
@@ -22,14 +22,10 @@ export class AdvertisementComponent implements OnInit {
 
         this.adData = this.route.paramMap.pipe(
             switchMap((params: ParamMap) => {
-                this.adId = parseInt(params.get('id'), 10);
-                return this.adService.getAd('d734edc8-eca7-4190-9214-ea71de40e23d');
+                this.adId = params.get('id');
+                return this.adService.getAd(this.adId);
             }));
 
-
-        this.adService.getAd('d734edc8-eca7-4190-9214-ea71de40e23d').subscribe(el => {
-            console.log(el);
-        });
     }
 
 }

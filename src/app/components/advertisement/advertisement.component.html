@@ -15,7 +15,7 @@
             <mat-list-item role="listitem">Description: {{ad.description}}</mat-list-item>
             <mat-list-item role="listitem" class="gallery" *ngFor="let img of ad.images">
                     File Name: {{img.name}}
-                    <img [src]="img.image">
+                    <img [src]="img.image" width="200">
                     Description: {{img.description}}
             </mat-list-item>
 

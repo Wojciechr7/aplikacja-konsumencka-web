@@ -67,12 +67,12 @@
 
         <button type="button" mat-raised-button color="primary" (click)="imgInput.click()">Add Image</button>
         <mat-tab-group>
-            <mat-tab *ngFor="let img of adService.files; index as i" [label]="img.Name">
+            <mat-tab *ngFor="let img of adService.files; index as i" [label]="img.name">
                 <div class="image-desc">
-                    <input matInput type="text" placeholder="Image Description" [ngModelOptions]="{standalone: true}" [(ngModel)]="adService.files[i].Description">
+                    <input matInput type="text" placeholder="Image Description" [ngModelOptions]="{standalone: true}" [(ngModel)]="adService.files[i].description">
                     <mat-icon color="warn" (click)="removeImage(i)">remove_circle_outline</mat-icon>
                 </div>
-                <img [src]="img.Image">
+                <img [src]="img.image">
             </mat-tab>
         </mat-tab-group>
 
