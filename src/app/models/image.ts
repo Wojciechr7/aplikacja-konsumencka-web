@@ -1,5 +1,5 @@
 export interface ImageAd {
-    Name: string;
-    Image: string;
-    Description: string;
+    name: string;
+    image: string;
+    description: string;
 }

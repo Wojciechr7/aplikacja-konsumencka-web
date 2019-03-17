@@ -21,7 +21,7 @@ export class AdService {
         return this.http.post<Ad>(`${GLOBAL.URL}/Advertisements`, data);
     }
 
-    public getAdvertisement(id: string): Observable<Ad> {
+    public getAd(id: string): Observable<Ad> {
         return this.http.get<Ad>(`${GLOBAL.URL}/Advertisements/${id}`);
     }
 
@@ -46,9 +46,9 @@ export class AdService {
             getBase64(file).then(
                 data => {
                     const f = {
-                        Name: file.name,
-                        Image: data,
-                        Description: ''
+                        name: file.name,
+                        image: data,
+                        description: ''
                     };
                     this.files.push(f as ImageAd);
                 }

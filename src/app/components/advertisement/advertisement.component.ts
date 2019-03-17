@@ -20,14 +20,14 @@ export class AdvertisementComponent implements OnInit {
 
     ngOnInit() {
 
-        /*this.adData = this.route.paramMap.pipe(
+        this.adData = this.route.paramMap.pipe(
             switchMap((params: ParamMap) => {
                 this.adId = parseInt(params.get('id'), 10);
-                return this.adService.getAd(this.adId);
-            }));*/
+                return this.adService.getAd('d734edc8-eca7-4190-9214-ea71de40e23d');
+            }));
 
 
-        this.adService.getAdvertisement('d734edc8-eca7-4190-9214-ea71de40e23d').subscribe(el => {
+        this.adService.getAd('d734edc8-eca7-4190-9214-ea71de40e23d').subscribe(el => {
             console.log(el);
         });
     }
