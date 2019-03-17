@@ -21,6 +21,10 @@ export class AdService {
         return this.http.post<Ad>(`${GLOBAL.URL}/Advertisements`, data);
     }
 
+    public getAdvertisements() {
+        return this.http.get(`${GLOBAL.URL}/Advertisements`);
+    }
+
     public getFile() {
         function getBase64(f) {
             return new Promise((resolve, reject) => {

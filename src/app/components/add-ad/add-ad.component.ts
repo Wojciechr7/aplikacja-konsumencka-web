@@ -32,16 +32,16 @@ export class AddAdComponent implements OnInit {
         if (!this.AdForm.invalid) {
 
         const ad = {
-            Title: this.AdForm.value.TitleFormControl,
-            Images: [...this.adService.files],
-            Description: this.AdForm.value.DescriptionFormControl,
-            PhoneNumber: this.AdForm.value.PhoneNumberFormControl,
-            Price: parseInt(this.AdForm.value.PriceFormControl, 10),
-            City: this.AdForm.value.CityFormControl,
-            Street: this.AdForm.value.StreetFormControl,
-            Size: parseInt(this.AdForm.value.SizeFormControl, 10),
-            Category: this.AdForm.value.CategoryFormControl,
-            Floor: parseInt(this.AdForm.value.FloorFormControl, 10)
+            title: this.AdForm.value.TitleFormControl,
+            images: [...this.adService.files],
+            description: this.AdForm.value.DescriptionFormControl,
+            phoneNumber: this.AdForm.value.PhoneNumberFormControl,
+            price: parseInt(this.AdForm.value.PriceFormControl, 10),
+            city: this.AdForm.value.CityFormControl,
+            street: this.AdForm.value.StreetFormControl,
+            size: parseInt(this.AdForm.value.SizeFormControl, 10),
+            category: this.AdForm.value.CategoryFormControl,
+            floor: parseInt(this.AdForm.value.FloorFormControl, 10)
         };
 
          this.adService.addAd(ad as Ad).subscribe(() => {
