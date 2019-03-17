@@ -23,6 +23,14 @@ export class ErrorInterceptor implements HttpInterceptor {
                 this.authenticationService.logout();
                 this.toastr.error(err.error.message, 'Error!');
             }
+            if (err.status === 419) {
+                // does not exist
+                this.toastr.error(err.error.message, 'Error!');
+            }
+            if (err.status === 420) {
+                // owner not found
+                this.toastr.error(err.error.message, 'Error!');
+            }
 
             const error = err.error.message || err.statusText;
             return throwError(error);

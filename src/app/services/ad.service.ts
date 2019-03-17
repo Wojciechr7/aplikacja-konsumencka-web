@@ -21,9 +21,14 @@ export class AdService {
         return this.http.post<Ad>(`${GLOBAL.URL}/Advertisements`, data);
     }
 
-    public getAdvertisements() {
-        return this.http.get(`${GLOBAL.URL}/Advertisements`);
+    public getAdvertisement(id: string): Observable<Ad> {
+        return this.http.get<Ad>(`${GLOBAL.URL}/Advertisements/${id}`);
     }
+
+    public getAdvertisements(): Observable<Array<Ad>> {
+        return this.http.get<Array<Ad>>(`${GLOBAL.URL}/Advertisements`);
+    }
+
 
     public getFile() {
         function getBase64(f) {
