@@ -11,6 +11,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent {
+  public username;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -18,13 +19,15 @@ export class NavigationComponent {
     );
 
   constructor(private breakpointObserver: BreakpointObserver, public authenticationService: AuthService, private router: Router) {
+  }
 
-
+  get loggedInUser(): any {
+      this.username = JSON.parse(localStorage.getItem('currentUser'));
+      return this.username.firstName;
   }
 
   public logout(): void {
     this.authenticationService.logout();
     this.router.navigate(['/sign-in']);
   }
-
 }
