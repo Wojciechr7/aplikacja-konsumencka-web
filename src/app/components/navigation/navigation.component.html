@@ -24,7 +24,7 @@
       </button>
       <span><a href="/home "></a>Consumer app</span>
       <span class="fill-space"></span>
-      <span>Hello, {{loggedInUser}}!</span>
+      <span *ngIf="authenticationService.currentUserValue">Hello, {{loggedInUser}}!</span>
     </mat-toolbar>
       <ng-content></ng-content>
     <!-- Add Content Here -->
