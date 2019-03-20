@@ -1,4 +1,4 @@
-<mat-card class="ad-container" *ngIf="adData | async as ad; else loading">
+ <mat-card class="ad-container" *ngIf="adData | async as ad; else loading">
     <img mat-card-image *ngFor="let img of ad.images" [src]="img.image" width="200">
     <mat-card-header>
         <mat-card-title>{{ad.title}}</mat-card-title>
@@ -23,7 +23,7 @@
             <mat-grid-tile>{{ad.phoneNumber}}</mat-grid-tile>
         </mat-grid-list>
     </mat-card-content>
-    <ng-template #loading>
-        <mat-progress-spinner [diameter]="50" color="primary" mode="indeterminate"></mat-progress-spinner>
-    </ng-template>
-</mat-card>
+ </mat-card>
+ <ng-template #loading>
+     <div class="center"><mat-progress-spinner [diameter]="100" color="primary" mode="indeterminate"></mat-progress-spinner></div>
+ </ng-template>

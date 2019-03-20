@@ -4,17 +4,21 @@ h2 {
 .ad-container {
   margin: 20px auto;
   max-width: 400px;
-  mat-progress-spinner {
-    margin: auto;
-  }
-  mat-grid-list{
-    margin: 10px;
-  }
-
+}
+.mat-grid-list{
+  margin: 10px;
+}
+.mat-progress-spinner {
+  margin: 0 auto;
 }
 .wrapper{
   word-wrap: break-word;
 }
 .mat-grid-tile > ::ng-deep figure {
   justify-content: flex-start !important;
+}
+.center{
+  position:fixed;
+  top:50%;
+  left:50%
 }
