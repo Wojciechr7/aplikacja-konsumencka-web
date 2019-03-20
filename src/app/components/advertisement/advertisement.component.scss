@@ -2,8 +2,10 @@ h2 {
   text-align: center;
 }
 .ad-container {
-  margin: 20px auto;
-  max-width: 400px;
+  display:flex;
+  flex-direction: column;
+  margin:20px auto;
+  width:40%;
 }
 .mat-grid-list{
   margin: 10px;

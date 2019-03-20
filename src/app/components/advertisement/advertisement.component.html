@@ -1,4 +1,5 @@
  <mat-card class="ad-container" *ngIf="adData | async as ad; else loading">
+     <!--TODO image selector/carousel-->
     <img mat-card-image *ngFor="let img of ad.images" [src]="img.image" width="200">
     <mat-card-header>
         <mat-card-title>{{ad.title}}</mat-card-title>

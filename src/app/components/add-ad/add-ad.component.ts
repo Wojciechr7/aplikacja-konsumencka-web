@@ -56,7 +56,6 @@ export class AddAdComponent implements OnInit {
             TitleFormControl: new FormControl('', [Validators.required, Validators.minLength(5)]),
             CategoryFormControl: new FormControl('', [Validators.required]),
             CityFormControl: new FormControl('', [Validators.required]),
-            NeighbourFormControl: new FormControl(''),
             StreetFormControl: new FormControl(''),
             PhoneNumberFormControl: new FormControl('',
               [Validators.required, Validators.pattern('^(?:\\(?\\+?48)?(?:[-\\.\\(\\)\\s]*(\\d)){9}\\)?$')]),
@@ -65,7 +64,6 @@ export class AddAdComponent implements OnInit {
             FloorFormControl: new FormControl(''),
             PriceFormControl: new FormControl('', [Validators.required, Validators.max(9999999),
               Validators.pattern('^[1-9]\\d+$')]),
-            TypeFormControl: new FormControl('', [Validators.required]),
             DescriptionFormControl: new FormControl('', [Validators.required, Validators.maxLength(9999), Validators.minLength(30)])
         });
 

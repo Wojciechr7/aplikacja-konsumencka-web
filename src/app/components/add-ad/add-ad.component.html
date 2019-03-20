@@ -11,33 +11,23 @@
             </mat-error>
 <!--            <mat-error>Tittle is required</mat-error>-->
         </mat-form-field>
-        <h3>Category</h3>
-        <mat-form-field>
-            <mat-select placeholder="Select category" formControlName="CategoryFormControl">
-                <mat-option *ngFor="let cat of category" [value]="cat">
-                    {{cat}}
-                </mat-option>
-            </mat-select>
-            <mat-error>Category is required</mat-error>
-        </mat-form-field>
-        <h3>Location</h3>
-        <mat-form-field class="info">
-            <input matInput type="text" placeholder="City" formControlName="CityFormControl">
-            <mat-error>City is required</mat-error>
-        </mat-form-field>
-        <mat-form-field class="info">
-            <input matInput type="text" placeholder="Neighbourhood" formControlName="NeighbourFormControl">
-        </mat-form-field>
-        <mat-form-field class="info">
-            <input matInput type="text" placeholder="Street" formControlName="StreetFormControl">
-        </mat-form-field>
-        <mat-form-field class="info">
-            <input matInput type="text" placeholder="Phone number" formControlName="PhoneNumberFormControl">
-            <mat-error *ngIf="f.PhoneNumberFormControl.errors">
-              <ng-container *ngIf="f.PhoneNumberFormControl.hasError('required')">Phone number is required</ng-container>
-              <ng-container *ngIf="f.PhoneNumberFormControl.hasError('pattern')">Phone number is incorrect</ng-container>
-            </mat-error>
-        </mat-form-field>
+            <h3>Category</h3>
+            <mat-form-field>
+                <mat-select placeholder="Select category" formControlName="CategoryFormControl">
+                    <mat-option *ngFor="let cat of category" [value]="cat">
+                        {{cat}}
+                    </mat-option>
+                </mat-select>
+                <mat-error>Category is required</mat-error>
+            </mat-form-field>
+            <h3>Location</h3>
+            <mat-form-field class="info">
+                <input matInput type="text" placeholder="City" formControlName="CityFormControl">
+                <mat-error>City is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="info">
+                <input matInput type="text" placeholder="Street" formControlName="StreetFormControl">
+            </mat-form-field>
         <h3>More information</h3>
         <mat-form-field class="info">
             <input matInput type="text" placeholder="Size" formControlName="SizeFormControl">
@@ -61,14 +51,6 @@
               <ng-container *ngIf="f.PriceFormControl.hasError('pattern')">Wrong format</ng-container>
             </mat-error>
         </mat-form-field>
-        <mat-form-field class="info">
-            <mat-select placeholder="Type" formControlName="TypeFormControl">
-                <mat-option *ngFor="let type of types" [value]="type" disableRipple>
-                    {{type}}
-                </mat-option>
-            </mat-select>
-            <mat-error>Type is required</mat-error>
-        </mat-form-field>
 
         <h3>Description</h3>
         <mat-form-field class="description">
@@ -80,9 +62,14 @@
               <ng-container *ngIf="f.DescriptionFormControl.hasError('maxlength')">Text is too long</ng-container>
             </mat-error>
         </mat-form-field>
+        <mat-form-field class="info">
+            <input matInput type="text" placeholder="Phone number" formControlName="PhoneNumberFormControl">
+            <mat-error *ngIf="f.PhoneNumberFormControl.errors">
+                <ng-container *ngIf="f.PhoneNumberFormControl.hasError('required')">Phone number is required</ng-container>
+                <ng-container *ngIf="f.PhoneNumberFormControl.hasError('pattern')">Phone number is incorrect</ng-container>
+            </mat-error>
+        </mat-form-field>
 
-
-        <button class="add-img" type="button" mat-raised-button color="primary" (click)="imgInput.click()">Add Image</button>
         <mat-tab-group>
             <mat-tab *ngFor="let img of adService.files; index as i" [label]="img.name">
                 <div class="image-desc">
@@ -95,7 +82,7 @@
             </mat-tab>
         </mat-tab-group>
 
-
+        <button class="add-img" type="button" mat-raised-button color="primary" (click)="imgInput.click()">Add Image</button>
         <button mat-raised-button color="primary">Add advertisement</button>
 
 
