@@ -14,7 +14,8 @@ import {
     MatToolbarModule,
     MatButtonToggleModule,
     MatFormFieldModule,
-    MatProgressSpinnerModule, MatSortModule, MatPaginatorModule
+    MatProgressSpinnerModule, MatSortModule, MatPaginatorModule,
+    MatGridListModule
 } from '@angular/material';
 import {NavigationComponent} from './components/navigation/navigation.component';
 import {LayoutModule} from '@angular/cdk/layout';
@@ -58,6 +59,7 @@ import { AdvertisementComponent } from './components/advertisement/advertisement
         MatButtonToggleModule,
         MatFormFieldModule,
         MatProgressSpinnerModule, MatSortModule, MatPaginatorModule, LayoutModule,
+        MatGridListModule,
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,

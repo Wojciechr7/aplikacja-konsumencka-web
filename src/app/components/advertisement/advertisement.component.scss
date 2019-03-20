@@ -2,21 +2,19 @@ h2 {
   text-align: center;
 }
 .ad-container {
-  width: 95%;
   margin: 20px auto;
-
-  .gallery {
-    height: fit-content;
-    display: flex;
-    flex-direction: column !important;
-
-    .mat-list-item-content {
-      display: flex;
-      flex-direction: column !important;
-    }
-  }
-
+  max-width: 400px;
   mat-progress-spinner {
     margin: auto;
   }
+  mat-grid-list{
+    margin: 10px;
+  }
+
+}
+.wrapper{
+  word-wrap: break-word;
+}
+.mat-grid-tile > ::ng-deep figure {
+  justify-content: flex-start !important;
 }

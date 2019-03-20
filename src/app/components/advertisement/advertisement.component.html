@@ -1,27 +1,28 @@
-<mat-card class="ad-container">
-    <mat-toolbar color="primary">
-        <span>Advertisement</span>
-    </mat-toolbar>
-    <div class="mat-elevation-z8">
-        <mat-list role="list" *ngIf="adData | async as ad; else loading">
-            <mat-list-item role="listitem">Title: {{ad.title}}</mat-list-item>
-            <mat-list-item role="listitem">Category: {{ad.category}}</mat-list-item>
-            <mat-list-item role="listitem">City: {{ad.city}}</mat-list-item>
-            <mat-list-item role="listitem">Street: {{ad.street}}</mat-list-item>
-            <mat-list-item role="listitem">Floor: {{ad.floor}}</mat-list-item>
-            <mat-list-item role="listitem">Price: {{ad.price}}zł</mat-list-item>
-            <mat-list-item role="listitem">Size: {{ad.size}}m<sup>2</sup></mat-list-item>
-            <mat-list-item role="listitem">Phone: {{ad.phoneNumber}}</mat-list-item>
-            <mat-list-item role="listitem">Description: {{ad.description}}</mat-list-item>
-            <mat-list-item role="listitem" class="gallery" *ngFor="let img of ad.images">
-                    File Name: {{img.name}}
-                    <img [src]="img.image" width="200">
-                    Description: {{img.description}}
-            </mat-list-item>
-
-
-        </mat-list>
-    </div>
+<mat-card class="ad-container" *ngIf="adData | async as ad; else loading">
+    <img mat-card-image *ngFor="let img of ad.images" [src]="img.image" width="200">
+    <mat-card-header>
+        <mat-card-title>{{ad.title}}</mat-card-title>
+        <mat-card-subtitle>{{ad.street}}, {{ad.city}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-grid-list cols="4" rowHeight="4:1">
+            <mat-grid-tile>Category</mat-grid-tile>
+            <mat-grid-tile>{{ad.category}}</mat-grid-tile>
+            <mat-grid-tile>Size</mat-grid-tile>
+            <mat-grid-tile>{{ad.size}}</mat-grid-tile>
+            <mat-grid-tile>Floor</mat-grid-tile>
+            <mat-grid-tile>{{ad.floor}}</mat-grid-tile>
+        </mat-grid-list>
+        <mat-grid-list cols="1">
+            <div class="wrapper">{{ad.description}}</div>
+        </mat-grid-list>
+        <mat-grid-list cols="4" rowHeight="4:1">
+            <mat-grid-tile>Price</mat-grid-tile>
+            <mat-grid-tile>{{ad.price}}zł</mat-grid-tile>
+            <mat-grid-tile>Phone</mat-grid-tile>
+            <mat-grid-tile>{{ad.phoneNumber}}</mat-grid-tile>
+        </mat-grid-list>
+    </mat-card-content>
     <ng-template #loading>
         <mat-progress-spinner [diameter]="50" color="primary" mode="indeterminate"></mat-progress-spinner>
     </ng-template>
