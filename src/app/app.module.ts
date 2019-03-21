@@ -14,7 +14,8 @@ import {
     MatToolbarModule,
     MatButtonToggleModule,
     MatFormFieldModule,
-    MatProgressSpinnerModule, MatSortModule, MatPaginatorModule
+    MatProgressSpinnerModule, MatSortModule, MatPaginatorModule,
+    MatGridListModule
 } from '@angular/material';
 import {NavigationComponent} from './components/navigation/navigation.component';
 import {LayoutModule} from '@angular/cdk/layout';
@@ -25,6 +26,12 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {JwtInterceptor} from './helpers/jwt.interceptor';
 import {ErrorInterceptor} from './helpers/error.interceptor';
 import { HomeComponent } from './components/home/home.component';
+import { AddAdComponent } from './components/add-ad/add-ad.component';
+import { MatFileUploadModule } from 'angular-material-fileupload';
+import { ToastrModule } from 'ngx-toastr';
+import {InfoDialogComponent} from './dialogs/info/info.dialog';
+import { AdvertisementsComponent } from './components/advertisements/advertisements.component';
+import { AdvertisementComponent } from './components/advertisement/advertisement.component';
 
 @NgModule({
     declarations: [
@@ -32,7 +39,11 @@ import { HomeComponent } from './components/home/home.component';
         NavigationComponent,
         SignInComponent,
         SignUpComponent,
-        HomeComponent
+        HomeComponent,
+        AddAdComponent,
+        InfoDialogComponent,
+        AdvertisementsComponent,
+        AdvertisementComponent
     ],
     imports: [
         BrowserModule,
@@ -48,15 +59,19 @@ import { HomeComponent } from './components/home/home.component';
         MatButtonToggleModule,
         MatFormFieldModule,
         MatProgressSpinnerModule, MatSortModule, MatPaginatorModule, LayoutModule,
+        MatGridListModule,
         FormsModule,
         ReactiveFormsModule,
-        HttpClientModule
+        HttpClientModule,
+        MatFileUploadModule,
+        ToastrModule.forRoot()
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
         {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    entryComponents: [InfoDialogComponent]
 })
 export class AppModule {
 }

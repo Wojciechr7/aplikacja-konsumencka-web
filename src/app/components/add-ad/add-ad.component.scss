@@ -1,0 +1,35 @@
+.container{
+  display:flex;
+  flex-direction: column;
+  margin:auto;
+  width:80%;
+
+  .image-desc {
+    display: flex;
+
+    mat-icon {
+      cursor: pointer;
+    }
+
+  }
+}
+.title{
+  width:100%;
+  font-size:23px;
+}
+.info{
+  width:20%;
+  min-width:150px;
+  margin-right:calc(40%/3);
+}
+.description{
+  width: 100%;
+}
+.images img{
+  max-height: 400px;
+  max-width: 400px;
+  margin: 15px auto;
+}
+.add-img{
+  margin: 15px auto;
+}

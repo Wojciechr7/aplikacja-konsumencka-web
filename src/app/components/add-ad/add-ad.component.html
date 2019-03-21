@@ -1,0 +1,92 @@
+<mat-card class="container">
+    <form [formGroup]="AdForm" (ngSubmit)="onSubmit()">
+        <mat-toolbar color="primary">
+            <h2>Your advertisement</h2>
+        </mat-toolbar>
+        <mat-form-field class="title" hintLabel="Max 25 characters" appearance="outline">
+            <input matInput type="text" maxlength="25" placeholder="Enter tittle *" formControlName="TitleFormControl">
+            <mat-error *ngIf="f.TitleFormControl.errors">
+              <ng-container *ngIf="f.TitleFormControl.hasError('required') ">Tittle is required</ng-container>
+              <ng-container *ngIf="f.TitleFormControl.hasError('minlength') ">Tittle must be at least 5 characters</ng-container>
+            </mat-error>
+<!--            <mat-error>Tittle is required</mat-error>-->
+        </mat-form-field>
+            <h3>Category</h3>
+            <mat-form-field>
+                <mat-select placeholder="Select category" formControlName="CategoryFormControl">
+                    <mat-option *ngFor="let cat of category" [value]="cat">
+                        {{cat}}
+                    </mat-option>
+                </mat-select>
+                <mat-error>Category is required</mat-error>
+            </mat-form-field>
+            <h3>Location</h3>
+            <mat-form-field class="info">
+                <input matInput type="text" placeholder="City" formControlName="CityFormControl">
+                <mat-error>City is required</mat-error>
+            </mat-form-field>
+            <mat-form-field class="info">
+                <input matInput type="text" placeholder="Street" formControlName="StreetFormControl">
+            </mat-form-field>
+        <h3>More information</h3>
+        <mat-form-field class="info">
+            <input matInput type="text" placeholder="Size" formControlName="SizeFormControl">
+            <span matSuffix>m<sup>2</sup></span>
+          <mat-error *ngIf="f.SizeFormControl.errors">
+            <ng-container *ngIf="f.SizeFormControl.hasError('max')">Size out of range</ng-container>
+            <ng-container *ngIf="f.SizeFormControl.hasError('pattern')">Wrong format</ng-container>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="info">
+            <select matNativeControl placeholder="Floor" formControlName="FloorFormControl">
+                <option *ngFor="let i of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]" [value]="i">{{i}}</option>
+            </select>
+        </mat-form-field>
+        <mat-form-field class="info">
+            <input matInput type="text" placeholder="Price" formControlName="PriceFormControl">
+            <span matSuffix>zł</span>
+            <mat-error *ngIf="f.PriceFormControl.errors">
+             <ng-container *ngIf="f.PriceFormControl.hasError('required')">Price is required</ng-container>
+              <ng-container *ngIf="f.PriceFormControl.hasError('max')">Price out of range</ng-container>
+              <ng-container *ngIf="f.PriceFormControl.hasError('pattern')">Wrong format</ng-container>
+            </mat-error>
+        </mat-form-field>
+
+        <h3>Description</h3>
+        <mat-form-field class="description">
+            <textarea rows="10" matInput placeholder="describe the advertisement"
+                      formControlName="DescriptionFormControl"></textarea>
+            <mat-error *ngIf="f.DescriptionFormControl.errors">
+              <ng-container *ngIf="f.DescriptionFormControl.hasError('required')">Description is required</ng-container>
+              <ng-container *ngIf="f.DescriptionFormControl.hasError('minlength')">Description must be at least 30 characters</ng-container>
+              <ng-container *ngIf="f.DescriptionFormControl.hasError('maxlength')">Text is too long</ng-container>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="info">
+            <input matInput type="text" placeholder="Phone number" formControlName="PhoneNumberFormControl">
+            <mat-error *ngIf="f.PhoneNumberFormControl.errors">
+                <ng-container *ngIf="f.PhoneNumberFormControl.hasError('required')">Phone number is required</ng-container>
+                <ng-container *ngIf="f.PhoneNumberFormControl.hasError('pattern')">Phone number is incorrect</ng-container>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-tab-group>
+            <mat-tab *ngFor="let img of adService.files; index as i" [label]="img.name">
+                <div class="image-desc">
+                    <input matInput type="text" placeholder="Image Description" [ngModelOptions]="{standalone: true}" [(ngModel)]="adService.files[i].description">
+                    <mat-icon color="warn" (click)="removeImage(i)">remove_circle_outline</mat-icon>
+                </div>
+              <div class="images">
+                <img [src]="img.image">
+              </div>
+            </mat-tab>
+        </mat-tab-group>
+
+        <button class="add-img" type="button" mat-raised-button color="primary" (click)="imgInput.click()">Add Image</button>
+        <button mat-raised-button color="primary">Add advertisement</button>
+
+
+    </form>
+    <input #imgInput hidden type="file" id="files" accept="image/*" (change)="adService.getFile()">
+
+</mat-card>
