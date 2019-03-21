@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, Validators, FormGroup, FormBuilder} from '@angular/forms';
 import {AdService} from '../../services/ad.service';
 import {Router} from '@angular/router';
@@ -11,7 +11,7 @@ import {ToastrService} from 'ngx-toastr';
     templateUrl: './add-ad.component.html',
     styleUrls: ['./add-ad.component.scss']
 })
-export class AddAdComponent implements OnInit {
+export class AddAdComponent implements OnInit, OnDestroy {
     public hide: boolean;
     public AdForm: FormGroup;
     public category: Array<string>;
@@ -70,10 +70,15 @@ export class AddAdComponent implements OnInit {
 
 
     }
-/*
-    get FormCon(): any {
-        return this.AdForm.get('TitleFormControl');
-    }*/
+
+    ngOnDestroy(): void {
+        this.adService.files = [];
+    }
+
+    /*
+        get FormCon(): any {
+            return this.AdForm.get('TitleFormControl');
+        }*/
 
 
     public removeImage(index: number) {
