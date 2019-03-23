@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {NgModule,  NO_ERRORS_SCHEMA } from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -32,6 +32,7 @@ import { ToastrModule } from 'ngx-toastr';
 import {InfoDialogComponent} from './dialogs/info/info.dialog';
 import { AdvertisementsComponent } from './components/advertisements/advertisements.component';
 import { AdvertisementComponent } from './components/advertisement/advertisement.component';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 @NgModule({
     declarations: [
@@ -64,7 +65,11 @@ import { AdvertisementComponent } from './components/advertisement/advertisement
         ReactiveFormsModule,
         HttpClientModule,
         MatFileUploadModule,
-        ToastrModule.forRoot()
+        ToastrModule.forRoot(),
+        MDBBootstrapModule.forRoot()
+    ],
+    schemas: [
+        NO_ERRORS_SCHEMA
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
