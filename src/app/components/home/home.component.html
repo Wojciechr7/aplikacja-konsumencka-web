@@ -1,3 +1,43 @@
-<p>
-  home works!
-</p>
+<div class="container mt-3">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-8">
+      <form class="search-form card ">
+        <div class="card-body row align-items-center no-gutters">
+          <div class="col-auto">
+            <i class="fas fa-search h4"></i>
+          </div>
+          <div class="col">
+            <input class="form-control form-control-lg form-control-borderless" type="search" placeholder="Search">
+          </div>
+          <div class="col-auto">
+            <button class="btn btn-lg custom-btn" type="submit">Search</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div *ngFor="let ad of advertisements" class="col-12 col-lg-6">
+      <div class=" m-3 ad" (click)="redirect('/advertisements/' + ad.id)">
+        <div class="ad-img">
+          <img src="https://przyjaznycoaching.pl/wp-content/themes/przyjaznycoaching/assets/img/default-image.jpg" alt="Ad img">
+        </div>
+        <div class="ad-desc">
+          <div class="title">
+            temporary tittle temporary
+          </div>
+          <div class="more-info">
+            <div class="price">
+              Price: {{ad.price}}zł/month
+            </div>
+            <div class="location">
+              Location: {{ad.city}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
