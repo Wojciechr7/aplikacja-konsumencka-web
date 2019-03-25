@@ -7,7 +7,7 @@ export interface Ad {
     description?: string;
     phoneNumber?: string;
     price: number;
-    city: string;
+    city: number;
     street: string;
     size: number;
     category: string;

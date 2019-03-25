@@ -24,8 +24,8 @@
             <mat-form-field class="info">
                 <input matInput type="text" placeholder="City" formControlName="CityFormControl" [matAutocomplete]="auto">
               <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                  {{option}}
+                <mat-option *ngFor="let option of options" [value]="option.name">
+                  {{option.name}}
                 </mat-option>
               </mat-autocomplete>
                 <mat-error>City is required</mat-error>
