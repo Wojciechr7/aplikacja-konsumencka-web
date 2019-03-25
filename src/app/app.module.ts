@@ -15,7 +15,7 @@ import {
     MatButtonToggleModule,
     MatFormFieldModule,
     MatProgressSpinnerModule, MatSortModule, MatPaginatorModule,
-    MatGridListModule
+    MatGridListModule, MatAutocompleteModule
 } from '@angular/material';
 import {NavigationComponent} from './components/navigation/navigation.component';
 import {LayoutModule} from '@angular/cdk/layout';
@@ -61,6 +61,7 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
         MatFormFieldModule,
         MatProgressSpinnerModule, MatSortModule, MatPaginatorModule, LayoutModule,
         MatGridListModule,
+        MatAutocompleteModule,
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,

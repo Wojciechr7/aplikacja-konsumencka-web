@@ -4,6 +4,8 @@ import {AdService} from '../../services/ad.service';
 import {Router} from '@angular/router';
 import {Ad} from '../../models/ad';
 import {ToastrService} from 'ngx-toastr';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 
 
 @Component({
@@ -16,12 +18,30 @@ export class AddAdComponent implements OnInit, OnDestroy {
     public AdForm: FormGroup;
     public category: Array<string>;
     public types: Array<string>;
+    public options: Array<string>;
+    public filteredOptions: Observable<string[]>;
 
 
     constructor(private formBuilder: FormBuilder, public adService: AdService, private router: Router, private toastr: ToastrService) {
         this.hide = true;
         this.category = ['Apartment', 'Room', 'House', 'Office'];
         this.types = ['rent', 'sale'];
+        this.options = ['One', 'Two', 'Three'];
+
+        this.AdForm = this.formBuilder.group({
+          TitleFormControl: new FormControl('', [Validators.required, Validators.minLength(5)]),
+          CategoryFormControl: new FormControl('', [Validators.required]),
+          CityFormControl: new FormControl('', [Validators.required]),
+          StreetFormControl: new FormControl(''),
+          PhoneNumberFormControl: new FormControl('',
+            [Validators.required, Validators.pattern('^(?:\\(?\\+?48)?(?:[-\\.\\(\\)\\s]*(\\d)){9}\\)?$')]),
+          SizeFormControl: new FormControl('', [Validators.max(99999),
+            Validators.pattern('^[1-9]\\d+$')]),
+          FloorFormControl: new FormControl(''),
+          PriceFormControl: new FormControl('', [Validators.required, Validators.max(9999999),
+            Validators.pattern('^[1-9]\\d+$')]),
+          DescriptionFormControl: new FormControl('', [Validators.required, Validators.maxLength(9999), Validators.minLength(30)])
+      });
     }
 
     get f(): any {
@@ -52,33 +72,21 @@ export class AddAdComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.AdForm = this.formBuilder.group({
-            TitleFormControl: new FormControl('', [Validators.required, Validators.minLength(5)]),
-            CategoryFormControl: new FormControl('', [Validators.required]),
-            CityFormControl: new FormControl('', [Validators.required]),
-            StreetFormControl: new FormControl(''),
-            PhoneNumberFormControl: new FormControl('',
-              [Validators.required, Validators.pattern('^(?:\\(?\\+?48)?(?:[-\\.\\(\\)\\s]*(\\d)){9}\\)?$')]),
-            SizeFormControl: new FormControl('', [Validators.max(99999),
-            Validators.pattern('^[1-9]\\d+$')]),
-            FloorFormControl: new FormControl(''),
-            PriceFormControl: new FormControl('', [Validators.required, Validators.max(9999999),
-              Validators.pattern('^[1-9]\\d+$')]),
-            DescriptionFormControl: new FormControl('', [Validators.required, Validators.maxLength(9999), Validators.minLength(30)])
-        });
-
-
-
+      const city = this.AdForm.controls.CityFormControl;
+      this.filteredOptions = city.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
     }
 
     ngOnDestroy(): void {
         this.adService.files = [];
     }
+      private _filter(value: string): string[] {
+      const filterValue = value.toLowerCase();
 
-    /*
-        get FormCon(): any {
-            return this.AdForm.get('TitleFormControl');
-        }*/
+      return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+    }
 
 
     public removeImage(index: number) {
