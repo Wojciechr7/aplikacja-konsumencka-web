@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../services/auth.service';
 import {LoginData} from '../../models/login';
 import {first} from 'rxjs/operators';
@@ -18,7 +18,8 @@ export class SignUpComponent implements OnInit {
   public hide: boolean;
   public signUpForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, public authenticationService: AuthService, private router: Router, private toastr: ToastrService) {
+  constructor(private formBuilder: FormBuilder, public authenticationService: AuthService,
+              private router: Router, private toastr: ToastrService) {
     this.hide = true;
   }
   get f(): any { return this.signUpForm.controls; }
@@ -43,7 +44,9 @@ export class SignUpComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]]
+      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
+      PhoneNumber: new FormControl('',
+        [Validators.required, Validators.pattern('^(?:\\(?\\+?48)?(?:[-\\.\\(\\)\\s]*(\\d)){9}\\)?$')])
     });
   }
 

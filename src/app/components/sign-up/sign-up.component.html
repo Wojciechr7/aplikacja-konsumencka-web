@@ -15,6 +15,13 @@
         Last name is <strong>required</strong>
       </mat-error>
     </mat-form-field>
+    <mat-form-field class="info">
+      <input matInput type="text" placeholder="Phone number" formControlName="PhoneNumber">
+      <mat-error *ngIf="f.PhoneNumber.errors">
+        <ng-container *ngIf="f.PhoneNumber.hasError('required')">Phone number is required</ng-container>
+        <ng-container *ngIf="f.PhoneNumber.hasError('pattern')">Phone number is incorrect</ng-container>
+      </mat-error>
+    </mat-form-field>
     <mat-form-field>
       <input matInput type="email" formControlName="email" placeholder="Email">
       <mat-error *ngIf="f.email.errors">
