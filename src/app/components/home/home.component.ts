@@ -10,12 +10,12 @@ import {Router} from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  public advertisements: Array<Ad>;
+
   public loading: boolean;
 
   constructor(public adService: AdService, private router: Router) {
-    this.advertisements = [];
-    this.loading = true;
+    // this.advertisements = [];
+    this.loading = false;
   }
   public redirect(loc: string) {
     this.router.navigate([loc]);
@@ -23,10 +23,19 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.adService.getAdvertisements().subscribe( (ad: Array<Ad>) => {
+    /*this.adService.getAdvertisements().subscribe( (ad: Array<Ad>) => {
       this.advertisements = [...ad];
       this.loading = false;
-    });
+    });*/
+    this.adService.Sorting = {
+      by: 'date',
+      type: 'asc'
+    };
+    this.adService.Filtering = '';
+    this.adService.Page = 0;
+    this.adService.advertisements = [];
+
+    this.adService.lazyLoad();
   }
 
 }

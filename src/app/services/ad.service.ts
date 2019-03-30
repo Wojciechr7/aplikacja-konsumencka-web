@@ -6,14 +6,40 @@ import {Ad} from '../models/ad';
 import {GLOBAL} from '../config';
 import {ImageAd} from '../models/image';
 import {ToastrService} from 'ngx-toastr';
+import {Sorting} from '../models/sorting';
 
 
 @Injectable({providedIn: 'root'})
 export class AdService {
     public files: Array<ImageAd>;
+    private sorting: Sorting;
+    private filtering: string;
+    private page: number;
+    public advertisements: Array<Ad>;
 
     constructor(private http: HttpClient, private toastr: ToastrService) {
         this.files = [];
+
+    }
+
+    set Sorting(val: Sorting) {
+        this.sorting = {...val};
+    }
+
+    set Filtering(val: string) {
+        this.filtering = val;
+    }
+
+    set Page(val: number) {
+        this.page = val;
+    }
+
+    public lazyLoad() {
+        this.page++;
+        this.getAdvertisements().subscribe( (ad: Array<Ad>) => {
+            console.log(this.page);
+            this.advertisements = [...this.advertisements, ...ad];
+        });
     }
 
 
@@ -26,7 +52,7 @@ export class AdService {
     }
 
     public getAdvertisements(): Observable<Array<Ad>> {
-        return this.http.get<Array<Ad>>(`${GLOBAL.URL}/Advertisements`);
+        return this.http.get<Array<Ad>>(`${GLOBAL.URL}/Advertisements/${this.sorting.by}/${this.sorting.type}:${this.page}`);
     }
 
 

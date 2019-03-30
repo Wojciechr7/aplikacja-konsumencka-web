@@ -33,6 +33,7 @@ import {InfoDialogComponent} from './dialogs/info/info.dialog';
 import { AdvertisementsComponent } from './components/advertisements/advertisements.component';
 import { AdvertisementComponent } from './components/advertisement/advertisement.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
     declarations: [
@@ -66,7 +67,8 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
         HttpClientModule,
         MatFileUploadModule,
         ToastrModule.forRoot(),
-        MDBBootstrapModule.forRoot()
+        MDBBootstrapModule.forRoot(),
+        InfiniteScrollModule
     ],
     schemas: [
         NO_ERRORS_SCHEMA

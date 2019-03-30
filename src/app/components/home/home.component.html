@@ -18,15 +18,15 @@
   </div>
 </div>
 <div class="container">
-  <div class="row">
-    <div *ngFor="let ad of advertisements" class="col-12 col-lg-6">
+  <div class="row ad-list">
+    <div *ngFor="let ad of adService.advertisements" class="col-12 col-lg-6">
       <div class=" m-3 ad" (click)="redirect('/advertisements/' + ad.id)">
         <div class="ad-img">
           <img src="https://przyjaznycoaching.pl/wp-content/themes/przyjaznycoaching/assets/img/default-image.jpg" alt="Ad img">
         </div>
         <div class="ad-desc">
           <div class="title">
-            temporary tittle temporary
+            Temporary Title
           </div>
           <div class="more-info">
             <div class="price">

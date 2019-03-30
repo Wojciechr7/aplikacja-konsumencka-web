@@ -51,3 +51,10 @@
   font-weight: bold;
   text-transform: uppercase;
 }
+.ad-list {
+  flex-flow: column;
+
+  > div {
+    margin: 20px auto;
+  }
+}
