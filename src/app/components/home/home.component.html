@@ -18,15 +18,36 @@
   </div>
 </div>
 <div class="container">
-  <div class="row">
-    <div *ngFor="let ad of advertisements" class="col-12 col-lg-6">
+  <div class="pick-radio">
+    <label id="radio-sort-by-label"><b>Sort By: </b></label>
+    <mat-radio-group
+            aria-labelledby="radio-sort-by-label"
+            [(ngModel)]="adService.sorting.by">
+      <mat-radio-button color="primary" class="element" *ngFor="let sort of sortByOptions" [value]="sort">
+        {{sort}}
+      </mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <div class="pick-radio">
+    <label id="radio-sort-type-label"><b>Sort Type: </b></label>
+    <mat-radio-group
+            aria-labelledby="radio-sort-type-label"
+            [(ngModel)]="adService.sorting.type">
+      <mat-radio-button color="primary" class="element" *ngFor="let sort of sortTypeOptions" [value]="sort">
+        {{sort}}
+      </mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <div class="row ad-list">
+    <div *ngFor="let ad of adService.advertisements" class="col-12 col-lg-6">
       <div class=" m-3 ad" (click)="redirect('/advertisements/' + ad.id)">
         <div class="ad-img">
           <img src="https://przyjaznycoaching.pl/wp-content/themes/przyjaznycoaching/assets/img/default-image.jpg" alt="Ad img">
         </div>
         <div class="ad-desc">
           <div class="title">
-            temporary tittle temporary
+            Temporary Title
           </div>
           <div class="more-info">
             <div class="price">

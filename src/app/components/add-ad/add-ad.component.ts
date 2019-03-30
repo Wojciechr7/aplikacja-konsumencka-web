@@ -37,7 +37,7 @@ export class AddAdComponent implements OnInit, OnDestroy {
             description: this.AdForm.value.DescriptionFormControl,
             phoneNumber: this.AdForm.value.PhoneNumberFormControl,
             price: parseInt(this.AdForm.value.PriceFormControl, 10),
-            city: this.AdForm.value.CityFormControl,
+            city: 1,
             street: this.AdForm.value.StreetFormControl,
             size: parseInt(this.AdForm.value.SizeFormControl, 10),
             category: this.AdForm.value.CategoryFormControl,

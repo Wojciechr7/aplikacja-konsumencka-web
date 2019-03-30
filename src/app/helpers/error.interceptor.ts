@@ -32,6 +32,11 @@ export class ErrorInterceptor implements HttpInterceptor {
                 this.toastr.error(err.error.message, 'Error!');
             }
 
+            if (err.status === 418) {
+                // owner not found
+                this.toastr.warning(err.error, 'Warning!');
+            }
+
             const error = err.error.message || err.statusText;
             return throwError(error);
         }));
