@@ -18,6 +18,27 @@
   </div>
 </div>
 <div class="container">
+  <div class="pick-radio">
+    <label id="radio-sort-by-label"><b>Sort By: </b></label>
+    <mat-radio-group
+            aria-labelledby="radio-sort-by-label"
+            [(ngModel)]="adService.sorting.by">
+      <mat-radio-button color="primary" class="element" *ngFor="let sort of sortByOptions" [value]="sort">
+        {{sort}}
+      </mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <div class="pick-radio">
+    <label id="radio-sort-type-label"><b>Sort Type: </b></label>
+    <mat-radio-group
+            aria-labelledby="radio-sort-type-label"
+            [(ngModel)]="adService.sorting.type">
+      <mat-radio-button color="primary" class="element" *ngFor="let sort of sortTypeOptions" [value]="sort">
+        {{sort}}
+      </mat-radio-button>
+    </mat-radio-group>
+  </div>
+
   <div class="row ad-list">
     <div *ngFor="let ad of adService.advertisements" class="col-12 col-lg-6">
       <div class=" m-3 ad" (click)="redirect('/advertisements/' + ad.id)">

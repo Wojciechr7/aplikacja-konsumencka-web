@@ -3,6 +3,7 @@ import {AdService} from '../../services/ad.service';
 import {Ad} from '../../models/ad';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {Router} from '@angular/router';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-advertisements',
@@ -19,7 +20,7 @@ export class AdvertisementsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(public adService: AdService, private router: Router) {
+  constructor(public adService: AdService, private router: Router, private authenticationService: AuthService) {
     this.advertisements = [];
     this.loading = true;
   }
@@ -30,7 +31,7 @@ export class AdvertisementsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.adService.getAdvertisements().subscribe((ad: Array<Ad>) => {
+    this.adService.getUserAdvertisements(this.authenticationService.currentUserValue.token).subscribe((ad: Array<Ad>) => {
       this.advertisements = [...ad];
       this.dataSource = new MatTableDataSource(this.advertisements);
       this.dataSource.sort = this.sort;
