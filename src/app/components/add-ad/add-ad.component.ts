@@ -19,14 +19,19 @@ export class AddAdComponent implements OnInit, OnDestroy {
     public AdForm: FormGroup;
     public category: Array<string>;
     public types: Array<string>;
-    public options: Array<City>;
-    public filteredOptions: Observable<string[]>;
+    public cities: Array<City>;
+    public Voivodeships: Array<string>;
+    public  filtretOptionsV: Observable<string[]>;
+    public filteredOptions: Observable<City[]>;
 
 
     constructor(private formBuilder: FormBuilder, public adService: AdService, private router: Router, private toastr: ToastrService) {
         this.hide = true;
         this.category = ['Apartment', 'Room', 'House', 'Office'];
         this.types = ['rent', 'sale'];
+        this.Voivodeships = [ 'dolnośląskie', 'kujawsko-pomorskie', 'lubelskie', 'lubuskie', 'łódzkie', 'małopolskie', 'mazowieckie',
+          'opolskie', 'podkarpackie', 'podlaskie', 'pomorskie', 'śląskie', 'świętokrzyskie', 'warmińsko-mazurskie', 'wielkopolskie',
+        'zachodniopomosrkie'];
     }
 
     get f(): any {
@@ -69,31 +74,45 @@ export class AddAdComponent implements OnInit, OnDestroy {
         FloorFormControl: new FormControl(''),
         PriceFormControl: new FormControl('', [Validators.required, Validators.max(9999999),
           Validators.pattern('^[1-9]\\d+$')]),
-        DescriptionFormControl: new FormControl('', [Validators.required, Validators.maxLength(9999), Validators.minLength(30)])
+        DescriptionFormControl: new FormControl('', [Validators.required, Validators.maxLength(9999), Validators.minLength(30)]),
+        VoivodeshipFormControl: new FormControl('')
       });
-      this.adService.getCities().subscribe((city: Array<City>) => {
-        this.options = [...city];
-
-      });
-/*      console.log(this.options);
-      const cityOption = this.AdForm.controls.CityFormControl;
-      this.filteredOptions = cityOption.valueChanges.pipe(
+      const VoivodshipOption = this.AdForm.controls.VoivodeshipFormControl;
+      this.filtretOptionsV = VoivodshipOption.valueChanges.pipe(
         startWith(''),
         map(value => this._filter(value))
-      );*/
+      );
     }
+    private _filter(value: string): string[] {
+      const filterValue = value.toLowerCase();
+      return this.Voivodeships.filter(Voivodeship => Voivodeship.toLowerCase().indexOf(filterValue) === 0);
+    }
+/*    private _filterC(value: City): City[] {
+      const filterValue = value.name.toLowerCase();
+      return this.cities.filter( city => city.name.indexOf(filterValue) === 0);
+    }*/
 
     ngOnDestroy(): void {
         this.adService.files = [];
     }
 
-/*      private _filter(value: string): string[] {
-      const filterValue = value.toLowerCase();
-
-      // return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
-        return ['test'];
-    }*/
-
+    public getVoivodeship(event: any) {
+      const value = event.target.value.toLowerCase();
+      if (this.Voivodeships.indexOf(value) === -1) {
+        event.target.value = '';
+      } else {
+        this.adService.getCitiesV(value).subscribe((city: Array<City>) => {
+          this.cities = city;
+          console.log(this.cities);
+        });
+/*        const CitiesOption = this.AdForm.controls.CityFormControl;
+        this.filteredOptions = CitiesOption.valueChanges.pipe(
+          startWith(''),
+          map(valueC => this._filterC(valueC))
+        );*/
+      }
+      // console.log(this.cities);
+    }
 
     public removeImage(index: number) {
         this.adService.files.splice(index, 1);

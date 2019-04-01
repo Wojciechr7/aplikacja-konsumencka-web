@@ -22,10 +22,18 @@
             </mat-form-field>
             <h3>Location</h3>
             <mat-form-field class="info">
-                <input matInput type="text" placeholder="City" formControlName="CityFormControl" [matAutocomplete]="auto">
-              <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                <mat-option *ngFor="let option of options" [value]="option.name">
-                  {{option.name}}
+              <input matInput type="text" placeholder="Voivodeship" formControlName="VoivodeshipFormControl" (focusout)="getVoivodeship($event)" [matAutocomplete]="auto" >
+              <mat-autocomplete autoActiveFirstOption  #auto = "matAutocomplete">
+                <mat-option *ngFor="let Voivodeship of filtretOptionsV | async" [value]="Voivodeship">
+                  {{Voivodeship}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+            <mat-form-field class="info">
+                <input matInput type="text" placeholder="City" formControlName="CityFormControl" [matAutocomplete]="autoV">
+              <mat-autocomplete autoActiveFirstOption #autoV="matAutocomplete">
+                <mat-option *ngFor="let city of cities" [value]="city.id">
+                  {{city.name}}
                 </mat-option>
               </mat-autocomplete>
                 <mat-error>City is required</mat-error>

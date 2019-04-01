@@ -59,7 +59,10 @@ export class AdService {
         }
 
     }
-    public getCities(): Observable<Array<City>> {
-      return this.http.get<Array<City>>(`${GLOBAL.URL}/cities`);
+    public getCitiesV(Voivodeship: string): Observable<Array<City>> {
+      return this.http.get<Array<City>>(`${GLOBAL.URL}/cities/${Voivodeship}`);
     }
+/*    public getCities(): Observable<Array<City>> {
+      return this.http.get<Array<City>>(`${GLOBAL.URL}/cities`);
+    }*/
 }
