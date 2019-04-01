@@ -7,6 +7,8 @@ import {RegisterData} from '../../models/register';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 
+import {checkPassword} from '../../helpers/checkPassword.validator';
+
 
 @Component({
   selector: 'app-sign-up',
@@ -45,9 +47,10 @@ export class SignUpComponent implements OnInit {
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
+      confirmPassword: ['', Validators.required],
       PhoneNumber: new FormControl('',
         [Validators.required, Validators.pattern('^(?:\\(?\\+?48)?(?:[-\\.\\(\\)\\s]*(\\d)){9}\\)?$')])
-    });
+    }, {validator: checkPassword('password', 'confirmPassword') });
   }
 
 }

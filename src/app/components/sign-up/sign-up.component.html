@@ -37,6 +37,14 @@
         <div *ngIf="f.password.errors.minlength || f.password.errors.maxlength">Password must have from 8 to 20 characters</div>
       </mat-error>
     </mat-form-field>
+    <mat-form-field>
+      <input matInput type="password" formControlName="confirmPassword" placeholder="Confirm password" [type]="hide ? 'password' : 'text'">
+      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <mat-error *ngIf="f.confirmPassword.errors">
+        <div *ngIf="f.confirmPassword.errors.required">Confirm password is <strong>required</strong></div>
+        <div *ngIf="f.confirmPassword.errors.mustMatch">Passwords must match</div>
+      </mat-error>
+    </mat-form-field>
     <mat-progress-spinner [diameter]="50" *ngIf="authenticationService.loading" color="primary" mode="indeterminate"></mat-progress-spinner>
     <button *ngIf="!authenticationService.loading" class="register-btn" mat-raised-button color="primary">
       Sign Up
