@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
+import {City} from '../models/city';
 import {Ad} from '../models/ad';
 import {GLOBAL} from '../config';
 import {ImageAd} from '../models/image';
@@ -83,4 +84,10 @@ export class AdService {
         }
 
     }
+    public getCitiesV(Voivodeship: string): Observable<Array<City>> {
+      return this.http.get<Array<City>>(`${GLOBAL.URL}/cities/${Voivodeship}`);
+    }
+/*    public getCities(): Observable<Array<City>> {
+      return this.http.get<Array<City>>(`${GLOBAL.URL}/cities`);
+    }*/
 }
