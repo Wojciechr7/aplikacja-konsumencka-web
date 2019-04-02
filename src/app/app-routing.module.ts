@@ -11,12 +11,12 @@ import {AdvertisementComponent} from './components/advertisement/advertisement.c
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
-  {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
+  {path: 'home', component: HomeComponent},
   {path: 'sign-in', component: SignInComponent, canActivate: [IsLoggedGuard]},
   {path: 'sign-up', component: SignUpComponent, canActivate: [IsLoggedGuard]},
   {path: 'add-ad', component: AddAdComponent, canActivate: [AuthGuard]},
   {path: 'advertisements', component: AdvertisementsComponent, canActivate: [AuthGuard]},
-  {path: 'advertisements/:id', component: AdvertisementComponent, canActivate: [AuthGuard]}
+  {path: 'advertisements/:id', component: AdvertisementComponent}
 ];
 
 @NgModule({

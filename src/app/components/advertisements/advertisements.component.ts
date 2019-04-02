@@ -31,7 +31,7 @@ export class AdvertisementsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.adService.getUserAdvertisements(this.authenticationService.currentUserValue.token).subscribe((ad: Array<Ad>) => {
+    this.adService.getUserAdvertisements(this.authenticationService.currentUserValue.id).subscribe((ad: Array<Ad>) => {
       this.advertisements = [...ad];
       this.dataSource = new MatTableDataSource(this.advertisements);
       this.dataSource.sort = this.sort;
