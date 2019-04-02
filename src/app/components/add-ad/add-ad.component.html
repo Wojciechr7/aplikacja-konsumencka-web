@@ -22,15 +22,16 @@
             </mat-form-field>
             <h3>Location</h3>
             <mat-form-field class="info">
-              <input matInput type="text" placeholder="Voivodeship" formControlName="VoivodeshipFormControl" (focusout)="getVoivodeship($event)" [matAutocomplete]="auto" >
+              <input matInput type="text" placeholder="Voivodeship" formControlName="VoivodeshipFormControl" (focusout)="getVoivodeship($event)" [matAutocomplete]="auto"  >
               <mat-autocomplete autoActiveFirstOption  #auto = "matAutocomplete">
                 <mat-option *ngFor="let Voivodeship of filtretOptionsV | async" [value]="Voivodeship">
                   {{Voivodeship}}
                 </mat-option>
               </mat-autocomplete>
+              <mat-error *ngIf="AdForm.controls.CityFormControl.disabled">Voivodeship is required</mat-error>
             </mat-form-field>
             <mat-form-field class="info">
-                <input matInput type="text" placeholder="City" formControlName="CityFormControl" [matAutocomplete]="autoV">
+                <input matInput type="text" placeholder="City" formControlName="CityFormControl" [matAutocomplete]="autoV"  (click)="showCities()">
               <mat-autocomplete autoActiveFirstOption #autoV="matAutocomplete">
                 <mat-option *ngFor="let city of cities" [value]="city.id">
                   {{city.name}}

@@ -7,6 +7,7 @@ import {City} from '../../models/city';
 import {ToastrService} from 'ngx-toastr';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
+import {forEach} from '@angular/router/src/utils/collection';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class AddAdComponent implements OnInit, OnDestroy {
     public types: Array<string>;
     public cities: Array<City>;
     public Voivodeships: Array<string>;
-    public  filtretOptionsV: Observable<string[]>;
+    public filtretOptionsV: Observable<string[]>;
     public filteredOptions: Observable<City[]>;
 
 
@@ -65,7 +66,7 @@ export class AddAdComponent implements OnInit, OnDestroy {
       this.AdForm = this.formBuilder.group({
         TitleFormControl: new FormControl('', [Validators.required, Validators.minLength(5)]),
         CategoryFormControl: new FormControl('', [Validators.required]),
-        CityFormControl: new FormControl('', [Validators.required]),
+        CityFormControl: new FormControl({value: '', disabled: true}, [Validators.required]),
         StreetFormControl: new FormControl(''),
         PhoneNumberFormControl: new FormControl('',
           [Validators.required, Validators.pattern('^(?:\\(?\\+?48)?(?:[-\\.\\(\\)\\s]*(\\d)){9}\\)?$')]),
@@ -75,7 +76,7 @@ export class AddAdComponent implements OnInit, OnDestroy {
         PriceFormControl: new FormControl('', [Validators.required, Validators.max(9999999),
           Validators.pattern('^[1-9]\\d+$')]),
         DescriptionFormControl: new FormControl('', [Validators.required, Validators.maxLength(9999), Validators.minLength(30)]),
-        VoivodeshipFormControl: new FormControl('')
+        VoivodeshipFormControl: new FormControl('', [Validators.required])
       });
       const VoivodshipOption = this.AdForm.controls.VoivodeshipFormControl;
       this.filtretOptionsV = VoivodshipOption.valueChanges.pipe(
@@ -87,10 +88,10 @@ export class AddAdComponent implements OnInit, OnDestroy {
       const filterValue = value.toLowerCase();
       return this.Voivodeships.filter(Voivodeship => Voivodeship.toLowerCase().indexOf(filterValue) === 0);
     }
-/*    private _filterC(value: City): City[] {
+    private _filterC(value: City): City[] {
       const filterValue = value.name.toLowerCase();
       return this.cities.filter( city => city.name.indexOf(filterValue) === 0);
-    }*/
+    }
 
     ngOnDestroy(): void {
         this.adService.files = [];
@@ -100,18 +101,22 @@ export class AddAdComponent implements OnInit, OnDestroy {
       const value = event.target.value.toLowerCase();
       if (this.Voivodeships.indexOf(value) === -1) {
         event.target.value = '';
+        this.AdForm.controls.CityFormControl.disable();
       } else {
         this.adService.getCitiesV(value).subscribe((city: Array<City>) => {
           this.cities = city;
           console.log(this.cities);
         });
-/*        const CitiesOption = this.AdForm.controls.CityFormControl;
-        this.filteredOptions = CitiesOption.valueChanges.pipe(
-          startWith(''),
-          map(valueC => this._filterC(valueC))
-        );*/
+        this.AdForm.controls.CityFormControl.enable();
       }
-      // console.log(this.cities);
+    }
+    private showCities(): void {
+      const CitiesOption = this.AdForm.controls.CityFormControl;
+      this.filteredOptions = CitiesOption.valueChanges.pipe(
+        startWith(''),
+        map(valueC => this._filterC(valueC))
+      );
+      console.log(this.cities);
     }
 
     public removeImage(index: number) {
