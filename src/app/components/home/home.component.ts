@@ -37,6 +37,7 @@ export class HomeComponent implements OnInit, DoCheck {
 
   ngDoCheck() {
     const change = this.differ.diff(this.adService.sorting);
+    this.adService.PagesToEnd = 1;
     if (change) {
       this.adService.advertisements = [];
       this.adService.Page = 0;

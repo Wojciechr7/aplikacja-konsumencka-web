@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-
 import {City} from '../models/city';
 import {Ad} from '../models/ad';
 import {GLOBAL} from '../config';
 import {ImageAd} from '../models/image';
 import {ToastrService} from 'ngx-toastr';
 import {Sorting} from '../models/sorting';
+import {AdHome} from '../models/ad-home';
 
 
 @Injectable({providedIn: 'root'})
@@ -17,6 +17,7 @@ export class AdService {
     private filtering: string;
     private page: number;
     public advertisements: Array<Ad>;
+    private pagesToEnd: number;
 
     constructor(private http: HttpClient, private toastr: ToastrService) {
         this.files = [];
@@ -31,11 +32,22 @@ export class AdService {
         this.page = val;
     }
 
+    set PagesToEnd(val: number) {
+        this.pagesToEnd = val;
+    }
+
     public lazyLoad() {
         this.page++;
-        this.getAdvertisements().subscribe( (ad: Array<Ad>) => {
-            this.advertisements = [...this.advertisements, ...ad];
-        });
+
+        if (this.pagesToEnd) {
+            this.getAdvertisements().subscribe( (ad: AdHome) => {
+                if (ad) {
+                    this.pagesToEnd = ad.pagesToEnd;
+                    this.advertisements = [...this.advertisements, ...(ad.advertisement)];
+                }
+            });
+        }
+
     }
 
 
@@ -47,8 +59,8 @@ export class AdService {
         return this.http.get<Ad>(`${GLOBAL.URL}/Advertisements/${id}`);
     }
 
-    public getAdvertisements(): Observable<Array<Ad>> {
-        return this.http.get<Array<Ad>>(`${GLOBAL.URL}/Advertisements/${this.sorting.by}/${this.sorting.type}:${this.page}`);
+    public getAdvertisements(): Observable<AdHome> {
+        return this.http.get<AdHome>(`${GLOBAL.URL}/Advertisements/${this.sorting.by}/${this.sorting.type}:${this.page}`);
     }
 
     public getUserAdvertisements(token: string): Observable<Array<Ad>> {
