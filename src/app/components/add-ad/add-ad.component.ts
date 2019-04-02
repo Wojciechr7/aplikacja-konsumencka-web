@@ -7,6 +7,8 @@ import {City} from '../../models/city';
 import {ToastrService} from 'ngx-toastr';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
+import {ImageService} from '../../services/image.service';
+import {ImageAd} from '../../models/image';
 
 
 @Component({
@@ -25,7 +27,7 @@ export class AddAdComponent implements OnInit, OnDestroy {
     public filteredOptions: Observable<City[]>;
 
 
-    constructor(private formBuilder: FormBuilder, public adService: AdService, private router: Router, private toastr: ToastrService) {
+    constructor(private formBuilder: FormBuilder, public adService: AdService, private router: Router, private toastr: ToastrService, private imageService: ImageService) {
         this.hide = true;
         this.category = ['Apartment', 'Room', 'House', 'Office'];
         this.types = ['rent', 'sale'];
@@ -82,6 +84,7 @@ export class AddAdComponent implements OnInit, OnDestroy {
         startWith(''),
         map(value => this._filter(value))
       );
+
     }
     private _filter(value: string): string[] {
       const filterValue = value.toLowerCase();
@@ -116,6 +119,12 @@ export class AddAdComponent implements OnInit, OnDestroy {
 
     public removeImage(index: number) {
         this.adService.files.splice(index, 1);
+    }
+
+    public addImage(): any {
+        this.imageService.getFile().then((img: ImageAd) => {
+           this.adService.files.push(img);
+        });
     }
 
 

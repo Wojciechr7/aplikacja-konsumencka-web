@@ -67,35 +67,6 @@ export class AdService {
         return this.http.get<Array<Ad>>(`${GLOBAL.URL}/Advertisements/users/${id}`);
     }
 
-
-    public getFile() {
-        function getBase64(f) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(f);
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = error => reject(error);
-            });
-        }
-
-        const file = (document.getElementById('files') as HTMLInputElement).files[0];
-
-        if (file.type.match(/image.*/)) {
-            getBase64(file).then(
-                data => {
-                    const f = {
-                        name: file.name,
-                        image: data,
-                        description: ''
-                    };
-                    this.files.push(f as ImageAd);
-                }
-            );
-        } else {
-            this.toastr.error('Wrong Image Format', 'Error!');
-        }
-
-    }
     public getCitiesV(Voivodeship: string): Observable<Array<City>> {
       return this.http.get<Array<City>>(`${GLOBAL.URL}/cities/${Voivodeship}`);
     }
