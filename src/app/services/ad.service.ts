@@ -63,7 +63,7 @@ export class AdService {
         return this.http.get<AdHome>(`${GLOBAL.URL}/Advertisements/${this.sorting.by}/${this.sorting.type}:${this.page}`);
     }
 
-    public getUserAdvertisements(id: number): Observable<Array<Ad>> {
+    public getUserAdvertisements(id: string): Observable<Array<Ad>> {
         return this.http.get<Array<Ad>>(`${GLOBAL.URL}/Advertisements/users/${id}`);
     }
 

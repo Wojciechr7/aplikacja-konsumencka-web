@@ -26,6 +26,11 @@ export class HomeComponent implements OnInit, DoCheck {
 
   }
 
+  public noImage(i: string): boolean {
+
+    return i.indexOf('base64') > 0;
+  }
+
   ngOnInit() {
     this.adService.sorting = {
       by: 'date',

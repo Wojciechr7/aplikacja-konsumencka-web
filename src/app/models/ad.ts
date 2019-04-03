@@ -4,6 +4,7 @@ export interface Ad {
     id?: number;
     title?: string;
     images?: Array<ImageAd>;
+    image?: ImageAd;
     description?: string;
     phoneNumber?: string;
     price: number;
