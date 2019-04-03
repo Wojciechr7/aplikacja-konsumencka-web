@@ -18,6 +18,11 @@ export class AdvertisementComponent implements OnInit {
     constructor(private route: ActivatedRoute, private router: Router, public adService: AdService) {
     }
 
+    public noImage(i: string): boolean {
+
+        return i.indexOf('base64') > 0;
+    }
+
     ngOnInit() {
 
         this.adData = this.route.paramMap.pipe(
