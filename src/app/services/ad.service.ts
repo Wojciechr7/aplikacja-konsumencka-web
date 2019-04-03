@@ -18,9 +18,11 @@ export class AdService {
     private page: number;
     public advertisements: Array<Ad>;
     private pagesToEnd: number;
+    private adFilter: string;
 
     constructor(private http: HttpClient, private toastr: ToastrService) {
         this.files = [];
+        this.adFilter = '';
 
     }
 
@@ -34,6 +36,10 @@ export class AdService {
 
     set PagesToEnd(val: number) {
         this.pagesToEnd = val;
+    }
+
+    set AdFilter(val: string) {
+        this.adFilter = val;
     }
 
     public lazyLoad() {
@@ -60,7 +66,7 @@ export class AdService {
     }
 
     public getAdvertisements(): Observable<AdHome> {
-        return this.http.get<AdHome>(`${GLOBAL.URL}/Advertisements/${this.sorting.by}/${this.sorting.type}:${this.page}`);
+        return this.http.get<AdHome>(`${GLOBAL.URL}/Advertisements/${this.sorting.by}/${this.sorting.type}:${this.page}/${this.adFilter}`);
     }
 
     public getUserAdvertisements(id: string): Observable<Array<Ad>> {

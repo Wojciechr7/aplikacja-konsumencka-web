@@ -7,10 +7,10 @@
             <i class="fas fa-search h4"></i>
           </div>
           <div class="col">
-            <input class="form-control form-control-lg form-control-borderless" type="search" placeholder="Search">
+            <input #adFilter class="form-control form-control-lg form-control-borderless" type="search" placeholder="Search">
           </div>
           <div class="col-auto">
-            <button class="btn btn-lg custom-btn" type="submit">Search</button>
+            <button class="btn btn-lg custom-btn" type="submit" (click)="filterAdvertisements(adFilter.value)">Search</button>
           </div>
         </div>
       </form>

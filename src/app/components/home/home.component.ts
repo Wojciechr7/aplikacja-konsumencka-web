@@ -26,6 +26,13 @@ export class HomeComponent implements OnInit, DoCheck {
 
   }
 
+  public filterAdvertisements(val: string): void {
+    this.adService.AdFilter = val;
+    this.adService.advertisements = [];
+    this.adService.Page = 0;
+    this.adService.lazyLoad();
+  }
+
   public noImage(i: string): boolean {
 
     return i.indexOf('base64') > 0;
