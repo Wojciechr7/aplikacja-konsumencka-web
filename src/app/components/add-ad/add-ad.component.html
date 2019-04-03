@@ -22,17 +22,18 @@
             </mat-form-field>
             <h3>Location</h3>
             <mat-form-field class="info">
-              <input matInput type="text" placeholder="Voivodeship" formControlName="VoivodeshipFormControl" (focusout)="getVoivodeship($event)" [matAutocomplete]="auto" >
+              <input matInput type="text" placeholder="Voivodeship" formControlName="VoivodeshipFormControl" (change) = "CityFormControl=''" (focusout)="getVoivodeship($event)" [matAutocomplete]="auto"  >
               <mat-autocomplete autoActiveFirstOption  #auto = "matAutocomplete">
                 <mat-option *ngFor="let Voivodeship of filtretOptionsV | async" [value]="Voivodeship">
                   {{Voivodeship}}
                 </mat-option>
               </mat-autocomplete>
+              <mat-error *ngIf="!(f.CityFormControl.disabled)">Voivodeship is required</mat-error>
             </mat-form-field>
             <mat-form-field class="info">
-                <input matInput type="text" placeholder="City" formControlName="CityFormControl" [matAutocomplete]="autoV">
+                <input matInput type="text" placeholder="City" formControlName="CityFormControl" (clikc) = "showCities()" [matAutocomplete]="autoV"  (click)="showCities()">
               <mat-autocomplete autoActiveFirstOption #autoV="matAutocomplete">
-                <mat-option *ngFor="let city of cities" [value]="city.id">
+                <mat-option *ngFor="let city of filteredOptions | async" [value]="city.name">
                   {{city.name}}
                 </mat-option>
               </mat-autocomplete>
@@ -75,14 +76,6 @@
               <ng-container *ngIf="f.DescriptionFormControl.hasError('maxlength')">Text is too long</ng-container>
             </mat-error>
         </mat-form-field>
-        <mat-form-field class="info">
-            <input matInput type="text" placeholder="Phone number" formControlName="PhoneNumberFormControl">
-            <mat-error *ngIf="f.PhoneNumberFormControl.errors">
-                <ng-container *ngIf="f.PhoneNumberFormControl.hasError('required')">Phone number is required</ng-container>
-                <ng-container *ngIf="f.PhoneNumberFormControl.hasError('pattern')">Phone number is incorrect</ng-container>
-            </mat-error>
-        </mat-form-field>
-
         <mat-tab-group>
             <mat-tab *ngFor="let img of adService.files; index as i" [label]="img.name">
                 <div class="image-desc">

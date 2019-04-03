@@ -23,7 +23,7 @@ export class AddAdComponent implements OnInit, OnDestroy {
     public types: Array<string>;
     public cities: Array<City>;
     public Voivodeships: Array<string>;
-    public  filtretOptionsV: Observable<string[]>;
+    public filtretOptionsV: Observable<string[]>;
     public filteredOptions: Observable<City[]>;
 
 
@@ -42,14 +42,13 @@ export class AddAdComponent implements OnInit, OnDestroy {
 
     public onSubmit(): void {
         if (!this.AdForm.invalid) {
-
+        const city = this.cities.filter( cityN => cityN.name === this.AdForm.value.CityFormControl);
         const ad = {
             title: this.AdForm.value.TitleFormControl,
             images: [...this.adService.files],
             description: this.AdForm.value.DescriptionFormControl,
-            phoneNumber: this.AdForm.value.PhoneNumberFormControl,
             price: parseInt(this.AdForm.value.PriceFormControl, 10),
-            city: 1,
+            city: city[0].id,
             street: this.AdForm.value.StreetFormControl,
             size: parseInt(this.AdForm.value.SizeFormControl, 10),
             category: this.AdForm.value.CategoryFormControl,
@@ -67,17 +66,15 @@ export class AddAdComponent implements OnInit, OnDestroy {
       this.AdForm = this.formBuilder.group({
         TitleFormControl: new FormControl('', [Validators.required, Validators.minLength(5)]),
         CategoryFormControl: new FormControl('', [Validators.required]),
-        CityFormControl: new FormControl('', [Validators.required]),
+        CityFormControl: new FormControl({value: '', disabled: true}, [Validators.required]),
         StreetFormControl: new FormControl(''),
-        PhoneNumberFormControl: new FormControl('',
-          [Validators.required, Validators.pattern('^(?:\\(?\\+?48)?(?:[-\\.\\(\\)\\s]*(\\d)){9}\\)?$')]),
         SizeFormControl: new FormControl('', [Validators.max(99999),
           Validators.pattern('^[1-9]\\d+$')]),
         FloorFormControl: new FormControl(''),
         PriceFormControl: new FormControl('', [Validators.required, Validators.max(9999999),
           Validators.pattern('^[1-9]\\d+$')]),
         DescriptionFormControl: new FormControl('', [Validators.required, Validators.maxLength(9999), Validators.minLength(30)]),
-        VoivodeshipFormControl: new FormControl('')
+        VoivodeshipFormControl: new FormControl('', [Validators.required])
       });
       const VoivodshipOption = this.AdForm.controls.VoivodeshipFormControl;
       this.filtretOptionsV = VoivodshipOption.valueChanges.pipe(
@@ -90,10 +87,6 @@ export class AddAdComponent implements OnInit, OnDestroy {
       const filterValue = value.toLowerCase();
       return this.Voivodeships.filter(Voivodeship => Voivodeship.toLowerCase().indexOf(filterValue) === 0);
     }
-/*    private _filterC(value: City): City[] {
-      const filterValue = value.name.toLowerCase();
-      return this.cities.filter( city => city.name.indexOf(filterValue) === 0);
-    }*/
 
     ngOnDestroy(): void {
         this.adService.files = [];
@@ -103,20 +96,25 @@ export class AddAdComponent implements OnInit, OnDestroy {
       const value = event.target.value.toLowerCase();
       if (this.Voivodeships.indexOf(value) === -1) {
         event.target.value = '';
+        this.AdForm.controls.CityFormControl.disable();
       } else {
         this.adService.getCitiesV(value).subscribe((city: Array<City>) => {
           this.cities = city;
-          console.log(this.cities);
+          this.AdForm.controls.CityFormControl.enable();
         });
-/*        const CitiesOption = this.AdForm.controls.CityFormControl;
-        this.filteredOptions = CitiesOption.valueChanges.pipe(
-          startWith(''),
-          map(valueC => this._filterC(valueC))
-        );*/
       }
-      // console.log(this.cities);
     }
-
+    public showCities(): void {
+      const CitiesOption = this.AdForm.controls.CityFormControl;
+      this.filteredOptions = CitiesOption.valueChanges.pipe(
+        startWith(''),
+        map(valueC => this._filterC(valueC))
+      );
+    }
+    private _filterC(value: string): City[] {
+      const filterValue = value.toLowerCase();
+      return this.cities.filter( city => city.name.toLowerCase().indexOf(filterValue) === 0);
+    }
     public removeImage(index: number) {
         this.adService.files.splice(index, 1);
     }
