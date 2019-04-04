@@ -40,29 +40,12 @@
   </div>
 
   <div class="row ad-list">
-    <div *ngFor="let ad of adService.advertisements" class="col-12 col-lg-6">
-      <div class=" m-3 ad" (click)="redirect('/advertisements/' + ad.id)">
-        <div class="ad-img">
-          <!--<img src="https://przyjaznycoaching.pl/wp-content/themes/przyjaznycoaching/assets/img/default-image.jpg" alt="Ad img">-->
-          <img *ngIf="ad.image && noImage(ad.image.image); else noImg" [src]="ad.image.image">
-          <ng-template #noImg>
-            <img src="https://przyjaznycoaching.pl/wp-content/themes/przyjaznycoaching/assets/img/default-image.jpg" alt="Ad img">
-          </ng-template>
-        </div>
-        <div class="ad-desc">
-          <div class="title">
-            {{ad.title}}
-          </div>
-          <div class="more-info">
-            <div class="price">
-              Price: {{ad.price}}zł/month
-            </div>
-            <div class="location">
-              Location: {{ad.city}}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <app-ad *ngFor="let ad of adService.advertisements" [ad]="ad" class="col-12 col-lg-6">
+
+    </app-ad>
+    <ng-template #loading>
+      <mat-progress-spinner [diameter]="50" color="primary" mode="indeterminate"></mat-progress-spinner>
+    </ng-template>
   </div>
+
 </div>
