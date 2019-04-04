@@ -74,7 +74,7 @@ export class AdService {
     }
 
     public getCitiesV(Voivodeship: string): Observable<Array<City>> {
-      return this.http.get<Array<City>>(`${GLOBAL.URL}/cities/${Voivodeship}`);
+      return this.http.get<Array<City>>(`${GLOBAL.URL}/cities/${Voivodeship.normalize('NFD').replace(/[\u0300-\u036f]/g, '')}`);
     }
 /*    public getCities(): Observable<Array<City>> {
       return this.http.get<Array<City>>(`${GLOBAL.URL}/cities`);
