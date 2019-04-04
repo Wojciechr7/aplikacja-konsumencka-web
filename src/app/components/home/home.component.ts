@@ -11,23 +11,10 @@ export class HomeComponent implements OnInit, DoCheck {
 
 
   public loading: boolean;
-  public sortByOptions: Array<string>;
-  public sortTypeOptions: Array<string>;
   private differ: any;
 
   constructor(public adService: AdService, private router: Router, private differs: KeyValueDiffers) {
     this.loading = false;
-    this.sortByOptions = ['price', 'city', 'size', 'category', 'date'];
-    this.sortTypeOptions = ['asc', 'desc'];
-
-  }
-
-
-  public filterAdvertisements(val: string): void {
-    this.adService.AdFilter = val;
-    this.adService.advertisements = [];
-    this.adService.Page = 0;
-    this.adService.lazyLoad();
   }
 
   ngOnInit() {

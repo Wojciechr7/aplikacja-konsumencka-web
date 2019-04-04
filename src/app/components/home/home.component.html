@@ -1,51 +1,16 @@
 <div class="container mt-3">
-  <div class="row justify-content-center">
-    <div class="col-12 col-md-10 col-lg-8">
-      <form class="search-form card ">
-        <div class="card-body row align-items-center no-gutters">
-          <div class="col-auto">
-            <i class="fas fa-search h4"></i>
-          </div>
-          <div class="col">
-            <input #adFilter class="form-control form-control-lg form-control-borderless" type="search" placeholder="Search">
-          </div>
-          <div class="col-auto">
-            <button class="btn btn-lg custom-btn" type="submit" (click)="filterAdvertisements(adFilter.value)">Search</button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
+  <app-search></app-search>
 </div>
 <div class="container">
-  <div class="pick-radio">
-    <label id="radio-sort-by-label"><b>Sort By: </b></label>
-    <mat-radio-group
-            aria-labelledby="radio-sort-by-label"
-            [(ngModel)]="adService.sorting.by">
-      <mat-radio-button color="primary" class="element" *ngFor="let sort of sortByOptions" [value]="sort">
-        {{sort}}
-      </mat-radio-button>
-    </mat-radio-group>
-  </div>
-  <div class="pick-radio">
-    <label id="radio-sort-type-label"><b>Sort Type: </b></label>
-    <mat-radio-group
-            aria-labelledby="radio-sort-type-label"
-            [(ngModel)]="adService.sorting.type">
-      <mat-radio-button color="primary" class="element" *ngFor="let sort of sortTypeOptions" [value]="sort">
-        {{sort}}
-      </mat-radio-button>
-    </mat-radio-group>
-  </div>
+
+  <app-sort></app-sort>
 
   <div class="row ad-list">
-    <app-ad *ngFor="let ad of adService.advertisements" [ad]="ad" class="col-12 col-lg-6">
 
-    </app-ad>
-    <ng-template #loading>
-      <mat-progress-spinner [diameter]="50" color="primary" mode="indeterminate"></mat-progress-spinner>
-    </ng-template>
+    <app-ad *ngFor="let ad of adService.advertisements" [ad]="ad" class="col-12 col-lg-6"></app-ad>
+
+    <mat-progress-spinner *ngIf="!adService.advertisements?.length" [diameter]="50" color="primary" mode="indeterminate"></mat-progress-spinner>
+
   </div>
 
 </div>

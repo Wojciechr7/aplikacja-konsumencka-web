@@ -35,6 +35,8 @@ import { AdvertisementComponent } from './components/advertisement/advertisement
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { AdComponent } from './components/home/ad/ad.component';
+import { SearchComponent } from './components/home/search/search.component';
+import { SortComponent } from './components/home/sort/sort.component';
 
 @NgModule({
     declarations: [
@@ -47,7 +49,9 @@ import { AdComponent } from './components/home/ad/ad.component';
         InfoDialogComponent,
         AdvertisementsComponent,
         AdvertisementComponent,
-        AdComponent
+        AdComponent,
+        SearchComponent,
+        SortComponent
     ],
     imports: [
         BrowserModule,
