@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {Ad} from '../../../models/ad';
+import {Ad} from '../../../../models/ad';
 
 @Component({
   selector: 'app-ad',

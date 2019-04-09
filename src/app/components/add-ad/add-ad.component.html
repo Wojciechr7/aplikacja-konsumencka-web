@@ -89,7 +89,8 @@
         </mat-tab-group>
 
         <button class="add-img" type="button" mat-raised-button color="primary" (click)="imgInput.click()">Add Image</button>
-        <button mat-raised-button color="primary">Add advertisement</button>
+        <button mat-raised-button color="primary" *ngIf="!edit">Add advertisement</button>
+        <button mat-raised-button color="primary" *ngIf="edit">Save</button>
 
 
     </form>

@@ -1,4 +1,4 @@
-<div class="m-3 ad" (click)="redirect('/advertisements/' + ad.id)">
+<div class="m-3 ad" (click)="redirect('/home/advertisements/' + ad.id)">
   <div class="ad-img">
     <img *ngIf="ad.image && noImage(ad.image.image); else noImg" [src]="ad.image.image">
     <ng-template #noImg>

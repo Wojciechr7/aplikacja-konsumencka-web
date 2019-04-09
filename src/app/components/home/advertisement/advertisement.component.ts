@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
-import {Ad} from '../../models/ad';
+import {Ad} from '../../../models/ad';
 import {ActivatedRoute, Router, ParamMap} from '@angular/router';
-import {AdService} from '../../services/ad.service';
+import {AdService} from '../../../services/ad.service';
 import {switchMap} from 'rxjs/operators';
 
 @Component({

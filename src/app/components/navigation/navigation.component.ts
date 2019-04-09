@@ -35,6 +35,6 @@ export class NavigationComponent {
 
   public logout(): void {
     this.authenticationService.logout();
-    this.router.navigate(['/sign-in']);
+    this.router.navigate(['/user/sign-in']);
   }
 }

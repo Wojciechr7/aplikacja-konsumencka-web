@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {AuthService} from '../../services/auth.service';
-import {LoginData} from '../../models/login';
+import {AuthService} from '../../../services/auth.service';
+import {LoginData} from '../../../models/login';
 import {first} from 'rxjs/operators';
-import {RegisterData} from '../../models/register';
+import {RegisterData} from '../../../models/register';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 
-import {checkPassword} from '../../helpers/checkPassword.validator';
+import {checkPassword} from '../../../helpers/checkPassword.validator';
 
 
 @Component({
@@ -30,11 +30,12 @@ export class SignUpComponent implements OnInit {
 
     if (!this.signUpForm.invalid) {
       this.authenticationService.loading = true;
+      console.log(this.signUpForm.value);
       this.authenticationService.register(this.signUpForm.value as RegisterData)
           .subscribe(() => {
             this.authenticationService.loading = false;
             this.toastr.success('Registration Complete', 'Success!');
-            this.router.navigate(['/sign-in']);
+            this.router.navigate(['/user/sign-in']);
           }, error => {
             this.authenticationService.loading = false;
           });
