@@ -9,6 +9,7 @@ import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {ImageService} from '../../services/image.service';
 import {ImageAd} from '../../models/image';
+import {Voivodeship} from '../../models/voivodeship';
 
 
 @Component({
@@ -22,18 +23,21 @@ export class AddAdComponent implements OnInit, OnDestroy {
     public category: Array<string>;
     public types: Array<string>;
     public cities: Array<City>;
-    public Voivodeships: Array<string>;
-    public filtretOptionsV: Observable<string[]>;
+    public Voivodeships: Array<Voivodeship>;
+    public filtretOptionsV: Observable<Voivodeship[]>;
     public filteredOptions: Observable<City[]>;
+    public loading: boolean;
 
 
-    constructor(private formBuilder: FormBuilder, public adService: AdService, private router: Router, private toastr: ToastrService, private imageService: ImageService) {
+    constructor(private formBuilder: FormBuilder, public adService: AdService, private router: Router,
+                private toastr: ToastrService, private imageService: ImageService) {
         this.hide = true;
         this.category = ['Apartment', 'Room', 'House', 'Office'];
         this.types = ['rent', 'sale'];
-        this.Voivodeships = [ 'dolnośląskie', 'kujawsko-pomorskie', 'lubelskie', 'lubuskie', 'łódzkie', 'małopolskie', 'mazowieckie',
-          'opolskie', 'podkarpackie', 'podlaskie', 'pomorskie', 'śląskie', 'świętokrzyskie', 'warmińsko-mazurskie', 'wielkopolskie',
-        'zachodniopomosrkie'];
+        this.loading = true;
+        this.adService.getVoivodeships().subscribe((voivodeships: Array<Voivodeship>) => {
+          this.Voivodeships = voivodeships;
+        });
     }
 
     get f(): any {
@@ -41,6 +45,7 @@ export class AddAdComponent implements OnInit, OnDestroy {
     }
 
     public onSubmit(): void {
+        this.checkCity();
         if (!this.AdForm.invalid) {
         const city = this.cities.filter( cityN => cityN.name === this.AdForm.value.CityFormControl);
         const ad = {
@@ -76,40 +81,49 @@ export class AddAdComponent implements OnInit, OnDestroy {
         DescriptionFormControl: new FormControl('', [Validators.required, Validators.maxLength(9999), Validators.minLength(30)]),
         VoivodeshipFormControl: new FormControl('', [Validators.required])
       });
-      const VoivodshipOption = this.AdForm.controls.VoivodeshipFormControl;
-      this.filtretOptionsV = VoivodshipOption.valueChanges.pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
-
+      this.loading = false;
     }
-    private _filter(value: string): string[] {
+    private _filter(value: string): Voivodeship[] {
       const filterValue = value.toLowerCase();
-      return this.Voivodeships.filter(Voivodeship => Voivodeship.toLowerCase().indexOf(filterValue) === 0);
+      return this.Voivodeships.filter(voivodeship => voivodeship.name.toLowerCase().indexOf(filterValue) === 0);
     }
 
     ngOnDestroy(): void {
         this.adService.files = [];
     }
+    public showVoivodeships() {
+      this.loading = true;
+      const VoivodeshipsOption = this.AdForm.controls.VoivodeshipFormControl;
+      this.filtretOptionsV = VoivodeshipsOption.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
+      this.loading = false;
+    }
 
     public getVoivodeship(event: any) {
       const value = event.target.value.toLowerCase();
-      if (this.Voivodeships.indexOf(value) === -1) {
-        event.target.value = '';
-        this.AdForm.controls.CityFormControl.disable();
+      if (this.Voivodeships.map(name => name.name).indexOf(value) === -1) {
+        this.AdForm.controls.VoivodeshipFormControl.patchValue('');
       } else {
-        this.adService.getCitiesV(value).subscribe((city: Array<City>) => {
+        const VoivodeshipId = this.Voivodeships.filter(voivodeship =>
+          voivodeship.name === this.AdForm.value.VoivodeshipFormControl.toLowerCase());
+        this.adService.getCitiesV(VoivodeshipId[0].id).subscribe((city: Array<City>) => {
+          this.loading = true;
           this.cities = city;
           this.AdForm.controls.CityFormControl.enable();
+          this.loading = false;
         });
       }
     }
     public showCities(): void {
+      this.AdForm.controls.CityFormControl.patchValue('');
       const CitiesOption = this.AdForm.controls.CityFormControl;
       this.filteredOptions = CitiesOption.valueChanges.pipe(
         startWith(''),
         map(valueC => this._filterC(valueC))
       );
+      this.AdForm.controls.VoivodeshipFormControl.clearValidators();
     }
     private _filterC(value: string): City[] {
       const filterValue = value.toLowerCase();
@@ -118,12 +132,15 @@ export class AddAdComponent implements OnInit, OnDestroy {
     public removeImage(index: number) {
         this.adService.files.splice(index, 1);
     }
-
     public addImage(): any {
         this.imageService.getFile().then((img: ImageAd) => {
            this.adService.files.push(img);
         });
     }
-
-
+    public checkCity(): any {
+      const city = this.AdForm.controls.CityFormControl.value.toLowerCase();
+      if (this.cities.map(cityName => cityName.name.toLowerCase()).indexOf(city) === -1) {
+        this.AdForm.controls.CityFormControl.patchValue('');
+      }
+    }
 }
