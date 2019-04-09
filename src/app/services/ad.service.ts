@@ -8,6 +8,7 @@ import {ImageAd} from '../models/image';
 import {ToastrService} from 'ngx-toastr';
 import {Sorting} from '../models/sorting';
 import {AdHome} from '../models/ad-home';
+import {Voivodeship} from '../models/voivodeship';
 
 
 @Injectable({providedIn: 'root'})
@@ -58,24 +59,27 @@ export class AdService {
 
 
     public addAd(data: Ad): Observable<Ad> {
-        return this.http.post<Ad>(`${GLOBAL.URL}/Advertisements`, data);
+        return this.http.post<Ad>(`${GLOBAL.URL}/advertisements`, data);
     }
 
     public getAd(id: string): Observable<Ad> {
-        return this.http.get<Ad>(`${GLOBAL.URL}/Advertisements/${id}`);
+        return this.http.get<Ad>(`${GLOBAL.URL}/advertisements/${id}`);
     }
 
     public getAdvertisements(): Observable<AdHome> {
-        return this.http.get<AdHome>(`${GLOBAL.URL}/Advertisements/${this.sorting.by}/${this.sorting.type}:${this.page}/${this.adFilter}`);
+        return this.http.get<AdHome>(`${GLOBAL.URL}/advertisements/${this.sorting.by}/${this.sorting.type}:${this.page}/${this.adFilter}`);
     }
 
     public getUserAdvertisements(id: string): Observable<Array<Ad>> {
-        return this.http.get<Array<Ad>>(`${GLOBAL.URL}/Advertisements/users/${id}`);
+        return this.http.get<Array<Ad>>(`${GLOBAL.URL}/users/advertisements/${id}`);
     }
 
-    public getCitiesV(Voivodeship: string): Observable<Array<City>> {
-      return this.http.get<Array<City>>(`${GLOBAL.URL}/cities/${Voivodeship.normalize('NFD').replace(/[\u0300-\u036f]/g, '')}`);
+    public getCitiesV(VoivodeshipId: string): Observable<Array<City>> {
+      return this.http.get<Array<City>>(`${GLOBAL.URL}/voivodeships/${VoivodeshipId}/cities`);
     }
+     public getVoivodeships(): Observable<Array<Voivodeship>> {
+      return this.http.get<Array<Voivodeship>>(`${GLOBAL.URL}/voivodeships`);
+     }
 /*    public getCities(): Observable<Array<City>> {
       return this.http.get<Array<City>>(`${GLOBAL.URL}/cities`);
     }*/
