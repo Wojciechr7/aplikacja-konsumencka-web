@@ -16,7 +16,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 // unauthorised
                 this.authenticationService.logout();
                 this.toastr.error(err.error.message, 'Error!');
-                this.router.navigate(['/sign-in']);
+                this.router.navigate(['/user/sign-in']);
             }
             if (err.status === 400) {
                 // invalid credentials

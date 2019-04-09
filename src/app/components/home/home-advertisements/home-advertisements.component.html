@@ -1,0 +1,16 @@
+<div class="container mt-3">
+  <app-search></app-search>
+</div>
+<div class="container">
+
+  <app-sort></app-sort>
+
+  <div class="row ad-list">
+
+    <app-ad *ngFor="let ad of adService.advertisements" [ad]="ad" class="col-12 col-lg-6"></app-ad>
+
+    <mat-progress-spinner *ngIf="!adService.advertisements?.length" [diameter]="50" color="primary" mode="indeterminate"></mat-progress-spinner>
+
+  </div>
+
+</div>

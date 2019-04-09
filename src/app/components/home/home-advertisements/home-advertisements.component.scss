@@ -1,0 +1,17 @@
+.ad-list {
+  flex-flow: column;
+
+  > div {
+    margin: 20px auto;
+  }
+  app-ad {
+    margin: auto;
+  }
+
+  mat-progress-spinner {
+    margin: auto;
+  }
+}
+
+
+

@@ -1,16 +1,16 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AdService} from '../../services/ad.service';
-import {Ad} from '../../models/ad';
+import {AdService} from '../../../services/ad.service';
+import {Ad} from '../../../models/ad';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {Router} from '@angular/router';
-import {AuthService} from '../../services/auth.service';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
-  selector: 'app-advertisements',
+  selector: 'app-user-advertisements',
   templateUrl: './advertisements.component.html',
   styleUrls: ['./advertisements.component.scss']
 })
-export class AdvertisementsComponent implements OnInit {
+export class UserAdvertisementsComponent implements OnInit {
 
   public advertisements: Array<Ad>;
   public displayedColumns: string[] = ['category', 'city', 'street', 'price', 'size'];
