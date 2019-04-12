@@ -40,6 +40,7 @@ import { SortComponent } from './components/home/home-advertisements/sort/sort.c
 import { EditAdComponent } from './components/user/edit-ad/edit-ad.component';
 import { HomeAdvertisementsComponent } from './components/home/home-advertisements/home-advertisements.component';
 import { UserComponent } from './components/user/user.component';
+import { UserProfileComponent } from './components/user/user-profile/user-profile.component';
 
 @NgModule({
     declarations: [
@@ -57,7 +58,8 @@ import { UserComponent } from './components/user/user.component';
         SortComponent,
         EditAdComponent,
         HomeAdvertisementsComponent,
-        UserComponent
+        UserComponent,
+        UserProfileComponent
     ],
     imports: [
         BrowserModule,

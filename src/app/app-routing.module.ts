@@ -10,6 +10,7 @@ import {UserAdvertisementsComponent} from './components/user/advertisements/adve
 import {AdvertisementComponent} from './components/home/advertisement/advertisement.component';
 import {HomeAdvertisementsComponent} from './components/home/home-advertisements/home-advertisements.component';
 import {EditAdComponent} from './components/user/edit-ad/edit-ad.component';
+import {UserProfileComponent} from './components/user/user-profile/user-profile.component';
 
 const routes: Routes = [
     {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -26,6 +27,7 @@ const routes: Routes = [
             {path: 'sign-up', component: SignUpComponent, canActivate: [IsLoggedGuard]},
             {path: 'advertisements/:id', component: EditAdComponent, canActivate: [AuthGuard]},
             {path: 'advertisements', component: UserAdvertisementsComponent, canActivate: [AuthGuard]},
+            {path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard]},
         ]
     },
     {path: 'add-ad', component: AddAdComponent, canActivate: [AuthGuard]},
