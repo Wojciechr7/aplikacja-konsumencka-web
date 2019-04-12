@@ -1,3 +1,29 @@
-<p>
-  user-profile works!
-</p>
+<mat-progress-spinner class="loading" *ngIf="loading" [diameter]="50" color="primary" mode="indeterminate"></mat-progress-spinner>
+<mat-card *ngIf="!loading" class="container">
+  <mat-card-title>
+    My Profile
+  </mat-card-title>
+  <mat-card-content>
+    <div class="row">
+      <div class="data col-lg-6">
+        <div class="field-description m-2">Name</div>
+        <div class="user-data m-2">{{userInfo.firstName}}</div>
+      </div>
+      <div class="data col-lg-6">
+        <div class="field-description m-2">Last name</div>
+        <div class="user-data m-2">{{userInfo.lastName}}</div>
+      </div>
+      <div class="data col-lg-6">
+        <div class="field-description m-2">E-mail address</div>
+        <div class="user-data m-2">{{userInfo.email}}</div>
+      </div>
+      <div class="data col-lg-6">
+        <div class="field-description m-2">Phone number</div>
+        <div class="user-data m-2">{{userInfo.phoneNumber}}</div>
+      </div>
+      <div class="data col-lg-6">
+        <div class="field-description m-2">Password</div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
