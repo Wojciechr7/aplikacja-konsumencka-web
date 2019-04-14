@@ -4,4 +4,5 @@ export interface RegisterData {
     email: string;
     password: string;
     phoneNumber: string;
+    oldPassword?: string;
 }

@@ -21,7 +21,7 @@ import {NavigationComponent} from './components/navigation/navigation.component'
 import {LayoutModule} from '@angular/cdk/layout';
 import {SignInComponent} from './components/user/sign-in/sign-in.component';
 import {SignUpComponent} from './components/user/sign-up/sign-up.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {JwtInterceptor} from './helpers/jwt.interceptor';
 import {ErrorInterceptor} from './helpers/error.interceptor';
@@ -40,6 +40,8 @@ import { SortComponent } from './components/home/home-advertisements/sort/sort.c
 import { EditAdComponent } from './components/user/edit-ad/edit-ad.component';
 import { HomeAdvertisementsComponent } from './components/home/home-advertisements/home-advertisements.component';
 import { UserComponent } from './components/user/user.component';
+import { UserProfileComponent } from './components/user/user-profile/user-profile.component';
+import { EditProfileDialogComponent } from './dialogs/edit-profile/edit-profile.dialog';
 
 @NgModule({
     declarations: [
@@ -57,7 +59,9 @@ import { UserComponent } from './components/user/user.component';
         SortComponent,
         EditAdComponent,
         HomeAdvertisementsComponent,
-        UserComponent
+        UserComponent,
+        UserProfileComponent,
+        EditProfileDialogComponent
     ],
     imports: [
         BrowserModule,
@@ -91,7 +95,10 @@ import { UserComponent } from './components/user/user.component';
         {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
     ],
     bootstrap: [AppComponent],
-    entryComponents: [InfoDialogComponent]
+    entryComponents: [
+      InfoDialogComponent,
+      EditProfileDialogComponent
+    ]
 })
 export class AppModule {
 }
