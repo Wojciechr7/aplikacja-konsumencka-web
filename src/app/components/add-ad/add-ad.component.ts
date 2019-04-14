@@ -117,27 +117,24 @@ export class AddAdComponent implements OnInit, OnDestroy {
     }
 
     public showVoivodeships() {
-        this.loading = true;
         const VoivodeshipsOption = this.AdForm.controls.VoivodeshipFormControl;
         this.filtretOptionsV = VoivodeshipsOption.valueChanges.pipe(
             startWith(''),
             map(value => this._filter(value))
         );
-        this.loading = false;
     }
 
     public getVoivodeship(event: any) {
         const value = event.target.value.toLowerCase();
         if (this.Voivodeships.map(name => name.name).indexOf(value) === -1) {
             this.AdForm.controls.VoivodeshipFormControl.patchValue('');
+            this.AdForm.controls.CityFormControl.disable();
         } else {
             const VoivodeshipId = this.Voivodeships.filter(voivodeship =>
                 voivodeship.name === this.AdForm.value.VoivodeshipFormControl.toLowerCase());
             this.adService.getCitiesV(VoivodeshipId[0].id).subscribe((city: Array<City>) => {
-                this.loading = true;
                 this.cities = city;
                 this.AdForm.controls.CityFormControl.enable();
-                this.loading = false;
             });
         }
     }
