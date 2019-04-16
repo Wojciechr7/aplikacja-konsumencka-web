@@ -20,6 +20,7 @@ export class AdService {
     public advertisements: Array<Ad>;
     private pagesToEnd: number;
     private adFilter: string;
+    public adEditingId: string;
 
     constructor(private http: HttpClient, private toastr: ToastrService) {
         this.files = [];
@@ -64,6 +65,10 @@ export class AdService {
 
     public getAd(id: string): Observable<Ad> {
         return this.http.get<Ad>(`${GLOBAL.URL}/advertisements/${id}`);
+    }
+
+    public updateAd(data: Ad, id: string): Observable<Ad> {
+        return this.http.put<Ad>(`${GLOBAL.URL}/advertisements/${id}`, data);
     }
 
     public getAdvertisements(): Observable<AdHome> {

@@ -61,11 +61,18 @@ export class AddAdComponent implements OnInit, OnDestroy {
                 category: this.AdForm.value.CategoryFormControl,
                 floor: parseInt(this.AdForm.value.FloorFormControl, 10)
             };
+            if (!this.edit) {
+                this.adService.addAd(ad as Ad).subscribe(() => {
+                    this.toastr.success('Advertisement Has Been Added Successfully', 'Success!');
+                    this.router.navigate(['/home']);
+                });
+            } else {
+                this.adService.updateAd(ad as Ad, this.adService.adEditingId).subscribe(() => {
+                    this.toastr.success('Advertisement Has Been Updated Successfully', 'Success!');
+                    this.router.navigate(['/home']);
+                });
+            }
 
-            this.adService.addAd(ad as Ad).subscribe(() => {
-                this.toastr.success('Advertisement Has Been Added Successfully', 'Success!');
-                this.router.navigate(['/home']);
-            });
         }
 
     }
@@ -88,6 +95,7 @@ export class AddAdComponent implements OnInit, OnDestroy {
 
         if (this.edit) {
             this.adEditData.subscribe((ad: Ad) => {
+                console.log(ad);
                 this.AdForm.get('TitleFormControl').setValue(ad.title);
                 this.AdForm.get('CategoryFormControl').setValue(ad.category);
                 this.AdForm.get('CityFormControl').setValue(ad.city);
