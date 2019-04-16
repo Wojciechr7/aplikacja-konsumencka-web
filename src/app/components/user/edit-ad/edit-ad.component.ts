@@ -21,6 +21,7 @@ export class EditAdComponent implements OnInit {
     this.adData = this.route.paramMap.pipe(
         switchMap((params: ParamMap) => {
           this.adId = params.get('id');
+          this.adService.adEditingId = this.adId;
           return this.adService.getAd(this.adId);
         }));
 
