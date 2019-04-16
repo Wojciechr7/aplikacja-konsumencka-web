@@ -42,6 +42,7 @@ import { HomeAdvertisementsComponent } from './components/home/home-advertisemen
 import { UserComponent } from './components/user/user.component';
 import { UserProfileComponent } from './components/user/user-profile/user-profile.component';
 import { EditProfileDialogComponent } from './dialogs/edit-profile/edit-profile.dialog';
+import { SendMsgComponent } from './components/home/advertisement/send-msg/send-msg.component';
 
 @NgModule({
     declarations: [
@@ -61,7 +62,8 @@ import { EditProfileDialogComponent } from './dialogs/edit-profile/edit-profile.
         HomeAdvertisementsComponent,
         UserComponent,
         UserProfileComponent,
-        EditProfileDialogComponent
+        EditProfileDialogComponent,
+        SendMsgComponent
     ],
     imports: [
         BrowserModule,

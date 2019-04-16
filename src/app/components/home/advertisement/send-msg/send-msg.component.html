@@ -1,0 +1,9 @@
+<mat-card class="msg-container">
+    <form [formGroup]="msgForm" (ngSubmit)="onSubmit()">
+        <mat-form-field class="message">
+            <textarea rows="10" label="Send message" matInput placeholder="your message" formControlName="msgFormControl">
+            </textarea>
+        </mat-form-field>
+        <button mat-raised-button color="primary">Send Message</button>
+    </form>
+</mat-card>
