@@ -14,13 +14,19 @@ export class AdvertisementComponent implements OnInit {
 
     public adData: Observable<Ad>;
     public adId: string;
+    public fullView: boolean;
 
     constructor(private route: ActivatedRoute, private router: Router, public adService: AdService) {
+        this.fullView = false;
     }
 
     public noImage(i: string): boolean {
 
         return i.indexOf('base64') > 0;
+    }
+
+    public changeView(): void {
+        this.fullView = !this.fullView;
     }
 
     ngOnInit() {
