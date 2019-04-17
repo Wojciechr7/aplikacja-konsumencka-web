@@ -5,13 +5,26 @@
                [opened]="!(isHandset$ | async)">
     <mat-toolbar color="primary" >Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item *ngIf="!authenticationService.currentUserValue" routerLink="/user/sign-in">Sign In</a>
-      <a mat-list-item *ngIf="!authenticationService.currentUserValue" routerLink="/user/sign-up">Sign Up</a>
-      <a mat-list-item *ngIf="authenticationService.currentUserValue" routerLink="/add-ad">Add Advertisement</a>
-      <a mat-list-item *ngIf="authenticationService.currentUserValue" routerLink="/user/advertisements">View Advertisements</a>
-      <a mat-list-item *ngIf="authenticationService.currentUserValue" routerLink="/user/profile">My Profile</a>
-      <a mat-list-item href="javascript:void(0)" *ngIf="authenticationService.currentUserValue" (click)="logout()">Logout</a>
+      <a mat-list-item *ngIf="!authenticationService.currentUserValue" routerLink="/user/sign-in">
+        <mat-icon>input</mat-icon>
+        Sign In</a>
+      <a mat-list-item *ngIf="!authenticationService.currentUserValue" routerLink="/user/sign-up">
+        <mat-icon>person_add</mat-icon>
+        Sign Up</a>
+      <a mat-list-item *ngIf="authenticationService.currentUserValue" routerLink="/add-ad">
+        <mat-icon>add_circle_outline</mat-icon>
+        Add Advertisement</a>
+      <a mat-list-item *ngIf="authenticationService.currentUserValue" routerLink="/user/advertisements">
+        <mat-icon>description</mat-icon>
+        View Advertisements</a>
+      <a mat-list-item *ngIf="authenticationService.currentUserValue" routerLink="/user/profile">
+        <mat-icon>person_outline</mat-icon>
+        My Profile</a>
+      <a mat-list-item href="javascript:void(0)" *ngIf="authenticationService.currentUserValue" (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        Logout</a>
     </mat-nav-list>
+
   </mat-sidenav>
   <mat-sidenav-content
           infiniteScroll
