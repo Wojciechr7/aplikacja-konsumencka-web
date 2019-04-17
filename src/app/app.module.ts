@@ -42,7 +42,7 @@ import { HomeAdvertisementsComponent } from './components/home/home-advertisemen
 import { UserComponent } from './components/user/user.component';
 import { UserProfileComponent } from './components/user/user-profile/user-profile.component';
 import { EditProfileDialogComponent } from './dialogs/edit-profile/edit-profile.dialog';
-import { SendMsgComponent } from './components/home/advertisement/send-msg/send-msg.component';
+import { SendMessageComponent } from './components/home/advertisement/send-message/send-message.component';
 
 @NgModule({
     declarations: [
@@ -63,7 +63,7 @@ import { SendMsgComponent } from './components/home/advertisement/send-msg/send-
         UserComponent,
         UserProfileComponent,
         EditProfileDialogComponent,
-        SendMsgComponent
+        SendMessageComponent
     ],
     imports: [
         BrowserModule,

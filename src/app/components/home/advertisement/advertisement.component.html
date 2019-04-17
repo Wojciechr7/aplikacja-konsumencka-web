@@ -1,4 +1,5 @@
-<mat-card class="ad-container" *ngIf="adData | async as ad; else loading">
+<ng-container *ngIf="adData | async as ad; else loading">
+<mat-card class="ad-container">
   <mdb-carousel [interval]="0" [animation]="'slide'" *ngIf="ad.images.length > 1; else oneImg">
     <mdb-carousel-item *ngFor="let img of ad.images">
       <img class="d-block w-100"  [src]="img.image" alt="image">
@@ -36,6 +37,8 @@
     </mat-grid-list>
   </mat-card-content>
 </mat-card>
+<app-send-message [userId]="adData"></app-send-message>
+</ng-container>
 <ng-template #loading>
   <div class="center"><mat-progress-spinner [diameter]="100" color="primary" mode="indeterminate"></mat-progress-spinner></div>
 </ng-template>

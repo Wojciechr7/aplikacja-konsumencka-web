@@ -1,3 +1,3 @@
-export interface PostMessage {
-    text: string;
+export interface Message {
+  text: string;
 }

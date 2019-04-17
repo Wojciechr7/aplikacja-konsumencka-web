@@ -1,0 +1,11 @@
+<mat-card>
+  <mat-card-content>
+    <div class="form">
+      <form class="form-group" [formGroup]="MessageForm" (ngSubmit)="onSubmit()" >
+        <input type="text" formControlName="title" class="from-control title form-control-lg" placeholder="Title">
+        <textarea formControlName="text" class="form-control" rows="6"></textarea>
+        <button mat-raised-button color="primary" class="btn-send" placeholder="Type your message">Send</button>
+      </form>
+    </div>
+  </mat-card-content>
+</mat-card>
