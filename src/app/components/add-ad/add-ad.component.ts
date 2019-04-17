@@ -37,6 +37,7 @@ export class AddAdComponent implements OnInit, OnDestroy {
         this.category = ['Apartment', 'Room', 'House', 'Office'];
         this.types = ['rent', 'sale'];
         this.loading = true;
+        this.cities = [];
         this.adService.getVoivodeships().subscribe((voivodeships: Array<Voivodeship>) => {
             this.Voivodeships = voivodeships;
         });
@@ -47,31 +48,42 @@ export class AddAdComponent implements OnInit, OnDestroy {
     }
 
     public onSubmit(): void {
-        this.checkCity();
+
         if (!this.AdForm.invalid) {
-            const city = this.cities.filter(cityN => cityN.name === this.AdForm.value.CityFormControl);
-            const ad = {
-                title: this.AdForm.value.TitleFormControl,
-                images: [...this.adService.files],
-                description: this.AdForm.value.DescriptionFormControl,
-                price: parseInt(this.AdForm.value.PriceFormControl, 10),
-                city: city[0].id,
-                street: this.AdForm.value.StreetFormControl,
-                size: parseInt(this.AdForm.value.SizeFormControl, 10),
-                category: this.AdForm.value.CategoryFormControl,
-                floor: parseInt(this.AdForm.value.FloorFormControl, 10)
-            };
-            if (!this.edit) {
-                this.adService.addAd(ad as Ad).subscribe(() => {
-                    this.toastr.success('Advertisement Has Been Added Successfully', 'Success!');
-                    this.router.navigate(['/home']);
-                });
-            } else {
-                this.adService.updateAd(ad as Ad, this.adService.adEditingId).subscribe(() => {
-                    this.toastr.success('Advertisement Has Been Updated Successfully', 'Success!');
-                    this.router.navigate(['/home']);
-                });
-            }
+
+            const VoivodeshipId = this.Voivodeships.filter(voivodeship =>
+                voivodeship.name === this.AdForm.value.VoivodeshipFormControl.toLowerCase());
+
+            this.adService.getCitiesV(VoivodeshipId[0].id).subscribe((cts: Array<City>) => {
+                this.cities = cts;
+
+                const cityId = this.cities.find((cty: City) => this.AdForm.value.CityFormControl === cty.name).id;
+
+                const ad = {
+                    title: this.AdForm.value.TitleFormControl,
+                    images: [...this.adService.files],
+                    description: this.AdForm.value.DescriptionFormControl,
+                    price: parseInt(this.AdForm.value.PriceFormControl, 10),
+                    city: cityId,
+                    street: this.AdForm.value.StreetFormControl,
+                    size: parseInt(this.AdForm.value.SizeFormControl, 10),
+                    category: this.AdForm.value.CategoryFormControl,
+                    floor: parseInt(this.AdForm.value.FloorFormControl, 10)
+                };
+                if (!this.edit) {
+                    this.adService.addAd(ad as Ad).subscribe(() => {
+                        this.toastr.success('Advertisement Has Been Added Successfully', 'Success!');
+                        this.router.navigate(['/home']);
+                    });
+                } else {
+                    this.adService.updateAd(ad as Ad, this.adService.adEditingId).subscribe(() => {
+                        this.toastr.success('Advertisement Has Been Updated Successfully', 'Success!');
+                        this.router.navigate(['/home']);
+                    });
+
+
+                }
+            });
 
         }
 
@@ -95,7 +107,6 @@ export class AddAdComponent implements OnInit, OnDestroy {
 
         if (this.edit) {
             this.adEditData.subscribe((ad: Ad) => {
-                console.log(ad);
                 this.AdForm.get('TitleFormControl').setValue(ad.title);
                 this.AdForm.get('CategoryFormControl').setValue(ad.category);
                 this.AdForm.get('CityFormControl').setValue(ad.city);
@@ -104,7 +115,8 @@ export class AddAdComponent implements OnInit, OnDestroy {
                 this.AdForm.get('FloorFormControl').setValue(ad.floor);
                 this.AdForm.get('PriceFormControl').setValue(ad.price);
                 this.AdForm.get('DescriptionFormControl').setValue(ad.description);
-                // TODO this.AdForm.get('VoivodeshipFormControl').setValue(ad);
+                this.AdForm.get('VoivodeshipFormControl').setValue(ad.voivodeship);
+                this.AdForm.controls.CityFormControl.enable();
 
                 ad.images.forEach((img: ImageAd) => {
                     this.adService.files.push(img);

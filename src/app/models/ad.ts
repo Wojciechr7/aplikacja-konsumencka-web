@@ -14,4 +14,5 @@ export interface Ad {
     category: string;
     floor?: number;
     userId?: string;
+    voivodeship: string;
 }
