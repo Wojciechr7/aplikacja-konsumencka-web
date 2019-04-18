@@ -11,6 +11,7 @@ import {AdvertisementComponent} from './components/home/advertisement/advertisem
 import {HomeAdvertisementsComponent} from './components/home/home-advertisements/home-advertisements.component';
 import {EditAdComponent} from './components/user/edit-ad/edit-ad.component';
 import {UserProfileComponent} from './components/user/user-profile/user-profile.component';
+import {MessagesComponent} from './components/user/messages/messages.component';
 
 const routes: Routes = [
     {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -28,6 +29,7 @@ const routes: Routes = [
             {path: 'advertisements/:id', component: EditAdComponent, canActivate: [AuthGuard]},
             {path: 'advertisements', component: UserAdvertisementsComponent, canActivate: [AuthGuard]},
             {path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard]},
+            {path: 'messages', component: MessagesComponent, canActivate: [AuthGuard]}
         ]
     },
     {path: 'add-ad', component: AddAdComponent, canActivate: [AuthGuard]},
@@ -35,7 +37,10 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [RouterModule.forRoot(routes,
+        {
+            useHash: false
+        })],
     exports: [RouterModule]
 })
 export class AppRoutingModule {

@@ -20,6 +20,9 @@
       <a mat-list-item *ngIf="authenticationService.currentUserValue" routerLink="/user/profile">
         <mat-icon>person_outline</mat-icon>
         My Profile</a>
+      <a mat-list-item *ngIf="authenticationService.currentUserValue" routerLink="/user/messages">
+        <mat-icon>message</mat-icon>
+        Messages</a>
       <a mat-list-item href="javascript:void(0)" *ngIf="authenticationService.currentUserValue" (click)="logout()">
         <mat-icon>exit_to_app</mat-icon>
         Logout</a>
