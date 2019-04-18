@@ -1,0 +1,48 @@
+<ng-container *ngIf="adData | async as ad; else loading">
+  <div class="wrapper">
+    <mat-card class="ad-container">
+      <mdb-carousel [interval]="0" [animation]="'slide'" *ngIf="ad.images.length > 1; else oneImg" [ngClass]="{'full-size': fullView}">
+        <mdb-carousel-item *ngFor="let img of ad.images" [ngClass]="{'full-size': fullView}">
+          <img class="d-block w-100"  [src]="img.image" alt="image" (click)="changeView()">
+        </mdb-carousel-item>
+      </mdb-carousel>
+      <ng-template #oneImg>
+        <img mat-card-image *ngIf="ad.images[0] && noImage(ad.images[0].image)" [src]="ad.images[0].image" (click)="changeView()">
+      </ng-template>
+
+      <mat-card-header>
+        <mat-card-title>{{ad.title}}</mat-card-title>
+        <mat-card-subtitle>{{ad.street}}, {{ad.city}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-grid-list cols="4" rowHeight="4:1">
+          <mat-grid-tile>Category</mat-grid-tile>
+          <mat-grid-tile>{{ad.category}}</mat-grid-tile>
+          <ng-container *ngIf="ad.size">
+            <mat-grid-tile>Size</mat-grid-tile>
+            <mat-grid-tile>{{ad.size}}m<sup>2</sup></mat-grid-tile>
+          </ng-container>
+          <ng-container *ngIf="ad.floor">
+            <mat-grid-tile>Floor</mat-grid-tile>
+            <mat-grid-tile>{{ad.floor}}</mat-grid-tile>
+          </ng-container>
+        </mat-grid-list>
+        <mat-grid-list cols="1">
+          <div class="wrapper">{{ad.description}}</div>
+        </mat-grid-list>
+        <mat-grid-list cols="4" rowHeight="4:1">
+          <mat-grid-tile>Price</mat-grid-tile>
+          <mat-grid-tile>{{ad.price}}zł</mat-grid-tile>
+          <mat-grid-tile>Phone</mat-grid-tile>
+          <mat-grid-tile>{{ad.phoneNumber}}</mat-grid-tile>
+        </mat-grid-list>
+      </mat-card-content>
+    </mat-card>
+    <app-send-message [userId]="adData"></app-send-message>
+  </div>
+
+</ng-container>
+
+<ng-template #loading>
+  <mat-progress-spinner [diameter]="50" color="primary" mode="indeterminate"></mat-progress-spinner>
+</ng-template>

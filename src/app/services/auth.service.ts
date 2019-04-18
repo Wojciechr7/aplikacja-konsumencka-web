@@ -29,7 +29,7 @@ export class AuthService {
     }
 
     public login(data: LoginData): Observable<User> {
-        return this.http.post<User>(`${GLOBAL.URL}/Login`, data)
+        return this.http.post<User>(`${GLOBAL.URL}/users/login`, data)
             .pipe(map(user => {
                 // login successful if there's a jwt token in the response
                 if (user && user.token) {
@@ -43,7 +43,7 @@ export class AuthService {
     }
 
     public register(data: RegisterData): Observable<User> {
-        return this.http.post<User>(`${GLOBAL.URL}/Registration`, data);
+        return this.http.post<User>(`${GLOBAL.URL}/users/registration`, data);
     }
 
     public logout(): void {

@@ -13,4 +13,6 @@ export interface Ad {
     size: number;
     category: string;
     floor?: number;
+    userId?: string;
+    voivodeship: string;
 }

@@ -1,4 +1,5 @@
 <mat-card class="container">
+    <mat-progress-spinner class="loading" *ngIf="loading" [diameter]="50" color="primary" mode="indeterminate"></mat-progress-spinner>
     <form [formGroup]="AdForm" (ngSubmit)="onSubmit()">
         <mat-toolbar color="primary">
             <h2>Your advertisement</h2>
@@ -9,9 +10,8 @@
               <ng-container *ngIf="f.TitleFormControl.hasError('required') ">Tittle is required</ng-container>
               <ng-container *ngIf="f.TitleFormControl.hasError('minlength') ">Tittle must be at least 5 characters</ng-container>
             </mat-error>
-<!--            <mat-error>Tittle is required</mat-error>-->
         </mat-form-field>
-            <h3>Category</h3>
+          <h3>Category</h3>
             <mat-form-field>
                 <mat-select placeholder="Select category" formControlName="CategoryFormControl">
                     <mat-option *ngFor="let cat of category" [value]="cat">
@@ -22,22 +22,22 @@
             </mat-form-field>
             <h3>Location</h3>
             <mat-form-field class="info">
-              <input matInput type="text" placeholder="Voivodeship" formControlName="VoivodeshipFormControl" (change) = "CityFormControl=''" (focusout)="getVoivodeship($event)" [matAutocomplete]="auto"  >
+              <input matInput type="text" placeholder="Voivodeship" formControlName="VoivodeshipFormControl" (click)="showVoivodeships()" (blur)="getVoivodeship($event)" [matAutocomplete]="auto"  >
               <mat-autocomplete autoActiveFirstOption  #auto = "matAutocomplete">
-                <mat-option *ngFor="let Voivodeship of filtretOptionsV | async" [value]="Voivodeship">
-                  {{Voivodeship}}
+                <mat-option *ngFor="let Voivodeship of filtretOptionsV | async" [value]="Voivodeship.name">
+                  {{Voivodeship.name}}
                 </mat-option>
               </mat-autocomplete>
-              <mat-error *ngIf="!(f.CityFormControl.disabled)">Voivodeship is required</mat-error>
+              <mat-error>Voivodeship is required</mat-error>
             </mat-form-field>
             <mat-form-field class="info">
-                <input matInput type="text" placeholder="City" formControlName="CityFormControl" (clikc) = "showCities()" [matAutocomplete]="autoV"  (click)="showCities()">
+                <input matInput type="text" placeholder="City" formControlName="CityFormControl" [matAutocomplete]="autoV"  (blur)="checkCity()" (click)="showCities()">
               <mat-autocomplete autoActiveFirstOption #autoV="matAutocomplete">
                 <mat-option *ngFor="let city of filteredOptions | async" [value]="city.name">
                   {{city.name}}
                 </mat-option>
               </mat-autocomplete>
-                <mat-error>City is required</mat-error>
+                <mat-error *ngIf="f.CityFormControl.hasError('required')">City is required</mat-error>
             </mat-form-field>
             <mat-form-field class="info">
                 <input matInput type="text" placeholder="Street" formControlName="StreetFormControl">
@@ -83,14 +83,15 @@
                     <mat-icon color="warn" (click)="removeImage(i)">remove_circle_outline</mat-icon>
                 </div>
               <div class="images">
-                <img [src]="img.image">
+                <img [src]="img.image" alt="">
               </div>
             </mat-tab>
         </mat-tab-group>
-
+      <div class="justify-content-between d-flex wdh buttons">
         <button class="add-img" type="button" mat-raised-button color="primary" (click)="imgInput.click()">Add Image</button>
-        <button mat-raised-button color="primary">Add advertisement</button>
-
+        <button mat-raised-button color="primary" *ngIf="!edit">Add advertisement</button>
+        <button mat-raised-button color="primary" *ngIf="edit">Save</button>
+      </div>
 
     </form>
     <input #imgInput hidden type="file" id="files" accept="image/*" (change)="addImage()">
