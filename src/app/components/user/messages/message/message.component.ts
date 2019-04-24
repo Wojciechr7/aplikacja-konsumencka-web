@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {MessageService} from '../../../../services/message.service';
 
 @Component({
   selector: 'app-message',
@@ -7,13 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MessageComponent implements OnInit {
 
-  public date: Date;
+  @Input() date: Date;
+  @Input() content: string;
 
-  constructor() {
-    this.date = new Date();
+  constructor(private messageService: MessageService) {
   }
 
   ngOnInit() {
+
   }
 
 }

@@ -1,4 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {MessageService} from '../../../services/message.service';
+import {Conversation} from '../../../models/conversation';
+import {AuthService} from '../../../services/auth.service';
 
 
 @Component({
@@ -9,9 +12,14 @@ import {Component, OnInit} from '@angular/core';
 export class MessagesComponent implements OnInit {
 
   public step: number;
+  public conversations;
+  public messages;
+  conversationsTest = [];
 
-  constructor() {
+  constructor(private messageService: MessageService, private authenticationService: AuthService) {
     this.step = null;
+    this.conversations = [];
+    this.messages = [];
 
   }
 
@@ -34,6 +42,38 @@ export class MessagesComponent implements OnInit {
 
 
   ngOnInit() {
+
+    this.messageService.getConversations().subscribe((conversations: Array<Conversation>) => {
+      // console.log(conversations);
+      conversations.forEach(conversation => {
+        this.conversations.push(conversation);
+
+      });
+
+      const firstNames = [];
+      this.conversations = this.conversations.filter(conv => {
+        if (!firstNames.includes(conv.firstName)) {
+          firstNames.push(conv.firstName);
+          return true;
+        }
+      });
+
+      this.conversations.forEach(conv => {
+        this.messageService.getMessages(conv.senderId).subscribe(messages => {
+          //console.log({conv, messages});
+          //console.log({conv, messages});
+          this.conversationsTest.push({
+            conv: conv,
+            messages: messages
+          });
+          //return {conv, messages};
+        });
+      });
+
+
+
+
+    });
   }
 
 }

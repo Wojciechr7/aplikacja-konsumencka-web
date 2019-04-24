@@ -32,7 +32,7 @@ export class SendMessageComponent implements OnInit {
                 text: this.messageForm.value.text
             };
             this.userId.subscribe((ad: Ad) => {
-                this.messageService.sendMessage(ad.userId, message as Message).subscribe(() => {
+                this.messageService.sendMessage(ad.userId ? ad.userId : '0', message as Message).subscribe(() => {
                     this.toastr.success('Message Has Been Sent', 'Success!');
                     this.messageForm.get('text').setValue('');
                 });
@@ -42,8 +42,6 @@ export class SendMessageComponent implements OnInit {
 
     ngOnInit() {
         this.messageForm = this.formBuilder.group({
-            email: [this.authenticationService.currentUserValue ? this.authenticationService.currentUserValue.email : '',
-                [Validators.required, Validators.email]],
             text: ['', Validators.required]
         });
     }
