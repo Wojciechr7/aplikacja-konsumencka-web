@@ -2,10 +2,9 @@ import { Component, Inject } from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 export interface DialogData {
-  name: string;
   value: string;
   oldPassword: string;
-  type: string;
+  type?: string;
 }
 
 @Component({
@@ -25,13 +24,7 @@ export class EditProfileDialogComponent {
     this.dialogRef.close();
   }
   checkValidation() {
-    if (this.data.type === 'email') {
-      const emailPattern = this.data.value.match('[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}');
-      this.disableButton = !emailPattern;
-      } else if (this.data.type === 'phoneNumber') {
-      const phonePattern = this.data.value.match('^(?:\\(?\\+?48)?(?:[-\\.\\(\\)\\s]*(\\d)){9}\\)?$');
-      this.disableButton = !phonePattern;
-    } else if (this.data.type === 'password') {
+  if (this.data.type === 'password') {
         this.disableButton = !(this.passwordMatch === this.data.value);
         this.disableButton = this.data.value.length < 8;
     } else {

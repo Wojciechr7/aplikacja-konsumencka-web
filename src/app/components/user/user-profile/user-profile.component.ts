@@ -5,6 +5,8 @@ import {AuthService} from '../../../services/auth.service';
 import {MatDialog} from '@angular/material';
 import {DialogData, EditProfileDialogComponent} from '../../../dialogs/edit-profile/edit-profile.dialog';
 import {ToastrService} from 'ngx-toastr';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {checkPassword} from '../../../helpers/checkPassword.validator';
 
 @Component({
   selector: 'app-user-profile',
@@ -16,8 +18,12 @@ export class UserProfileComponent implements OnInit {
   public userId: string;
   public userInfo: RegisterData;
   public loading: boolean;
+  public edit: boolean;
+  public editProfileForm: FormGroup;
 
-  constructor(public userService: UserService, public authService: AuthService, public dialog: MatDialog,  private toastr: ToastrService) {
+  constructor(public userService: UserService, public authService: AuthService, public dialog: MatDialog,  private toastr: ToastrService,
+              private formBuilder: FormBuilder) {
+    this.edit = false;
     this.loading = true;
     this.userId = authService.currentUserValue.id;
   }
@@ -27,6 +33,18 @@ export class UserProfileComponent implements OnInit {
       this.userInfo = user;
       this.loading = false;
     });
+    this.editProfileForm = this.formBuilder.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      PhoneNumber: new FormControl('',
+        [Validators.required, Validators.pattern('^(?:\\(?\\+?48)?(?:[-\\.\\(\\)\\s]*(\\d)){9}\\)?$')])
+    });
+  }
+  public onSubmit() {
+    if (this.editProfileForm.valid) {
+      this.openDialog();
+    }
   }
   public updateUser(newUser: RegisterData) {
     this.userService.updateUserInfo(this.userId, newUser).subscribe(() => {
@@ -34,7 +52,7 @@ export class UserProfileComponent implements OnInit {
       this.userInfo = newUser;
     });
   }
-  openDialog(target: string) {
+  openDialog(target?: string) {
     const user: RegisterData = Object.assign({}, this.userInfo);
     const dialogRef = this.dialog.open(EditProfileDialogComponent, {
       width: `250px`,
@@ -50,4 +68,8 @@ export class UserProfileComponent implements OnInit {
       }
     });
   }
+  public enableEdit() {
+    this.edit = !this.edit;
+  }
+  get f(): any { return this.editProfileForm.controls; }
 }
