@@ -14,4 +14,8 @@ export class MessageService {
   public sendMessage(id: string, content: Message): Observable<Message> {
     return this.http.post<Message>(`${GLOBAL.URL}/users/messages/${id}`, content);
   }
+
+  public getMessages(id: string): Observable<Array<Message>> {
+    return this.http.get<Array<Message>>(`${GLOBAL.URL}/users/messages/${id}`);
+  }
 }

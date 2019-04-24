@@ -8,8 +8,28 @@ import {Component, OnInit} from '@angular/core';
 })
 export class MessagesComponent implements OnInit {
 
+  public step: number;
 
-  constructor() { }
+  constructor() {
+    this.step = null;
+
+  }
+
+  setStep(index: number) {
+    this.step = index;
+  }
+
+  nextStep() {
+    this.step++;
+  }
+
+  prevStep() {
+    this.step--;
+  }
+
+  sendEmail() {
+    window.open('mailto:test@example.com');
+  }
 
 
 

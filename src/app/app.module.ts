@@ -59,6 +59,7 @@ import {UserProfileComponent} from './components/user/user-profile/user-profile.
 import {EditProfileDialogComponent} from './dialogs/edit-profile/edit-profile.dialog';
 import {SendMessageComponent} from './components/home/advertisement/send-message/send-message.component';
 import {MessagesComponent} from './components/user/messages/messages.component';
+import { MessageComponent } from './components/user/messages/message/message.component';
 
 @NgModule({
     declarations: [
@@ -80,7 +81,8 @@ import {MessagesComponent} from './components/user/messages/messages.component';
         UserProfileComponent,
         EditProfileDialogComponent,
         SendMessageComponent,
-        MessagesComponent
+        MessagesComponent,
+        MessageComponent
     ],
     imports: [
         BrowserModule,
