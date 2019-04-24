@@ -48,7 +48,7 @@ export class AdService {
         this.page++;
 
         if (this.pagesToEnd) {
-            this.getAdvertisements().subscribe( (ad: AdHome) => {
+            this.getAdvertisements().subscribe((ad: AdHome) => {
                 if (ad) {
                     this.pagesToEnd = ad.pagesToEnd;
                     this.advertisements = [...this.advertisements, ...(ad.advertisement)];
@@ -80,12 +80,18 @@ export class AdService {
     }
 
     public getCitiesV(VoivodeshipId: string): Observable<Array<City>> {
-      return this.http.get<Array<City>>(`${GLOBAL.URL}/voivodeships/${VoivodeshipId}/cities`);
+        return this.http.get<Array<City>>(`${GLOBAL.URL}/voivodeships/${VoivodeshipId}/cities`);
     }
-     public getVoivodeships(): Observable<Array<Voivodeship>> {
-      return this.http.get<Array<Voivodeship>>(`${GLOBAL.URL}/voivodeships`);
-     }
-/*    public getCities(): Observable<Array<City>> {
-      return this.http.get<Array<City>>(`${GLOBAL.URL}/cities`);
-    }*/
+
+    public getVoivodeships(): Observable<Array<Voivodeship>> {
+        return this.http.get<Array<Voivodeship>>(`${GLOBAL.URL}/voivodeships`);
+    }
+
+    public removeAd(): Observable<Ad> {
+        return this.http.delete<Ad>(`${GLOBAL.URL}/advertisements/${this.adEditingId}`);
+    }
+
+    /*    public getCities(): Observable<Array<City>> {
+          return this.http.get<Array<City>>(`${GLOBAL.URL}/cities`);
+        }*/
 }

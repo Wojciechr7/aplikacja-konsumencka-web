@@ -60,6 +60,7 @@ import {EditProfileDialogComponent} from './dialogs/edit-profile/edit-profile.di
 import {SendMessageComponent} from './components/home/advertisement/send-message/send-message.component';
 import {MessagesComponent} from './components/user/messages/messages.component';
 import { MessageComponent } from './components/user/messages/message/message.component';
+import {ConfirmDialogComponent} from './dialogs/confirm/confirm.dialog';
 
 @NgModule({
     declarations: [
@@ -82,7 +83,8 @@ import { MessageComponent } from './components/user/messages/message/message.com
         EditProfileDialogComponent,
         SendMessageComponent,
         MessagesComponent,
-        MessageComponent
+        MessageComponent,
+        ConfirmDialogComponent
     ],
     imports: [
         BrowserModule,
@@ -124,7 +126,8 @@ import { MessageComponent } from './components/user/messages/message/message.com
     bootstrap: [AppComponent],
     entryComponents: [
         InfoDialogComponent,
-        EditProfileDialogComponent
+        EditProfileDialogComponent,
+        ConfirmDialogComponent
     ]
 })
 export class AppModule {

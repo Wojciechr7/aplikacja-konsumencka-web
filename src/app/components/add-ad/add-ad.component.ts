@@ -10,6 +10,9 @@ import {map, startWith} from 'rxjs/operators';
 import {ImageService} from '../../services/image.service';
 import {ImageAd} from '../../models/image';
 import {Voivodeship} from '../../models/voivodeship';
+import {MatDialog} from '@angular/material';
+import {DialogData, EditProfileDialogComponent} from '../../dialogs/edit-profile/edit-profile.dialog';
+import {ConfirmDialogComponent} from '../../dialogs/confirm/confirm.dialog';
 
 
 @Component({
@@ -32,7 +35,7 @@ export class AddAdComponent implements OnInit, OnDestroy {
 
 
     constructor(private formBuilder: FormBuilder, public adService: AdService, private router: Router,
-                private toastr: ToastrService, private imageService: ImageService) {
+                private toastr: ToastrService, private imageService: ImageService, private dialog: MatDialog) {
         this.hide = true;
         this.category = ['Apartment', 'Room', 'House', 'Office'];
         this.types = ['rent', 'sale'];
@@ -189,5 +192,21 @@ export class AddAdComponent implements OnInit, OnDestroy {
         if (this.cities.map(cityName => cityName.name.toLowerCase()).indexOf(city) === -1) {
             this.AdForm.controls.CityFormControl.patchValue('');
         }
+    }
+
+    public removeAd() {
+        const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+            width: `350px`,
+            data: {message: 'Confirm Deletion Of The Advertisement', adTitle: this.AdForm.get('TitleFormControl').value}
+        });
+
+        dialogRef.afterClosed().subscribe((result: DialogData) => {
+            if (result) {
+                this.adService.removeAd().subscribe(() => {
+                    this.toastr.success('Advertisement Has Been Deleted', 'Success!');
+                    this.router.navigate(['/home']);
+                });
+            }
+        });
     }
 }

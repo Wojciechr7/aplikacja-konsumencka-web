@@ -89,7 +89,8 @@
         </mat-tab-group>
       <div class="justify-content-between d-flex wdh buttons">
         <button class="add-img" type="button" mat-raised-button color="primary" (click)="imgInput.click()">Add Image</button>
-        <button mat-raised-button color="primary" *ngIf="!edit">Add advertisement</button>
+        <button mat-raised-button color="primary" *ngIf="!edit">Add Advertisement</button>
+        <button mat-raised-button type="button" color="warn" (click)="removeAd()" *ngIf="edit">Remove Advertisement</button>
         <button mat-raised-button color="primary" *ngIf="edit">Save</button>
       </div>
 
