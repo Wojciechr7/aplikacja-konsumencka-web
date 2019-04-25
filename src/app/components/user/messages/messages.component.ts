@@ -5,75 +5,64 @@ import {AuthService} from '../../../services/auth.service';
 
 
 @Component({
-  selector: 'app-messages',
-  templateUrl: './messages.component.html',
-  styleUrls: ['./messages.component.scss']
+    selector: 'app-messages',
+    templateUrl: './messages.component.html',
+    styleUrls: ['./messages.component.scss']
 })
 export class MessagesComponent implements OnInit {
 
-  public step: number;
-  public conversations;
-  public messages;
-  conversationsTest = [];
+    public step: number;
+    public conversations;
+    public messages;
+    conversationsTest = [];
 
-  constructor(private messageService: MessageService, private authenticationService: AuthService) {
-    this.step = null;
-    this.conversations = [];
-    this.messages = [];
+    constructor(private messageService: MessageService, private authenticationService: AuthService) {
+        this.step = null;
+        this.conversations = [];
+        this.messages = [];
 
-  }
+    }
 
-  setStep(index: number) {
-    this.step = index;
-  }
+    setStep(index: number) {
+        this.step = index;
+    }
 
-  nextStep() {
-    this.step++;
-  }
+    nextStep() {
+        this.step++;
+    }
 
-  prevStep() {
-    this.step--;
-  }
+    prevStep() {
+        this.step--;
+    }
 
-  sendEmail() {
-    window.open('mailto:test@example.com');
-  }
+    sendEmail() {
+        window.open('mailto:test@example.com');
+    }
 
+    ngOnInit() {
+        this.messageService.getConversations().subscribe((conversations: Array<Conversation>) => {
+            conversations.forEach(conversation => {
+                this.conversations.push(conversation);
 
+            });
 
-  ngOnInit() {
+            const firstNames = [];
+            this.conversations = this.conversations.filter(conv => {
+                if (!firstNames.includes(conv.firstName)) {
+                    firstNames.push(conv.firstName);
+                    return true;
+                }
+            });
 
-    this.messageService.getConversations().subscribe((conversations: Array<Conversation>) => {
-      // console.log(conversations);
-      conversations.forEach(conversation => {
-        this.conversations.push(conversation);
-
-      });
-
-      const firstNames = [];
-      this.conversations = this.conversations.filter(conv => {
-        if (!firstNames.includes(conv.firstName)) {
-          firstNames.push(conv.firstName);
-          return true;
-        }
-      });
-
-      this.conversations.forEach(conv => {
-        this.messageService.getMessages(conv.senderId).subscribe(messages => {
-          //console.log({conv, messages});
-          //console.log({conv, messages});
-          this.conversationsTest.push({
-            conv: conv,
-            messages: messages
-          });
-          //return {conv, messages};
+            this.conversations.forEach(conv => {
+                this.messageService.getMessages(conv.senderId).subscribe(messages => {
+                    this.conversationsTest.push({
+                        conv: conv,
+                        messages: messages
+                    });
+                });
+            });
         });
-      });
-
-
-
-
-    });
-  }
+    }
 
 }

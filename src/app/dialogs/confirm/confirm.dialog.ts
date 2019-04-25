@@ -14,12 +14,12 @@ export class ConfirmDialogComponent {
 
     constructor(
         public dialogRef: MatDialogRef<ConfirmDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+        @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+    }
 
     closeDialog(decision: boolean): void {
         this.dialogRef.close(decision);
     }
-
 
 
 }

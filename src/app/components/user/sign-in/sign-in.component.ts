@@ -22,7 +22,6 @@ export class SignInComponent implements OnInit {
   get f(): any { return this.signInForm.controls; }
 
   public onSubmit(): void {
-
     if (!this.signInForm.invalid) {
       this.authenticationService.loading = true;
       this.authenticationService.login(this.signInForm.value as LoginData).pipe(first())
@@ -40,7 +39,6 @@ export class SignInComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
-
     this.authenticationService.loading = false;
   }
 

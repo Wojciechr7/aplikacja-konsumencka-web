@@ -31,10 +31,8 @@ export class AuthService {
     public login(data: LoginData): Observable<User> {
         return this.http.post<User>(`${GLOBAL.URL}/users/login`, data)
             .pipe(map(user => {
-                // login successful if there's a jwt token in the response
                 if (user && user.token) {
                     this.loading = false;
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify(user));
                     this.currentUserSubject.next(user);
                 }

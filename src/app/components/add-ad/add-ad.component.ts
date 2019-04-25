@@ -51,7 +51,6 @@ export class AddAdComponent implements OnInit, OnDestroy {
     }
 
     public onSubmit(): void {
-
         if (!this.AdForm.invalid) {
 
             const VoivodeshipId = this.Voivodeships.filter(voivodeship =>
@@ -83,13 +82,9 @@ export class AddAdComponent implements OnInit, OnDestroy {
                         this.toastr.success('Advertisement Has Been Updated Successfully', 'Success!');
                         this.router.navigate(['/home']);
                     });
-
-
                 }
             });
-
         }
-
     }
 
     ngOnInit() {

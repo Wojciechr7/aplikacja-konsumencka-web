@@ -4,9 +4,6 @@
     </mat-toolbar>
 
 <mat-accordion class="example-headers-align">
-
-
-
     <mat-expansion-panel *ngFor="let conversation of conversationsTest; let i = index" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
         <mat-expansion-panel-header>
             <mat-panel-title>
@@ -20,57 +17,11 @@
         </mat-expansion-panel-header>
         <div class="wrapper">
             <app-message *ngFor="let msg of conversation.messages" [content]="msg.content" [date]="msg.date"></app-message>
-<!--            <app-message></app-message>
-            <app-message></app-message>-->
         </div>
-
-
-
         <mat-action-row>
             <button mat-raised-button color="primary" (click)="sendEmail()">Send Email</button>
             <button mat-button color="primary" (click)="nextStep()">Next</button>
         </mat-action-row>
     </mat-expansion-panel>
-
-
-
-
-
-    <!--<mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                <mat-icon>message</mat-icon>
-                &nbsp;<b>From: </b>&nbsp; user@gmail.pl
-            </mat-panel-title>
-
-        </mat-expansion-panel-header>
-        <app-message></app-message>
-
-
-        <mat-action-row>
-            <button mat-raised-button color="primary">Send Email</button>
-            <button mat-button color="warn" (click)="prevStep()">Previous</button>
-            <button mat-button color="primary" (click)="nextStep()">Next</button>
-        </mat-action-row>
-    </mat-expansion-panel>
-
-    <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                <mat-icon>message</mat-icon>
-                &nbsp;<b>From: </b>&nbsp; hr5t5@hotmail.com
-            </mat-panel-title>
-
-        </mat-expansion-panel-header>
-        <app-message></app-message>
-
-
-        <mat-action-row>
-            <button mat-raised-button color="primary">Send Email</button>
-            <button mat-button color="warn" (click)="prevStep()">Previous</button>
-            <button mat-button color="primary" (click)="nextStep()">End</button>
-        </mat-action-row>
-    </mat-expansion-panel>-->
-
 </mat-accordion>
 </mat-card>

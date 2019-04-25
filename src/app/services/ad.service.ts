@@ -25,7 +25,6 @@ export class AdService {
     constructor(private http: HttpClient, private toastr: ToastrService) {
         this.files = [];
         this.adFilter = '';
-
     }
 
     set Filtering(val: string) {
@@ -55,7 +54,6 @@ export class AdService {
                 }
             });
         }
-
     }
 
 
@@ -91,7 +89,4 @@ export class AdService {
         return this.http.delete<Ad>(`${GLOBAL.URL}/advertisements/${this.adEditingId}`);
     }
 
-    /*    public getCities(): Observable<Array<City>> {
-          return this.http.get<Array<City>>(`${GLOBAL.URL}/cities`);
-        }*/
 }
