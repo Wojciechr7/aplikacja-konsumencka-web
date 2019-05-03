@@ -6,40 +6,58 @@
     </mat-toolbar>
     <mat-card-content>
         <div class="mat-elevation-z8 user-container">
+          <form [formGroup]="editProfileForm" (ngSubmit)="onSubmit()">
             <div class="row">
                 <div class="data col-md-6">
-                    <div class="field-description m-2">Name</div>
-                    <div class="d-flex">
-                        <button mat-raised-button color="primary" (click)="openDialog('firstName')">change</button>
-                        <div class="user-data m-2">{{userInfo.firstName}}</div>
-                    </div>
+                  <div class="field-description m-2">Name</div>
+                  <div *ngIf="!edit" class="user-data m-2">{{userInfo.firstName}}</div>
+                  <mat-form-field *ngIf="edit">
+                    <input matInput type="text" formControlName="firstName" placeholder="First Name">
+                    <mat-error *ngIf="f.firstName.errors">
+                      First name is required
+                    </mat-error>
+                  </mat-form-field>
                 </div>
                 <div class="data col-md-6">
                     <div class="field-description m-2">Last name</div>
-                    <div class="d-flex">
-                        <button mat-raised-button color="primary" (click)="openDialog('lastName')">change</button>
-                        <div class="user-data m-2">{{userInfo.lastName}}</div>
-                    </div>
+                  <div *ngIf="!edit" class="user-data m-2">{{userInfo.lastName}}</div>
+                  <mat-form-field *ngIf="edit">
+                    <input matInput type="text" formControlName="lastName" placeholder="Last Name">
+                    <mat-error *ngIf="f.lastName.errors">
+                      Last name is required
+                    </mat-error>
+                  </mat-form-field>
                 </div>
                 <div class="data col-md-6">
-                    <div class="field-description m-2">E-mail address</div>
-                    <div class="d-flex">
-                        <button mat-raised-button color="primary" (click)="openDialog('email')">change</button>
-                        <div class="user-data m-2">{{userInfo.email}}</div>
-                    </div>
+                  <div class="field-description m-2">E-mail address</div>
+                  <div *ngIf="!edit" class="user-data m-2">{{userInfo.email}}</div>
+                  <mat-form-field *ngIf="edit">
+                    <input matInput type="email" formControlName="email" placeholder="Email">
+                    <mat-error *ngIf="f.email.errors">
+                      <div *ngIf="f.email.errors.required">Email is required</div>
+                      <div *ngIf="f.email.errors.email">Email format is wrong</div>
+                    </mat-error>
+                  </mat-form-field>
                 </div>
                 <div class="data col-md-6">
-                    <div class="field-description m-2">Phone number</div>
-                    <div class="d-flex">
-                        <button mat-raised-button color="primary" (click)="openDialog('phoneNumber')">change</button>
-                        <div class="user-data m-2">{{userInfo.phoneNumber}}</div>
-                    </div>
-                </div>
-                <div class="data col-md-6">
-                    <div class="field-description m-2">Password</div>
-                    <button mat-raised-button color="primary" (click)="openDialog('password')">change password</button>
+                  <div class="field-description m-2">Phone number</div>
+                  <div *ngIf="!edit" class="user-data m-2">{{userInfo.phoneNumber}}</div>
+                  <mat-form-field *ngIf="edit">
+                    <input matInput type="text" placeholder="Phone number" formControlName="PhoneNumber">
+                    <mat-error *ngIf="f.PhoneNumber.errors">
+                      <ng-container *ngIf="f.PhoneNumber.hasError('required')">Phone number is required</ng-container>
+                      <ng-container *ngIf="f.PhoneNumber.hasError('pattern')">Phone number is incorrect</ng-container>
+                    </mat-error>
+                  </mat-form-field>
                 </div>
             </div>
+          <button *ngIf="!edit" mat-raised-button color="primary" (click)="enableEdit()">Edit</button>
+          <button *ngIf="edit" mat-raised-button color="primary">Save</button>
+      </form>
+          <div class="data">
+            <div class="field-description m-2">Password</div>
+            <button mat-raised-button color="primary" (click)="openDialog(userInfo, 'password')">change password</button>
+          </div>
         </div>
     </mat-card-content>
 </mat-card>
