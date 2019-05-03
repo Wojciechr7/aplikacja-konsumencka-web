@@ -1,22 +1,7 @@
 <h1 mat-dialog-title>Confirm password</h1>
-<div mat-dialog-content>
-<!--    <mat-form-field *ngIf="data.type == 'firstName'">
-      <input matInput type="text" [(ngModel)]="data.value" placeholder="First Name" value={{data.value}} (keyup)="checkValidation()">
-    </mat-form-field>
-     <mat-form-field *ngIf="data.type == 'lastName'">
-      <input matInput type="text" [(ngModel)]="data.value"  placeholder="Last Name" value={{data.value}} (keyup)="checkValidation()">
-    </mat-form-field>
-    <mat-form-field *ngIf="data.type == 'phoneNumber'">
-      <input matInput type="text" [(ngModel)]="data.value" placeholder="Phone number" value={{data.value}} (keyup)="checkValidation()">
-      <i matSuffix class="fas fa-phone"></i>
-    </mat-form-field>
-    <mat-form-field *ngIf="data.type == 'email'">
-      <input matInput type="email" [(ngModel)]="data.value" placeholder="Email" value={{data.value}}
-             (keyup)="checkValidation()">
-      <i matSuffix class="fas fa-envelope"></i>
-    </mat-form-field>-->
+<div mat-dialog-content (keyup)="SubmitOnEnter($event)">
     <mat-form-field>
-      <input matInput type="password" [(ngModel)]="data.oldPassword" placeholder="Current password" [type]="hide ? 'password' : 'text'">
+      <input matInput type="password" [(ngModel)]="data.oldPassword" placeholder="Current password" (keyup)="checkValidation()" [type]="hide ? 'password' : 'text'">
       <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
     </mat-form-field>
     <mat-form-field *ngIf="data.type == 'password'">
@@ -30,5 +15,5 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Canncel</button>
-  <button mat-raised-button color="primary" [mat-dialog-close]="data" [disabled]=disableButton >Update</button>
+  <button id="updateButton" mat-raised-button color="primary" [mat-dialog-close]="data" [disabled]=disableButton >Update</button>
 </div>

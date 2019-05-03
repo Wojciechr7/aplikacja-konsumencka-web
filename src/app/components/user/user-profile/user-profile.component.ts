@@ -6,7 +6,6 @@ import {MatDialog} from '@angular/material';
 import {DialogData, EditProfileDialogComponent} from '../../../dialogs/edit-profile/edit-profile.dialog';
 import {ToastrService} from 'ngx-toastr';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {checkPassword} from '../../../helpers/checkPassword.validator';
 
 @Component({
   selector: 'app-user-profile',
@@ -43,32 +42,49 @@ export class UserProfileComponent implements OnInit {
   }
   public onSubmit() {
     if (this.editProfileForm.valid) {
-      this.openDialog();
+     const user: RegisterData = {
+        firstName: this.editProfileForm.value.firstName,
+        lastName: this.editProfileForm.value.lastName,
+        email: this.editProfileForm.value.email,
+        phoneNumber: this.editProfileForm.value.PhoneNumber,
+        password: this.userInfo.password
+      };
+      this.openDialog(user);
     }
   }
   public updateUser(newUser: RegisterData) {
     this.userService.updateUserInfo(this.userId, newUser).subscribe(() => {
       this.toastr.success('Data has been changed', 'Success!');
+      this.edit = false;
       this.userInfo = newUser;
+      const localStorageUser = JSON.parse(localStorage.getItem('currentUser'));
+      localStorageUser.firstName = newUser.firstName;
+      localStorageUser.lastName = newUser.lastName;
+      localStorageUser.email = newUser.email;
+      localStorageUser.phoneNumber = newUser.phoneNumber;
+      localStorage.setItem('currentUser', JSON.stringify(localStorageUser));
     });
   }
-  openDialog(target?: string) {
-    const user: RegisterData = Object.assign({}, this.userInfo);
+  openDialog(user?: RegisterData, target?: string) {
     const dialogRef = this.dialog.open(EditProfileDialogComponent, {
-      width: `250px`,
-      data: {name: user.firstName, value: user[target], type: target, oldPassword: ''}
+      width: `260px`,
+      data: {type: target, oldPassword: ''}
     });
     dialogRef.afterClosed().subscribe((result: DialogData) => {
       if (result) {
-        if (user[target] !== result.value && result.value) {
           user.oldPassword = result.oldPassword;
-          user[target] = result.value;
+          if (result.value) {
+            user.password = result.value;
+          }
           this.updateUser(user);
-        }
       }
     });
   }
   public enableEdit() {
+    this.editProfileForm.get('firstName').setValue(this.userInfo.firstName);
+    this.editProfileForm.get('lastName').setValue(this.userInfo.lastName);
+    this.editProfileForm.get('email').setValue(this.userInfo.email);
+    this.editProfileForm.get('PhoneNumber').setValue(this.userInfo.phoneNumber);
     this.edit = !this.edit;
   }
   get f(): any { return this.editProfileForm.controls; }
