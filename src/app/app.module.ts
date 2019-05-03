@@ -61,6 +61,7 @@ import {SendMessageComponent} from './components/home/advertisement/send-message
 import {MessagesComponent} from './components/user/messages/messages.component';
 import { MessageComponent } from './components/user/messages/message/message.component';
 import {ConfirmDialogComponent} from './dialogs/confirm/confirm.dialog';
+import {MessageDialogComponent} from './dialogs/message/message.dialog';
 
 @NgModule({
     declarations: [
@@ -84,7 +85,8 @@ import {ConfirmDialogComponent} from './dialogs/confirm/confirm.dialog';
         SendMessageComponent,
         MessagesComponent,
         MessageComponent,
-        ConfirmDialogComponent
+        ConfirmDialogComponent,
+        MessageDialogComponent
     ],
     imports: [
         BrowserModule,
@@ -127,7 +129,8 @@ import {ConfirmDialogComponent} from './dialogs/confirm/confirm.dialog';
     entryComponents: [
         InfoDialogComponent,
         EditProfileDialogComponent,
-        ConfirmDialogComponent
+        ConfirmDialogComponent,
+        MessageDialogComponent
     ]
 })
 export class AppModule {

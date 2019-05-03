@@ -1,6 +1,6 @@
-<mat-card class="message-container">
+<mat-card class="message-container" [ngClass]="{'incoming-msg': this.isMyMessage()}">
   <mat-card-content>
       <div class="date"><b>{{date | date: 'short'}}</b></div>
-      <div class="content">{{content}}</div>
+      <div class="content">{{msg.content}}</div>
     </mat-card-content>
 </mat-card>

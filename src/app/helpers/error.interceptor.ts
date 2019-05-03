@@ -15,21 +15,21 @@ export class ErrorInterceptor implements HttpInterceptor {
             if (err.status === 401) {
                 // unauthorised
                 this.authenticationService.logout();
-                this.toastr.error(err.error.message, 'Error!');
+                this.toastr.error(err.error.sent, 'Error!');
                 this.router.navigate(['/user/sign-in']);
             }
             if (err.status === 400) {
                 // invalid credentials
                 this.authenticationService.logout();
-                this.toastr.error(err.error.message, 'Error!');
+                this.toastr.error(err.error.sent, 'Error!');
             }
             if (err.status === 419) {
                 // does not exist
-                this.toastr.error(err.error.message, 'Error!');
+                this.toastr.error(err.error.sent, 'Error!');
             }
             if (err.status === 420) {
                 // owner not found
-                this.toastr.error(err.error.message, 'Error!');
+                this.toastr.error(err.error.sent, 'Error!');
             }
 
             if (err.status === 418) {
@@ -37,7 +37,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 this.toastr.warning(err.error, 'Warning!');
             }
 
-            const error = err.error.message || err.statusText;
+            const error = err.error.sent || err.statusText;
             return throwError(error);
         }));
     }

@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {catchError, map} from 'rxjs/operators';
-
+import {map} from 'rxjs/operators';
 import {User} from '../models/user';
 import {GLOBAL} from '../config';
 import {LoginData} from '../models/login';
@@ -16,7 +15,6 @@ export class AuthService {
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
     public loading: boolean;
-
 
     constructor(private http: HttpClient, private router: Router, private toastr: ToastrService) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));

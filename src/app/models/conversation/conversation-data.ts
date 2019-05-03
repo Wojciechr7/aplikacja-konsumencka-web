@@ -1,8 +1,8 @@
-export interface Conversation {
+export interface ConversationData {
     firstName: string;
     lastName: string;
-    content: string;
     date: Date;
     senderId: string;
+    isRead: boolean;
 }
 

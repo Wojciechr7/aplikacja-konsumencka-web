@@ -1,66 +1,79 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {MessageService} from '../../../services/message.service';
-import {Conversation} from '../../../models/conversation';
-import {AuthService} from '../../../services/auth.service';
-
+import {ConversationData} from '../../../models/conversation/conversation-data';
+import {MatDialog} from '@angular/material';
+import {MessageDialogComponent} from '../../../dialogs/message/message.dialog';
+import {Message} from '../../../models/conversation/message';
+import {Conversation} from '../../../models/conversation/conversation';
+import {DialogData} from '../../../dialogs/edit-profile/edit-profile.dialog';
 
 @Component({
     selector: 'app-messages',
     templateUrl: './messages.component.html',
     styleUrls: ['./messages.component.scss']
 })
-export class MessagesComponent implements OnInit {
+export class MessagesComponent implements OnInit, AfterViewInit {
 
-    public step: number;
-    public conversations;
-    public messages;
-    conversationsTest = [];
+    private step: number;
+    private conversations: Array<Conversation>;
+    @ViewChildren('scrollChat') private scrollContainers: QueryList<ElementRef>;
 
-    constructor(private messageService: MessageService, private authenticationService: AuthService) {
+    constructor(private messageService: MessageService, public dialog: MatDialog) {
         this.step = null;
         this.conversations = [];
-        this.messages = [];
 
     }
 
-    setStep(index: number) {
+    get Conversations(): Array<Conversation> {
+        return this.conversations;
+    }
+
+    set Step(index: number) {
         this.step = index;
     }
 
-    nextStep() {
+    public nextStep(): void {
         this.step++;
     }
 
-    prevStep() {
+    public prevStep(): void {
         this.step--;
     }
 
-    sendEmail() {
-        window.open('mailto:test@example.com');
+    public sendMessage(conversation: Conversation): void {
+        const dialogRef = this.dialog.open(MessageDialogComponent, {
+            data: {senderId: conversation.data.senderId, messages: conversation.messages}
+        });
+
+        dialogRef.afterClosed().subscribe((senderId: string) => {
+            if (senderId) {
+                const conversationIndex = this.conversations.findIndex((c: Conversation) => c.data.senderId === senderId);
+                this.showMessages(senderId, conversationIndex);
+            }
+        });
+    }
+
+    public showMessages(senderId: string, conversationIndex: number) {
+        this.messageService.getMessages(senderId).subscribe((messages: Array<Message>) => {
+            this.conversations[conversationIndex].messages = messages.reverse();
+        });
     }
 
     ngOnInit() {
-        this.messageService.getConversations().subscribe((conversations: Array<Conversation>) => {
-            conversations.forEach(conversation => {
-                this.conversations.push(conversation);
-
-            });
-
-            const firstNames = [];
-            this.conversations = this.conversations.filter(conv => {
-                if (!firstNames.includes(conv.firstName)) {
-                    firstNames.push(conv.firstName);
-                    return true;
+        this.messageService.getConversations().subscribe((conversations: Array<ConversationData>) => {
+            conversations.forEach((conversation: ConversationData) => {
+                if (!this.conversations.some((c: Conversation) =>
+                    c.data.firstName === conversation.firstName && c.data.lastName === conversation.lastName)) {
+                    this.conversations.push({data: conversation, messages: []} as Conversation);
                 }
             });
+        });
+    }
 
-            this.conversations.forEach(conv => {
-                this.messageService.getMessages(conv.senderId).subscribe(messages => {
-                    this.conversationsTest.push({
-                        conv: conv,
-                        messages: messages
-                    });
-                });
+    ngAfterViewInit() {
+        this.scrollContainers.changes.subscribe(change => {
+            change._results.forEach((result: ElementRef) => {
+                result.nativeElement.scrollTop = result.nativeElement.scrollHeight;
             });
         });
     }
