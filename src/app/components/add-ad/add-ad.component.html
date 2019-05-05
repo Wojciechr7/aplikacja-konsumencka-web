@@ -90,9 +90,12 @@
       <div class="justify-content-between d-flex wdh buttons">
         <button class="add-img" type="button" mat-raised-button color="primary" (click)="imgInput.click()">Add Image</button>
         <button mat-raised-button color="primary" *ngIf="!edit">Add Advertisement</button>
-        <button mat-raised-button type="button" color="warn" (click)="removeAd()" *ngIf="edit">Remove Advertisement</button>
-        <button mat-raised-button color="primary" *ngIf="edit">Save</button>
       </div>
+        <div *ngIf="edit" class="justify-content-between d-flex edit">
+          <button mat-raised-button type="button" color="warn" (click)="removeAd()">Remove Advertisement</button>
+          <button mat-raised-button color="primary" type="button" (click)="cancelEdit()"> Cancel</button>
+          <button mat-raised-button color="primary">Save</button>
+        </div>
 
     </form>
     <input #imgInput hidden type="file" id="files" accept="image/*" (change)="addImage()">

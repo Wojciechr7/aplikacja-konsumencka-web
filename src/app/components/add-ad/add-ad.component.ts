@@ -204,4 +204,7 @@ export class AddAdComponent implements OnInit, OnDestroy {
             }
         });
     }
+    cancelEdit() {
+      this.router.navigate(['/user/advertisements']);
+    }
 }
