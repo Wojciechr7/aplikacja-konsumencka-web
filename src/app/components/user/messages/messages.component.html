@@ -6,7 +6,7 @@
 <mat-accordion class="example-headers-align">
     <mat-expansion-panel *ngFor="let conversation of Conversations; let i = index"
                          [expanded]="step === i"
-                         (opened)="Step = i; showMessages(conversation.data.senderId, i)"
+                         (opened)="Step = i; showMessages(conversation.data.userId, i)"
                          hideToggle>
         <mat-expansion-panel-header>
             <mat-panel-title>

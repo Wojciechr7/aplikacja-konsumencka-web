@@ -5,7 +5,6 @@ import {MatDialog} from '@angular/material';
 import {MessageDialogComponent} from '../../../dialogs/message/message.dialog';
 import {Message} from '../../../models/conversation/message';
 import {Conversation} from '../../../models/conversation/conversation';
-import {DialogData} from '../../../dialogs/edit-profile/edit-profile.dialog';
 
 @Component({
     selector: 'app-messages',
@@ -15,17 +14,16 @@ import {DialogData} from '../../../dialogs/edit-profile/edit-profile.dialog';
 export class MessagesComponent implements OnInit, AfterViewInit {
 
     private step: number;
-    private conversations: Array<Conversation>;
     @ViewChildren('scrollChat') private scrollContainers: QueryList<ElementRef>;
 
-    constructor(private messageService: MessageService, public dialog: MatDialog) {
+    constructor(private messageService: MessageService,
+                public dialog: MatDialog) {
         this.step = null;
-        this.conversations = [];
 
     }
 
     get Conversations(): Array<Conversation> {
-        return this.conversations;
+        return this.messageService.Conversations;
     }
 
     set Step(index: number) {
@@ -42,12 +40,12 @@ export class MessagesComponent implements OnInit, AfterViewInit {
 
     public sendMessage(conversation: Conversation): void {
         const dialogRef = this.dialog.open(MessageDialogComponent, {
-            data: {senderId: conversation.data.senderId, messages: conversation.messages}
+            data: {senderId: conversation.data.userId, messages: conversation.messages}
         });
 
         dialogRef.afterClosed().subscribe((senderId: string) => {
             if (senderId) {
-                const conversationIndex = this.conversations.findIndex((c: Conversation) => c.data.senderId === senderId);
+                const conversationIndex = this.Conversations.findIndex((c: Conversation) => c.data.userId === senderId);
                 this.showMessages(senderId, conversationIndex);
             }
         });
@@ -55,16 +53,16 @@ export class MessagesComponent implements OnInit, AfterViewInit {
 
     public showMessages(senderId: string, conversationIndex: number) {
         this.messageService.getMessages(senderId).subscribe((messages: Array<Message>) => {
-            this.conversations[conversationIndex].messages = messages.reverse();
+            this.Conversations[conversationIndex].messages = messages.reverse();
         });
     }
 
     ngOnInit() {
         this.messageService.getConversations().subscribe((conversations: Array<ConversationData>) => {
             conversations.forEach((conversation: ConversationData) => {
-                if (!this.conversations.some((c: Conversation) =>
+                if (!this.Conversations.some((c: Conversation) =>
                     c.data.firstName === conversation.firstName && c.data.lastName === conversation.lastName)) {
-                    this.conversations.push({data: conversation, messages: []} as Conversation);
+                    this.Conversations.push({data: conversation, messages: []} as Conversation);
                 }
             });
         });

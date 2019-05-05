@@ -8,6 +8,7 @@ import {ToastrService} from 'ngx-toastr';
 import {AuthService} from '../../../../services/auth.service';
 import {MatDialogRef} from '@angular/material';
 import {MessageDialogComponent} from '../../../../dialogs/message/message.dialog';
+import {SignalRService} from '../../../../services/signal-r.service';
 
 @Component({
     selector: 'app-send-message',
@@ -23,7 +24,8 @@ export class SendMessageComponent implements OnInit {
     constructor(private formBuilder: FormBuilder,
                 public messageService: MessageService,
                 private toastr: ToastrService,
-                public authenticationService: AuthService) {
+                public authenticationService: AuthService,
+                private signalR: SignalRService) {
     }
 
     get f(): any { return this.messageForm.controls; }
@@ -38,6 +40,7 @@ export class SendMessageComponent implements OnInit {
             if (!this.senderId) {
                 this.userId.subscribe((ad: Ad) => {
                     if (this.authenticationService.currentUserValue.id !== ad.userId) {
+                        this.signalR.sendDirectMessage(ad.userId, message as SentMessage);
                         this.messageService.sendMessage(ad.userId, message as SentMessage).subscribe(() => {
                             this.toastr.success('Message Has Been Sent', 'Success!');
                             this.messageForm.get('text').setValue('');
@@ -48,6 +51,7 @@ export class SendMessageComponent implements OnInit {
                 });
             } else {
                 if (this.authenticationService.currentUserValue.id !== this.senderId) {
+                    this.signalR.sendDirectMessage(this.senderId, message as SentMessage);
                     this.messageService.sendMessage(this.senderId, message as SentMessage).subscribe((m) => {
                         this.toastr.success('Message Has Been Sent', 'Success!');
                         this.dialogRef.close(this.senderId);
@@ -57,7 +61,6 @@ export class SendMessageComponent implements OnInit {
                 }
             }
         }
-
     }
 
     ngOnInit() {

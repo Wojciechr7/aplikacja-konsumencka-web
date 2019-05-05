@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import {AuthService} from '../../services/auth.service';
 import {Router, RouterEvent} from '@angular/router';
 import {AdService} from '../../services/ad.service';
+import {SignalRService} from '../../services/signal-r.service';
 
 @Component({
   selector: 'app-navigation',
@@ -19,7 +20,11 @@ export class NavigationComponent {
       map(result => result.matches)
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, public authenticationService: AuthService, private router: Router, private adService: AdService) {
+  constructor(private breakpointObserver: BreakpointObserver,
+              public authenticationService: AuthService,
+              private router: Router,
+              private adService: AdService,
+              private signalR: SignalRService) {
   }
 
   get loggedInUser(): any {
@@ -35,6 +40,7 @@ export class NavigationComponent {
 
   public logout(): void {
     this.authenticationService.logout();
+    this.signalR.stopConnection();
     this.router.navigate(['/user/sign-in']);
   }
 }
