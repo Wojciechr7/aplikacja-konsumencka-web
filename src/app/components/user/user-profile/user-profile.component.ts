@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../../services/user.service';
-import {RegisterData} from '../../../models/register';
+import {RegisterData} from '../../../models/user/register';
 import {AuthService} from '../../../services/auth.service';
 import {MatDialog} from '@angular/material';
 import {DialogData, EditProfileDialogComponent} from '../../../dialogs/edit-profile/edit-profile.dialog';

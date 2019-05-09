@@ -7,7 +7,7 @@ import {AuthService} from '../../../../services/auth.service';
 import {MatDialogRef} from '@angular/material';
 import {MessageDialogComponent} from '../../../../dialogs/message/message.dialog';
 import {SignalRService} from '../../../../services/signal-r.service';
-import {Ad} from '../../../../models/ad';
+import {Advertisement} from '../../../../models/advertisement/advertisement';
 import {MessageService} from '../../../../services/message.service';
 
 @Component({
@@ -17,7 +17,7 @@ import {MessageService} from '../../../../services/message.service';
 })
 export class SendMessageComponent implements OnInit {
     public messageForm: FormGroup;
-    @Input() userId: Observable<Ad>;
+    @Input() userId: Observable<Advertisement>;
     @Input() senderId: string;
     @Input() dialogRef: MatDialogRef<MessageDialogComponent>;
 
@@ -38,7 +38,7 @@ export class SendMessageComponent implements OnInit {
                 text: this.messageForm.value.text
             };
             if (!this.senderId) {
-                this.userId.subscribe((ad: Ad) => {
+                this.userId.subscribe((ad: Advertisement) => {
                     if (this.authenticationService.currentUserValue) {
                         if (this.authenticationService.currentUserValue.id !== ad.userId) {
                             this.signalR.sendDirectMessage(ad.userId, message as SentMessage);
@@ -56,7 +56,7 @@ export class SendMessageComponent implements OnInit {
             } else {
                 if (this.authenticationService.currentUserValue.id !== this.senderId) {
                     this.signalR.sendDirectMessage(this.senderId, message as SentMessage);
-                    this.messageService.sendMessage(this.senderId, message as SentMessage).subscribe((m) => {
+                    this.messageService.sendMessage(this.senderId, message as SentMessage).subscribe(() => {
                         this.toastr.success('Message Has Been Sent', 'Success!');
                         this.dialogRef.close(this.senderId);
                     });

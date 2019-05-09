@@ -19,7 +19,6 @@ export class MessagesComponent implements OnInit, AfterViewInit {
     constructor(private messageService: MessageService,
                 public dialog: MatDialog) {
         this.step = null;
-
     }
 
     get Conversations(): Array<Conversation> {

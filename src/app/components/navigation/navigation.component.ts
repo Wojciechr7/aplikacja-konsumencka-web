@@ -3,8 +3,8 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import {AuthService} from '../../services/auth.service';
-import {Router, RouterEvent} from '@angular/router';
-import {AdService} from '../../services/ad.service';
+import {Router} from '@angular/router';
+import {AdvertisementService} from '../../services/advertisement.service';
 import {SignalRService} from '../../services/signal-r.service';
 
 @Component({
@@ -23,16 +23,16 @@ export class NavigationComponent {
   constructor(private breakpointObserver: BreakpointObserver,
               public authenticationService: AuthService,
               private router: Router,
-              private adService: AdService,
+              private adService: AdvertisementService,
               private signalR: SignalRService) {
   }
 
-  get loggedInUser(): any {
+  get loggedInUser(): string {
       this.username = JSON.parse(localStorage.getItem('currentUser'));
       return this.username.firstName;
   }
 
-  public lazyLoader() {
+  public lazyLoader(): void {
     if (this.router.url === '/home') {
       this.adService.lazyLoad();
     }

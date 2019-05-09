@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../../services/auth.service';
-import {LoginData} from '../../../models/login';
+import {LoginData} from '../../../models/user/login';
 import { first } from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
@@ -24,6 +24,7 @@ export class SignInComponent implements OnInit {
               private signalR: SignalRService) {
     this.hide = true;
   }
+
   get f(): any { return this.signInForm.controls; }
 
   public onSubmit(): void {
@@ -34,7 +35,7 @@ export class SignInComponent implements OnInit {
             this.toastr.success('Login Successful', 'Success!');
             this.signalR.startConnection();
             this.router.navigate(['/home']);
-          }, error => {
+          }, () => {
             this.authenticationService.loading = false;
       });
     }

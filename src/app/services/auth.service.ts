@@ -2,10 +2,10 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {User} from '../models/user';
+import {User} from '../models/user/user';
 import {GLOBAL} from '../config';
-import {LoginData} from '../models/login';
-import {RegisterData} from '../models/register';
+import {LoginData} from '../models/user/login';
+import {RegisterData} from '../models/user/register';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 
