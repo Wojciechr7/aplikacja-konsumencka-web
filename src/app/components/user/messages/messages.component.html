@@ -1,1 +1,26 @@
-<p>messages</p>
+<mat-card class="messages-container">
+    <mat-toolbar color="primary">
+        <span>User Inbox</span>
+    </mat-toolbar>
+
+<mat-accordion class="example-headers-align">
+    <mat-expansion-panel *ngFor="let conversation of Conversations; let i = index"
+                         [expanded]="step === i"
+                         (opened)="Step = i; showMessages(conversation.data.userId, i)"
+                         hideToggle>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <mat-icon>message</mat-icon>
+                &nbsp;<b>From: </b>&nbsp;{{conversation.data.firstName}}&nbsp;{{conversation.data.lastName}}
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="wrapper" #scrollChat>
+            <app-message *ngFor="let msg of conversation.messages" [msg]="msg" [date]="msg.date"></app-message>
+        </div>
+        <mat-action-row>
+            <button mat-raised-button color="primary" (click)="sendMessage(conversation)">Send Message</button>
+            <button mat-button color="primary" (click)="nextStep()">Next</button>
+        </mat-action-row>
+    </mat-expansion-panel>
+</mat-accordion>
+</mat-card>

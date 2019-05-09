@@ -6,17 +6,9 @@
         <div class="form">
             <form class="form-group" [formGroup]="messageForm" (ngSubmit)="onSubmit()">
                     <mat-form-field>
-                        <input matInput type="email" formControlName="email" class="title"
-                               placeholder="Your Email">
-                        <mat-error *ngIf="f.email.errors">
-                            <div *ngIf="f.email.errors.required">Email is <strong>required</strong></div>
-                            <div *ngIf="f.email.errors.email">Email format is <strong>wrong</strong></div>
-                        </mat-error>
-                    </mat-form-field>
-                    <mat-form-field>
                         <textarea formControlName="text" placeholder="Message" matInput
                                   cdkTextareaAutosize
-                                  cdkAutosizeMinRows="2"></textarea>
+                                  cdkAutosizeMinRows="8"></textarea>
                         <mat-error *ngIf="f.text.errors">
                             <div *ngIf="f.text.errors.required">Message is <strong>required</strong></div>
                         </mat-error>

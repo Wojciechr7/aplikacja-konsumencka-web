@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AdService} from '../../../services/ad.service';
-import {Ad} from '../../../models/ad';
+import {AdvertisementService} from '../../../services/advertisement.service';
+import {Advertisement} from '../../../models/advertisement/advertisement';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {Router} from '@angular/router';
 import {AuthService} from '../../../services/auth.service';
@@ -12,7 +12,7 @@ import {AuthService} from '../../../services/auth.service';
 })
 export class UserAdvertisementsComponent implements OnInit {
 
-  public advertisements: Array<Ad>;
+  public advertisements: Array<Advertisement>;
   public displayedColumns: string[] = ['category', 'city', 'street', 'price', 'size'];
   public dataSource = new MatTableDataSource(this.advertisements);
   public loading: boolean;
@@ -20,7 +20,7 @@ export class UserAdvertisementsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(public adService: AdService, private router: Router, private authenticationService: AuthService) {
+  constructor(public adService: AdvertisementService, private router: Router, private authenticationService: AuthService) {
     this.advertisements = [];
     this.loading = true;
   }
@@ -31,7 +31,7 @@ export class UserAdvertisementsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.adService.getUserAdvertisements(this.authenticationService.currentUserValue.id).subscribe((ad: Array<Ad>) => {
+    this.adService.getUserAdvertisements(this.authenticationService.currentUserValue.id).subscribe((ad: Array<Advertisement>) => {
       this.advertisements = [...ad];
       this.dataSource = new MatTableDataSource(this.advertisements);
       this.dataSource.sort = this.sort;

@@ -3,4 +3,6 @@ export interface User {
     email: string;
     token?: string;
     phoneNumber?: string;
+    firstName?: string;
+    lastName?: string;
 }

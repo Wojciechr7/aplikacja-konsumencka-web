@@ -1,16 +1,18 @@
 import {Component, OnDestroy, OnInit, Input} from '@angular/core';
 import {FormControl, Validators, FormGroup, FormBuilder} from '@angular/forms';
-import {AdService} from '../../services/ad.service';
+import {AdvertisementService} from '../../services/advertisement.service';
 import {Router} from '@angular/router';
-import {Ad} from '../../models/ad';
-import {City} from '../../models/city';
+import {Advertisement} from '../../models/advertisement/advertisement';
+import {City} from '../../models/advertisement/city';
 import {ToastrService} from 'ngx-toastr';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {ImageService} from '../../services/image.service';
-import {ImageAd} from '../../models/image';
-import {Voivodeship} from '../../models/voivodeship';
-
+import {ImageAd} from '../../models/advertisement/image';
+import {Voivodeship} from '../../models/advertisement/voivodeship';
+import {MatDialog} from '@angular/material';
+import {DialogData} from '../../dialogs/edit-profile/edit-profile.dialog';
+import {ConfirmDialogComponent} from '../../dialogs/confirm/confirm.dialog';
 
 @Component({
     selector: 'app-add-ad',
@@ -27,12 +29,12 @@ export class AddAdComponent implements OnInit, OnDestroy {
     public filtretOptionsV: Observable<Voivodeship[]>;
     public filteredOptions: Observable<City[]>;
     public loading: boolean;
-    @Input() adEditData: Observable<Ad>;
+    @Input() adEditData: Observable<Advertisement>;
     @Input() edit: boolean;
 
 
-    constructor(private formBuilder: FormBuilder, public adService: AdService, private router: Router,
-                private toastr: ToastrService, private imageService: ImageService) {
+    constructor(private formBuilder: FormBuilder, public adService: AdvertisementService, private router: Router,
+                private toastr: ToastrService, private imageService: ImageService, private dialog: MatDialog) {
         this.hide = true;
         this.category = ['Apartment', 'Room', 'House', 'Office'];
         this.types = ['rent', 'sale'];
@@ -48,9 +50,7 @@ export class AddAdComponent implements OnInit, OnDestroy {
     }
 
     public onSubmit(): void {
-
         if (!this.AdForm.invalid) {
-
             const VoivodeshipId = this.Voivodeships.filter(voivodeship =>
                 voivodeship.name === this.AdForm.value.VoivodeshipFormControl.toLowerCase());
 
@@ -71,22 +71,18 @@ export class AddAdComponent implements OnInit, OnDestroy {
                     floor: parseInt(this.AdForm.value.FloorFormControl, 10)
                 };
                 if (!this.edit) {
-                    this.adService.addAd(ad as Ad).subscribe(() => {
+                    this.adService.addAdvertisement(ad as Advertisement).subscribe(() => {
                         this.toastr.success('Advertisement Has Been Added Successfully', 'Success!');
                         this.router.navigate(['/home']);
                     });
                 } else {
-                    this.adService.updateAd(ad as Ad, this.adService.adEditingId).subscribe(() => {
+                    this.adService.updateAdvertisement(ad as Advertisement, this.adService.adEditingId).subscribe(() => {
                         this.toastr.success('Advertisement Has Been Updated Successfully', 'Success!');
                         this.router.navigate(['/home']);
                     });
-
-
                 }
             });
-
         }
-
     }
 
     ngOnInit() {
@@ -106,7 +102,7 @@ export class AddAdComponent implements OnInit, OnDestroy {
         this.loading = false;
 
         if (this.edit) {
-            this.adEditData.subscribe((ad: Ad) => {
+            this.adEditData.subscribe((ad: Advertisement) => {
                 this.AdForm.get('TitleFormControl').setValue(ad.title);
                 this.AdForm.get('CategoryFormControl').setValue(ad.category);
                 this.AdForm.get('CityFormControl').setValue(ad.city);
@@ -121,10 +117,8 @@ export class AddAdComponent implements OnInit, OnDestroy {
                 ad.images.forEach((img: ImageAd) => {
                     this.adService.files.push(img);
                 });
-
             });
         }
-
     }
 
     private _filter(value: string): Voivodeship[] {
@@ -189,5 +183,24 @@ export class AddAdComponent implements OnInit, OnDestroy {
         if (this.cities.map(cityName => cityName.name.toLowerCase()).indexOf(city) === -1) {
             this.AdForm.controls.CityFormControl.patchValue('');
         }
+    }
+
+    public removeAd() {
+        const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+            width: `350px`,
+            data: {message: 'Confirm Deletion Of The Advertisement', adTitle: this.AdForm.get('TitleFormControl').value}
+        });
+
+        dialogRef.afterClosed().subscribe((result: DialogData) => {
+            if (result) {
+                this.adService.removeAdvertisement().subscribe(() => {
+                    this.toastr.success('Advertisement Has Been Deleted', 'Success!');
+                    this.router.navigate(['/home']);
+                });
+            }
+        });
+    }
+    cancelEdit() {
+      this.router.navigate(['/user/advertisements']);
     }
 }

@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../../services/auth.service';
-import {LoginData} from '../../../models/login';
-import {first} from 'rxjs/operators';
-import {RegisterData} from '../../../models/register';
+import {RegisterData} from '../../../models/user/register';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 
@@ -20,8 +18,10 @@ export class SignUpComponent implements OnInit {
   public hide: boolean;
   public signUpForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, public authenticationService: AuthService,
-              private router: Router, private toastr: ToastrService) {
+  constructor(private formBuilder: FormBuilder,
+              public authenticationService: AuthService,
+              private router: Router,
+              private toastr: ToastrService) {
     this.hide = true;
   }
   get f(): any { return this.signUpForm.controls; }
@@ -36,7 +36,7 @@ export class SignUpComponent implements OnInit {
             this.authenticationService.loading = false;
             this.toastr.success('Registration Complete', 'Success!');
             this.router.navigate(['/user/sign-in']);
-          }, error => {
+          }, () => {
             this.authenticationService.loading = false;
           });
     }

@@ -1,6 +1,6 @@
 import {ImageAd} from './image';
 
-export interface Ad {
+export interface Advertisement {
     id?: number;
     title?: string;
     images?: Array<ImageAd>;

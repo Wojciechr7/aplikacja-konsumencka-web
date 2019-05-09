@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
-import {Ad} from '../../../models/ad';
-import {ActivatedRoute, Router, ParamMap} from '@angular/router';
-import {AdService} from '../../../services/ad.service';
+import {Advertisement} from '../../../models/advertisement/advertisement';
+import {ActivatedRoute, ParamMap} from '@angular/router';
+import {AdvertisementService} from '../../../services/advertisement.service';
 import {switchMap} from 'rxjs/operators';
 
 @Component({
@@ -12,11 +12,12 @@ import {switchMap} from 'rxjs/operators';
 })
 export class AdvertisementComponent implements OnInit {
 
-    public adData: Observable<Ad>;
+    public adData: Observable<Advertisement>;
     public adId: string;
     public fullView: boolean;
 
-    constructor(private route: ActivatedRoute, private router: Router, public adService: AdService) {
+    constructor(private route: ActivatedRoute,
+                public adService: AdvertisementService) {
         this.fullView = false;
     }
 
@@ -30,13 +31,11 @@ export class AdvertisementComponent implements OnInit {
     }
 
     ngOnInit() {
-
         this.adData = this.route.paramMap.pipe(
             switchMap((params: ParamMap) => {
                 this.adId = params.get('id');
-                return this.adService.getAd(this.adId);
+                return this.adService.getAdvertisement(this.adId);
             }));
-
     }
 
 }

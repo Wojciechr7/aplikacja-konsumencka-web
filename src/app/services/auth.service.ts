@@ -1,12 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {catchError, map} from 'rxjs/operators';
-
-import {User} from '../models/user';
+import {map} from 'rxjs/operators';
+import {User} from '../models/user/user';
 import {GLOBAL} from '../config';
-import {LoginData} from '../models/login';
-import {RegisterData} from '../models/register';
+import {LoginData} from '../models/user/login';
+import {RegisterData} from '../models/user/register';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 
@@ -16,7 +15,6 @@ export class AuthService {
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
     public loading: boolean;
-
 
     constructor(private http: HttpClient, private router: Router, private toastr: ToastrService) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
@@ -31,10 +29,8 @@ export class AuthService {
     public login(data: LoginData): Observable<User> {
         return this.http.post<User>(`${GLOBAL.URL}/users/login`, data)
             .pipe(map(user => {
-                // login successful if there's a jwt token in the response
                 if (user && user.token) {
                     this.loading = false;
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify(user));
                     this.currentUserSubject.next(user);
                 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {ImageAd} from '../models/image';
+import {ImageAd} from '../models/advertisement/image';
 import {ToastrService} from 'ngx-toastr';
 
 @Injectable({

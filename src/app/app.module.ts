@@ -59,6 +59,9 @@ import {UserProfileComponent} from './components/user/user-profile/user-profile.
 import {EditProfileDialogComponent} from './dialogs/edit-profile/edit-profile.dialog';
 import {SendMessageComponent} from './components/home/advertisement/send-message/send-message.component';
 import {MessagesComponent} from './components/user/messages/messages.component';
+import { MessageComponent } from './components/user/messages/message/message.component';
+import {ConfirmDialogComponent} from './dialogs/confirm/confirm.dialog';
+import {MessageDialogComponent} from './dialogs/message/message.dialog';
 
 @NgModule({
     declarations: [
@@ -80,7 +83,10 @@ import {MessagesComponent} from './components/user/messages/messages.component';
         UserProfileComponent,
         EditProfileDialogComponent,
         SendMessageComponent,
-        MessagesComponent
+        MessagesComponent,
+        MessageComponent,
+        ConfirmDialogComponent,
+        MessageDialogComponent
     ],
     imports: [
         BrowserModule,
@@ -122,7 +128,9 @@ import {MessagesComponent} from './components/user/messages/messages.component';
     bootstrap: [AppComponent],
     entryComponents: [
         InfoDialogComponent,
-        EditProfileDialogComponent
+        EditProfileDialogComponent,
+        ConfirmDialogComponent,
+        MessageDialogComponent
     ]
 })
 export class AppModule {

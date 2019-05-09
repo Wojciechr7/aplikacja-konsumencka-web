@@ -1,5 +1,5 @@
 import {Component, DoCheck, KeyValueDiffers, OnInit} from '@angular/core';
-import {AdService} from '../../../services/ad.service';
+import {AdvertisementService} from '../../../services/advertisement.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -12,7 +12,9 @@ export class HomeAdvertisementsComponent implements OnInit, DoCheck {
   public loading: boolean;
   private differ: any;
 
-  constructor(public adService: AdService, private router: Router, private differs: KeyValueDiffers) {
+  constructor(public adService: AdvertisementService,
+              private router: Router,
+              private differs: KeyValueDiffers) {
     this.loading = false;
   }
 

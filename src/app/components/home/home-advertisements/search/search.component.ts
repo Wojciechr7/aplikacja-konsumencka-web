@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AdService} from '../../../../services/ad.service';
+import {AdvertisementService} from '../../../../services/advertisement.service';
 
 @Component({
   selector: 'app-search',
@@ -8,7 +8,7 @@ import {AdService} from '../../../../services/ad.service';
 })
 export class SearchComponent implements OnInit {
 
-  constructor(private adService: AdService) { }
+  constructor(private adService: AdvertisementService) { }
 
   public filterAdvertisements(val: string): void {
     this.adService.AdFilter = val;

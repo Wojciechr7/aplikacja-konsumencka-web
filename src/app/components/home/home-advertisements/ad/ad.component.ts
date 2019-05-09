@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {Ad} from '../../../../models/ad';
+import {Advertisement} from '../../../../models/advertisement/advertisement';
 
 @Component({
   selector: 'app-ad',
@@ -9,7 +9,7 @@ import {Ad} from '../../../../models/ad';
 })
 export class AdComponent implements OnInit {
 
-  @Input() ad: Ad;
+  @Input() ad: Advertisement;
 
   constructor(private router: Router) { }
 
