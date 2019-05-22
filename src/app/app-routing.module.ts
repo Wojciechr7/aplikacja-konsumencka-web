@@ -12,6 +12,9 @@ import {HomeAdvertisementsComponent} from './components/home/home-advertisements
 import {EditAdComponent} from './components/user/edit-ad/edit-ad.component';
 import {UserProfileComponent} from './components/user/user-profile/user-profile.component';
 import {MessagesComponent} from './components/user/messages/messages.component';
+import {AdminComponent} from './components/admin/admin.component';
+import {UsersComponent} from './components/admin/users/users.component';
+import {AdvertisementsComponent} from './components/admin/advertisements/advertisements.component';
 
 const routes: Routes = [
     {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -33,6 +36,12 @@ const routes: Routes = [
         ]
     },
     {path: 'add-ad', component: AddAdComponent, canActivate: [AuthGuard]},
+  {
+    path: 'admin', component: AdminComponent, canActivate: [AuthGuard], children: [
+      {path: 'users', component: UsersComponent, canActivate: [AuthGuard]},
+      {path: 'advertisements', component: AdvertisementsComponent, canActivate: [AuthGuard]}
+    ]
+  }
 
 ];
 

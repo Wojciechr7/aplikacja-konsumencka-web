@@ -62,6 +62,9 @@ import {MessagesComponent} from './components/user/messages/messages.component';
 import { MessageComponent } from './components/user/messages/message/message.component';
 import {ConfirmDialogComponent} from './dialogs/confirm/confirm.dialog';
 import {MessageDialogComponent} from './dialogs/message/message.dialog';
+import { AdminComponent } from './components/admin/admin.component';
+import { UsersComponent } from './components/admin/users/users.component';
+import { AdvertisementsComponent } from './components/admin/advertisements/advertisements.component';
 
 @NgModule({
     declarations: [
@@ -86,7 +89,10 @@ import {MessageDialogComponent} from './dialogs/message/message.dialog';
         MessagesComponent,
         MessageComponent,
         ConfirmDialogComponent,
-        MessageDialogComponent
+        MessageDialogComponent,
+        AdminComponent,
+        UsersComponent,
+        AdvertisementsComponent
     ],
     imports: [
         BrowserModule,
