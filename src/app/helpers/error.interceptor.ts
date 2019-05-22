@@ -20,6 +20,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             }
             if (err.status === 400) {
                 // invalid credentials
+                console.log(err);
                 this.authenticationService.logout();
                 this.toastr.error(err.error.sent, 'Error!');
             }
