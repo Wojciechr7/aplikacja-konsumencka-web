@@ -1,3 +1,32 @@
-<p>
-  users works!
-</p>
+<table mat-table [dataSource]="users" class="mat-elevation-z8">
+  <ng-container matColumnDef="Email">
+    <th mat-header-cell *matHeaderCellDef> Email </th>
+    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="FirstName">
+    <th mat-header-cell *matHeaderCellDef> FirstName </th>
+    <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="LastName">
+    <th mat-header-cell *matHeaderCellDef> LastName </th>
+    <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="PhoneNumber">
+    <th mat-header-cell *matHeaderCellDef> PhoneNumber </th>
+    <td mat-cell *matCellDef="let element"> {{element.phoneNumber}} </td>
+  </ng-container>
+  <ng-container matColumnDef="Status">
+    <th mat-header-cell *matHeaderCellDef> Status </th>
+    <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+  </ng-container>
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>ChangeStatus</th>
+    <td mat-cell *matCellDef><button mat-raised-button color="primary">ELDO</button></td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="cols"></tr>
+  <tr mat-row *matRowDef="let row; columns: cols;"></tr>
+</table>
