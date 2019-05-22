@@ -1,4 +1,12 @@
-table {
-  width: 80%;
+.user-container {
+  width: 100%;
   margin: 3vh auto auto auto;
+}
+.user-container table {
+  width:100%;
+}
+.mat-progress-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
 }

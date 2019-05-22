@@ -1,4 +1,9 @@
-<table mat-table [dataSource]="users" class="mat-elevation-z8">
+<mat-card *ngIf="users" class="user-container">
+  <mat-toolbar color="primary">
+    <span>Users list</span>
+  </mat-toolbar>
+  <div class="mat-elevation-z8">
+<table mat-table [dataSource]="dataSource" matSort>
   <ng-container matColumnDef="Email">
     <th mat-header-cell *matHeaderCellDef> Email </th>
     <td mat-cell *matCellDef="let element"> {{element.email}} </td>
@@ -20,13 +25,20 @@
   </ng-container>
   <ng-container matColumnDef="Status">
     <th mat-header-cell *matHeaderCellDef> Status </th>
-    <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+    <td mat-cell *matCellDef="let element">
+      <ng-container *ngIf="element.blocked">Blocked</ng-container>
+      <ng-container *ngIf="!element.blocked">Unblocked</ng-container>
+    </td>
   </ng-container>
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef>ChangeStatus</th>
-    <td mat-cell *matCellDef><button mat-raised-button color="primary">ELDO</button></td>
+    <td mat-cell *matCellDef="let element"><button mat-raised-button color="primary" (click)="changeStatus(element)">Change</button></td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="cols"></tr>
   <tr mat-row *matRowDef="let row; columns: cols;"></tr>
 </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+</mat-card>
+<mat-progress-spinner [diameter]="50" *ngIf="!users" color="primary" mode="indeterminate"></mat-progress-spinner>
