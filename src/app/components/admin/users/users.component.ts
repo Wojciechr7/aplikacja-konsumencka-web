@@ -12,8 +12,8 @@ export class UsersComponent implements OnInit {
   private cols: Array<string>;
   constructor(private adminService: AdminService) {
     this.users = [
-      {email: 'email1@gmail.com', firstName: 'Mateusz', lastName: 'fefdfsfsf' , phoneNumber: '434332453', status: 'blocked'},
-      {email: 'fewffs@gmail.com', firstName: 'Rychu', lastName: 'fsfsfsfgrg' , phoneNumber: '3324253456', status: 'unblocked'}
+      {email: 'email1@gmail.com', firstName: 'Mateusz', lastName: 'fefdfsfsf' , phoneNumber: '434332453', status: 'blocked', role: 'user'},
+      {email: 'fewffs@gmail.com', firstName: 'Rychu', lastName: 'fsfsfsfgrg' , phoneNumber: '3324253456', status: 'unblocked', role: 'user'}
     ];
     this.cols = ['Email', 'FirstName', 'LastName', 'PhoneNumber', 'Status', 'actions'];
   }
