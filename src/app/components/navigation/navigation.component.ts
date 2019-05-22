@@ -14,6 +14,7 @@ import {SignalRService} from '../../services/signal-r.service';
 })
 export class NavigationComponent {
   public username;
+  public expandedAdmin: boolean;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -25,6 +26,7 @@ export class NavigationComponent {
               private router: Router,
               private adService: AdvertisementService,
               private signalR: SignalRService) {
+    this.expandedAdmin = false;
   }
 
   get loggedInUser(): string {
@@ -42,5 +44,10 @@ export class NavigationComponent {
     this.authenticationService.logout();
     this.signalR.stopConnection();
     this.router.navigate(['/user/sign-in']);
+  }
+
+  public isAdmin(): boolean {
+    // TODO need role field in local storage
+    return true;
   }
 }

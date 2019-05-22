@@ -15,6 +15,24 @@
       font-size: 15px;
       font-weight: bold;
     }
+
+    mat-expansion-panel {
+      user-select: none;
+
+      mat-expansion-panel-header {
+        padding: 0 16px;
+      }
+
+      ::ng-deep {
+        div.mat-expansion-panel-body {
+          padding: 0;
+        }
+      }
+    }
+
+    mat-nav-list {
+      padding-top: 0;
+    }
   }
 
 }
