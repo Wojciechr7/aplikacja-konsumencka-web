@@ -1,0 +1,27 @@
+h2 {
+  text-align: center;
+}
+.advertisements-container {
+  width: 95%;
+  margin: 20px auto;
+
+  table {
+    width: 100%;
+
+    .mat-row {
+      cursor: pointer;
+    }
+  }
+}
+button{
+  margin: 10px;
+}
+
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+mat-progress-spinner {
+  margin: auto;
+}
