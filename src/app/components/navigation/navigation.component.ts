@@ -47,7 +47,6 @@ export class NavigationComponent {
   }
 
   public isAdmin(): boolean {
-    // TODO need role field in local storage
-    return true;
+    return this.authenticationService.currentUserValue.role === 'admin';
   }
 }

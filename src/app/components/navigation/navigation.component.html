@@ -10,10 +10,10 @@
                     [expanded]="this.expandedAdmin"
                     (mouseenter) ="this.expandedAdmin = true"
                     (mouseleave) ="this.expandedAdmin = false"
-                    *ngIf="this.isAdmin()">
+                    *ngIf="this.authenticationService.currentUserValue && this.isAdmin()">
                 <mat-expansion-panel-header [collapsedHeight]="'48px'" [expandedHeight]="'48px'">
                     <mat-panel-title>
-                        <mat-icon>message</mat-icon>
+                        <mat-icon>pregnant_woman</mat-icon>
                         &nbsp;<b>Admin Tools</b>
                     </mat-panel-title>
                 </mat-expansion-panel-header>
