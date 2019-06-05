@@ -48,7 +48,6 @@ export class AdvertisementService {
                 if (ad) {
                     this.pagesToEnd = ad.pagesToEnd;
                     this.advertisements = [...this.advertisements, ...(ad.advertisement)];
-                    console.log(ad);
                 }
             });
         }

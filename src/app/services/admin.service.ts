@@ -26,7 +26,7 @@ export class AdminService {
     }
 
     public removeAdvertisement(id): Observable<Advertisement> {
-        return this.httpClient.delete<Advertisement>(`${GLOBAL.URL}/advertisements/${id}`);
+        return this.httpClient.delete<Advertisement>(`${GLOBAL.URL}/admin/advertisements/${id}`);
     }
 
     public validateAdvertisement(id): Observable<Advertisement> {

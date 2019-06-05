@@ -52,3 +52,10 @@
 .fill-space {
   flex: 1 1 auto;
 }
+.mat-drawer-content {
+  height: calc(100% - 40px);
+  overflow-y: scroll;
+  margin-right: -100px;
+  padding-right: 100px;
+  width: calc(100% - 83px);
+}

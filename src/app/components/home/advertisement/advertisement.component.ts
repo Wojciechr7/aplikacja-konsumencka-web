@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnChanges, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Advertisement} from '../../../models/advertisement/advertisement';
 import {ActivatedRoute, ParamMap} from '@angular/router';
 import {AdvertisementService} from '../../../services/advertisement.service';
 import {switchMap} from 'rxjs/operators';
+import {MapService} from '../../../services/map.service';
 
 @Component({
     selector: 'app-advertisement',
@@ -17,7 +18,8 @@ export class AdvertisementComponent implements OnInit {
     public fullView: boolean;
 
     constructor(private route: ActivatedRoute,
-                public adService: AdvertisementService) {
+                public adService: AdvertisementService,
+                private mapService: MapService) {
         this.fullView = false;
     }
 
@@ -34,6 +36,10 @@ export class AdvertisementComponent implements OnInit {
         this.adData = this.route.paramMap.pipe(
             switchMap((params: ParamMap) => {
                 this.adId = params.get('id');
+                this.adService.getAdvertisement(this.adId).subscribe((advertisement: Advertisement) => {
+                   const location = `${advertisement.city}, ${advertisement.street}`;
+                   this.mapService.getAddress(location);
+                });
                 return this.adService.getAdvertisement(this.adId);
             }));
     }

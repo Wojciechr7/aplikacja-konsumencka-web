@@ -1,6 +1,8 @@
-
 <app-navigation>
-  <router-outlet></router-outlet>
+  <router-outlet *ngIf="mapService.mapDisabled"></router-outlet>
+  <app-map></app-map>
 </app-navigation>
+
+
 
 

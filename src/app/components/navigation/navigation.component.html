@@ -18,30 +18,30 @@
                     </mat-panel-title>
                 </mat-expansion-panel-header>
                 <mat-nav-list>
-                    <a mat-list-item routerLink="admin/users">
+                    <a mat-list-item (click)="hideMap()" routerLink="admin/users">
                         <mat-icon>people</mat-icon>
                         Users</a>
-                    <a mat-list-item routerLink="admin/advertisements">
+                    <a mat-list-item (click)="hideMap()" routerLink="admin/advertisements">
                         <mat-icon>list</mat-icon>
                         Advertisements</a>
                 </mat-nav-list>
             </mat-expansion-panel>
-            <a mat-list-item *ngIf="!authenticationService.currentUserValue" routerLink="/user/sign-in">
+            <a mat-list-item *ngIf="!authenticationService.currentUserValue" (click)="hideMap()" routerLink="/user/sign-in">
                 <mat-icon>input</mat-icon>
                 Sign In</a>
-            <a mat-list-item *ngIf="!authenticationService.currentUserValue" routerLink="/user/sign-up">
+            <a mat-list-item *ngIf="!authenticationService.currentUserValue" (click)="hideMap()" routerLink="/user/sign-up">
                 <mat-icon>person_add</mat-icon>
                 Sign Up</a>
-            <a mat-list-item *ngIf="authenticationService.currentUserValue" routerLink="/add-ad">
+            <a mat-list-item *ngIf="authenticationService.currentUserValue" (click)="hideMap()" routerLink="/add-ad">
                 <mat-icon>add_circle_outline</mat-icon>
                 Add Advertisement</a>
-            <a mat-list-item *ngIf="authenticationService.currentUserValue" routerLink="/user/advertisements">
+            <a mat-list-item *ngIf="authenticationService.currentUserValue" (click)="hideMap()" routerLink="/user/advertisements">
                 <mat-icon>description</mat-icon>
                 View Advertisements</a>
-            <a mat-list-item *ngIf="authenticationService.currentUserValue" routerLink="/user/profile">
+            <a mat-list-item *ngIf="authenticationService.currentUserValue" (click)="hideMap()" routerLink="/user/profile">
                 <mat-icon>person_outline</mat-icon>
                 My Profile</a>
-            <a mat-list-item *ngIf="authenticationService.currentUserValue" routerLink="/user/messages">
+            <a mat-list-item *ngIf="authenticationService.currentUserValue" (click)="hideMap()" routerLink="/user/messages">
                 <mat-icon>message</mat-icon>
                 Messages</a>
             <a mat-list-item href="javascript:void(0)" *ngIf="authenticationService.currentUserValue"

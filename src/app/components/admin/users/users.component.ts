@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
 import {User} from '../../../models/user/user';
 import {AdminService} from '../../../services/admin.service';
 import {ToastrService} from 'ngx-toastr';
@@ -12,9 +12,16 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 export class UsersComponent implements OnInit {
   public users: Array<User>;
   public cols: Array<string>;
+  public displayCols: Array<string>;
   public dataSource;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    if (event.target.innerWidth) {
+
+    }
+  }
   constructor(private adminService: AdminService, private toastr: ToastrService) {
     this.cols = ['Email', 'FirstName', 'LastName', 'PhoneNumber', 'Status', 'actions'];
   }

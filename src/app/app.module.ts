@@ -65,6 +65,9 @@ import {MessageDialogComponent} from './dialogs/message/message.dialog';
 import { AdminComponent } from './components/admin/admin.component';
 import { UsersComponent } from './components/admin/users/users.component';
 import { AdvertisementsComponent } from './components/admin/advertisements/advertisements.component';
+import { AgmCoreModule } from '@agm/core';
+import {apiKey} from './api-key';
+import { MapComponent } from './components/map/map.component';
 
 @NgModule({
     declarations: [
@@ -92,7 +95,8 @@ import { AdvertisementsComponent } from './components/admin/advertisements/adver
         MessageDialogComponent,
         AdminComponent,
         UsersComponent,
-        AdvertisementsComponent
+        AdvertisementsComponent,
+        MapComponent
     ],
     imports: [
         BrowserModule,
@@ -122,7 +126,11 @@ import { AdvertisementsComponent } from './components/admin/advertisements/adver
         MatChipsModule,
         MatSnackBarModule,
         MatExpansionModule,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        AgmCoreModule.forRoot({
+            apiKey: apiKey,
+            libraries: ['places']
+        })
     ],
     schemas: [
         NO_ERRORS_SCHEMA

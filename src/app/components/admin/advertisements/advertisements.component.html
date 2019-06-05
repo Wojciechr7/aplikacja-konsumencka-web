@@ -35,12 +35,19 @@
         <td mat-cell *matCellDef="let element"> {{element.size}} m<sup>2</sup></td>
       </ng-container>
 
-      <ng-container matColumnDef="actions">
+      <ng-container matColumnDef="verify">
         <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
         <td mat-cell *matCellDef="let ad">
           <button mat-raised-button color="primary" (click)="verifyAd(ad.id, $event)" *ngIf="ad.verification === false">Verify</button>
           <button mat-raised-button color="primary" (click)="verifyAd(ad.id, $event)" *ngIf="ad.verification === true">Unverify</button>
-          <button mat-raised-button color="warn" (click)=removeAd(ad.id)>Remove</button></td>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="remove">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+        <td mat-cell *matCellDef="let ad">
+          <button mat-raised-button color="warn" (click)=removeAd(ad.id)>Remove</button>
+        </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -18,7 +18,7 @@ import {ImageService} from '../../../services/image.service';
 export class AdvertisementsComponent implements OnInit {
 
   public advertisements: Array<Advertisement>;
-  public displayedColumns: string[] = ['category', 'city', 'street', 'price', 'size', 'actions'];
+  public displayedColumns: string[] = ['category', 'city', 'street', 'price', 'size', 'verify', 'remove'];
   public dataSource = new MatTableDataSource(this.advertisements);
   public loading: boolean;
 
