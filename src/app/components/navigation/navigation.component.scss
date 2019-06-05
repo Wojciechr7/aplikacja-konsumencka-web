@@ -58,4 +58,12 @@
   margin-right: -100px;
   padding-right: 100px;
   width: calc(100% - 83px);
+  overflow-x: hidden;
+
+  @media(max-width: 600px) {
+    margin-right: 0;
+    padding-right: 0;
+    width: 100%;
+
+  }
 }
