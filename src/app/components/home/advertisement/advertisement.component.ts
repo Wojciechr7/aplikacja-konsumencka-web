@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnChanges, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnChanges, OnDestroy, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Advertisement} from '../../../models/advertisement/advertisement';
 import {ActivatedRoute, ParamMap} from '@angular/router';
@@ -11,7 +11,7 @@ import {MapService} from '../../../services/map.service';
     templateUrl: './advertisement.component.html',
     styleUrls: ['./advertisement.component.scss']
 })
-export class AdvertisementComponent implements OnInit {
+export class AdvertisementComponent implements OnInit, OnDestroy {
 
     public adData: Observable<Advertisement>;
     public adId: string;
@@ -33,15 +33,25 @@ export class AdvertisementComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.mapService.initAdComponent = true;
         this.adData = this.route.paramMap.pipe(
             switchMap((params: ParamMap) => {
                 this.adId = params.get('id');
                 this.adService.getAdvertisement(this.adId).subscribe((advertisement: Advertisement) => {
                    const location = `${advertisement.city}, ${advertisement.street}`;
-                   this.mapService.getAddress(location);
+                   this.mapService.getAddress(advertisement.id, location);
                 });
                 return this.adService.getAdvertisement(this.adId);
             }));
+        this.mapService.buttonEnabled = true;
+    }
+
+    ngOnDestroy(): void {
+        this.mapService.buttonEnabled = false;
+        if (this.mapService.mapDisabled) {
+            this.mapService.setAllMarkers();
+        }
+
     }
 
 }
