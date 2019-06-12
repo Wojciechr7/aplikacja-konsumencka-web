@@ -1,6 +1,6 @@
 <ng-container *ngIf="adData | async as ad; else loading">
   <div class="wrapper">
-    <mat-card class="ad-container">
+    <mat-card class="ad-container container">
       <mdb-carousel [interval]="0" [animation]="'slide'" *ngIf="ad.images.length > 1; else oneImg" [ngClass]="{'full-size': fullView}">
         <mdb-carousel-item *ngFor="let img of ad.images" [ngClass]="{'full-size': fullView}">
           <img class="d-block w-100"  [src]="img.image" alt="image" (click)="changeView()">
@@ -15,7 +15,7 @@
         <mat-card-subtitle>{{ad.street}}, {{ad.city}}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
-        <mat-grid-list cols="4" rowHeight="4:1">
+        <!-- <mat-grid-list cols="4" rowHeight="4:1">
           <mat-grid-tile>Category</mat-grid-tile>
           <mat-grid-tile>{{ad.category}}</mat-grid-tile>
           <ng-container *ngIf="ad.size">
@@ -28,14 +28,40 @@
           </ng-container>
         </mat-grid-list>
         <mat-grid-list cols="1">
-          <div class="wrapper">{{ad.description}}</div>
+          <div class="wrapper"><p>{{ad.description}}</p></div>
         </mat-grid-list>
         <mat-grid-list cols="4" rowHeight="4:1">
           <mat-grid-tile>Price</mat-grid-tile>
           <mat-grid-tile>{{ad.price}}zł</mat-grid-tile>
           <mat-grid-tile>Phone</mat-grid-tile>
           <mat-grid-tile>{{ad.phoneNumber}}</mat-grid-tile>
-        </mat-grid-list>
+        </mat-grid-list> -->
+          <div class="row">
+            <div *ngIf="ad.category"class="col-md-4 d-flex" [ngClass]="{'col-md-6': !ad.floor || !ad.size}">
+              <div class="field-header">Category</div>
+              <div class="data">{{ad.category}}</div>
+            </div>
+            <div *ngIf="ad.size" class="col-md-4 d-flex" [ngClass]="{'col-md-6': !ad.floor || !ad.size}">
+              <div class="field-header">Size</div>
+              <div class="data">{{ad.size}}m<sup>2</sup></div>
+            </div>
+            <div *ngIf="ad.floor" class="col-md-4 d-flex" [ngClass]="{'col-md-6': !ad.floor || !ad.size}">
+              <div class="field-header">Floor</div>
+              <div class="data">{{ad.floor}}</div>
+            </div>
+            <div *ngIf="ad.description" class="col-md-12">
+              <div class="field-header">Description</div>
+              <div class="wrapper data"><p>{{ad.description}}</p></div>
+            </div>
+            <div *ngIf="ad.price" class="col-md-6 d-flex">
+              <div class="field-header">Price</div>
+              <div class="data">{{ad.price}}zł</div>
+            </div>
+            <div *ngIf="ad.phoneNumber" class="col-md-6 d-flex">
+              <div class="field-header">Phone Number</div>
+              <div class="data">{{ad.phoneNumber}}</div>
+            </div>
+          </div>
       </mat-card-content>
     </mat-card>
     <app-send-message [userId]="adData"></app-send-message>
