@@ -1,0 +1,15 @@
+<agm-map [latitude]="mapService.latitude" [longitude]="mapService.longitude" [zoom]="mapService.zoom">
+  <agm-marker *ngFor="let marker of this.mapService.markers"
+              [latitude]="marker.latitude"
+              [longitude]="marker.longitude"
+              [markerDraggable]="false"
+              (markerClick)="showAdvertisement(marker.id)"
+  ></agm-marker>
+</agm-map>
+<button class="map-toggler" *ngIf="mapService.mapDisabled" (click)="showMap()" mat-raised-button color="primary">
+  Show Map
+</button>
+<button class="map-toggler" *ngIf="!mapService.mapDisabled" (click)="hideMap()" mat-raised-button color="primary">
+  Hide Map
+</button>
+<div *ngIf="mapService.mapDisabled" class="map-hider"></div>

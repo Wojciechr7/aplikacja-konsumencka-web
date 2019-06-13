@@ -4,6 +4,7 @@
 /dist
 /tmp
 /out-tsc
+/src/app/api-key.ts
 
 # dependencies
 /node_modules

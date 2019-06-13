@@ -5,14 +5,18 @@
   background-color: white;
   display: flex;
   height: 150px;
+  opacity: .9;
+
+  &:hover {
+    opacity: 1;
+  }
 }
+
 .ad-desc{
   width:60%;
   padding:8px;
 }
-.ad-desc:hover{
-  background-color: #eeeeee;
-}
+
 .ad-img{
   width:40%;
 }

@@ -82,6 +82,8 @@ export class AddAdComponent implements OnInit, OnDestroy {
                     });
                 }
             });
+        } else {
+            this.toastr.error('Validation Error! Check All Form Fields!', 'Error!');
         }
     }
 

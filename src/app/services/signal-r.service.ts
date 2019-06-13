@@ -17,7 +17,7 @@ export class SignalRService {
 
   public startConnection(): void {
     this.hubConnection = new signalR.HubConnectionBuilder()
-        .withUrl('https://localhost:44363/message')
+        .withUrl('https://webapplicationapi20190605052213.azurewebsites.net/message')
         .build();
 
     this.hubConnection
@@ -59,7 +59,7 @@ export class SignalRService {
 
   public addMessageListener(): void {
     this.hubConnection.on('receiveMessage', (messageData) => {
-      this.toastr.success(messageData.message, `${messageData.sender.user.firstName} ${messageData.sender.user.lastName}`);
+      this.toastr.info(messageData.message, `${messageData.sender.user.firstName} ${messageData.sender.user.lastName}`);
       this.messageService.addDynamicMessage(messageData.message, messageData.sender);
     });
   }

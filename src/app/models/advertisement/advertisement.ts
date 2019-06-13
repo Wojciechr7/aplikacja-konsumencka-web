@@ -14,5 +14,6 @@ export interface Advertisement {
     category: string;
     floor?: number;
     userId?: string;
+    verification: boolean;
     voivodeship: string;
 }

@@ -15,6 +15,24 @@
       font-size: 15px;
       font-weight: bold;
     }
+
+    mat-expansion-panel {
+      user-select: none;
+
+      mat-expansion-panel-header {
+        padding: 0 16px;
+      }
+
+      ::ng-deep {
+        div.mat-expansion-panel-body {
+          padding: 0;
+        }
+      }
+    }
+
+    mat-nav-list {
+      padding-top: 0;
+    }
   }
 
 }
@@ -33,4 +51,19 @@
 
 .fill-space {
   flex: 1 1 auto;
+}
+.mat-drawer-content {
+  height: 100%;
+  overflow-y: scroll;
+  margin-right: -100px;
+  padding-right: 100px;
+  width: calc(100% - 83px);
+  overflow-x: hidden;
+
+  @media(max-width: 600px) {
+    margin-right: 0;
+    padding-right: 0;
+    width: 100%;
+
+  }
 }

@@ -1,54 +1,76 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
-               [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-               [mode]="(isHandset$ | async) ? 'over' : 'side'"
-               [opened]="!(isHandset$ | async)">
-    <mat-toolbar color="primary" >Menu</mat-toolbar>
-    <mat-nav-list>
-      <a mat-list-item *ngIf="!authenticationService.currentUserValue" routerLink="/user/sign-in">
-        <mat-icon>input</mat-icon>
-        Sign In</a>
-      <a mat-list-item *ngIf="!authenticationService.currentUserValue" routerLink="/user/sign-up">
-        <mat-icon>person_add</mat-icon>
-        Sign Up</a>
-      <a mat-list-item *ngIf="authenticationService.currentUserValue" routerLink="/add-ad">
-        <mat-icon>add_circle_outline</mat-icon>
-        Add Advertisement</a>
-      <a mat-list-item *ngIf="authenticationService.currentUserValue" routerLink="/user/advertisements">
-        <mat-icon>description</mat-icon>
-        View Advertisements</a>
-      <a mat-list-item *ngIf="authenticationService.currentUserValue" routerLink="/user/profile">
-        <mat-icon>person_outline</mat-icon>
-        My Profile</a>
-      <a mat-list-item *ngIf="authenticationService.currentUserValue" routerLink="/user/messages">
-        <mat-icon>message</mat-icon>
-        Messages</a>
-      <a mat-list-item href="javascript:void(0)" *ngIf="authenticationService.currentUserValue" (click)="logout()">
-        <mat-icon>exit_to_app</mat-icon>
-        Logout</a>
-    </mat-nav-list>
+    <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
+                 [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+                 [mode]="(isHandset$ | async) ? 'over' : 'side'"
+                 [opened]="!(isHandset$ | async)">
+        <mat-toolbar color="primary">Menu</mat-toolbar>
+        <mat-nav-list>
+            <mat-expansion-panel
+                    mat-list-item
+                    [expanded]="this.expandedAdmin"
+                    (mouseenter) ="this.expandedAdmin = true"
+                    (mouseleave) ="this.expandedAdmin = false"
+                    *ngIf="this.authenticationService.currentUserValue && this.isAdmin()">
+                <mat-expansion-panel-header [collapsedHeight]="'48px'" [expandedHeight]="'48px'">
+                    <mat-panel-title>
+                        <mat-icon>pregnant_woman</mat-icon>
+                        &nbsp;<b>Admin Tools</b>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-nav-list>
+                    <a mat-list-item (click)="hideMap()" routerLink="admin/users">
+                        <mat-icon>people</mat-icon>
+                        Users</a>
+                    <a mat-list-item (click)="hideMap()" routerLink="admin/advertisements">
+                        <mat-icon>list</mat-icon>
+                        Advertisements</a>
+                </mat-nav-list>
+            </mat-expansion-panel>
+            <a mat-list-item *ngIf="!authenticationService.currentUserValue" (click)="hideMap()" routerLink="/user/sign-in">
+                <mat-icon>input</mat-icon>
+                Sign In</a>
+            <a mat-list-item *ngIf="!authenticationService.currentUserValue" (click)="hideMap()" routerLink="/user/sign-up">
+                <mat-icon>person_add</mat-icon>
+                Sign Up</a>
+            <a mat-list-item *ngIf="authenticationService.currentUserValue" (click)="hideMap()" routerLink="/add-ad">
+                <mat-icon>add_circle_outline</mat-icon>
+                Add Advertisement</a>
+            <a mat-list-item *ngIf="authenticationService.currentUserValue" (click)="hideMap()" routerLink="/user/advertisements">
+                <mat-icon>description</mat-icon>
+                View Advertisements</a>
+            <a mat-list-item *ngIf="authenticationService.currentUserValue" (click)="hideMap()" routerLink="/user/profile">
+                <mat-icon>person_outline</mat-icon>
+                My Profile</a>
+            <a mat-list-item *ngIf="authenticationService.currentUserValue" (click)="hideMap()" routerLink="/user/messages">
+                <mat-icon>message</mat-icon>
+                Messages</a>
+            <a mat-list-item href="javascript:void(0)" *ngIf="authenticationService.currentUserValue"
+               (click)="logout()">
+                <mat-icon>exit_to_app</mat-icon>
+                Logout</a>
+        </mat-nav-list>
 
-  </mat-sidenav>
-  <mat-sidenav-content
-          infiniteScroll
-          [infiniteScrollDistance]="2"
-          [infiniteScrollThrottle]="50"
-          (scrolled)="lazyLoader()"
-          [scrollWindow]="false">
-    <mat-toolbar color="primary">
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-      </button>
-      <span><a href="../home ">Consumer app</a></span>
-      <span class="fill-space"></span>
-      <span *ngIf="authenticationService.currentUserValue">Hello, {{loggedInUser}}!</span>
-    </mat-toolbar>
-    <ng-content></ng-content>
-    <!-- Add Content Here -->
-  </mat-sidenav-content>
+    </mat-sidenav>
+    <mat-sidenav-content
+            infiniteScroll
+            [infiniteScrollDistance]="2"
+            [infiniteScrollThrottle]="50"
+            (scrolled)="lazyLoader()"
+            [scrollWindow]="false">
+        <mat-toolbar color="primary">
+            <button
+                    type="button"
+                    aria-label="Toggle sidenav"
+                    mat-icon-button
+                    (click)="drawer.toggle()"
+                    *ngIf="isHandset$ | async">
+                <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+            </button>
+            <span><a href="../home ">Consumer app</a></span>
+            <span class="fill-space"></span>
+            <span *ngIf="authenticationService.currentUserValue">Hello, {{loggedInUser}}!</span>
+        </mat-toolbar>
+        <ng-content></ng-content>
+        <!-- Add Content Here -->
+    </mat-sidenav-content>
 </mat-sidenav-container>

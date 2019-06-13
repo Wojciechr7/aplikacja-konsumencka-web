@@ -6,6 +6,7 @@ import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
 import {AdvertisementService} from '../../services/advertisement.service';
 import {SignalRService} from '../../services/signal-r.service';
+import {MapService} from '../../services/map.service';
 
 @Component({
   selector: 'app-navigation',
@@ -14,6 +15,7 @@ import {SignalRService} from '../../services/signal-r.service';
 })
 export class NavigationComponent {
   public username;
+  public expandedAdmin: boolean;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -24,7 +26,9 @@ export class NavigationComponent {
               public authenticationService: AuthService,
               private router: Router,
               private adService: AdvertisementService,
-              private signalR: SignalRService) {
+              private signalR: SignalRService,
+              private mapService: MapService) {
+    this.expandedAdmin = false;
   }
 
   get loggedInUser(): string {
@@ -38,9 +42,19 @@ export class NavigationComponent {
     }
   }
 
+  public hideMap() {
+    this.mapService.zoom = 17;
+    this.mapService.mapDisabled = true;
+  }
+
   public logout(): void {
+    this.hideMap();
     this.authenticationService.logout();
     this.signalR.stopConnection();
     this.router.navigate(['/user/sign-in']);
+  }
+
+  public isAdmin(): boolean {
+    return this.authenticationService.currentUserValue.role === 'admin';
   }
 }

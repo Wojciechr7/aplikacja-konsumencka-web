@@ -12,6 +12,10 @@ import {HomeAdvertisementsComponent} from './components/home/home-advertisements
 import {EditAdComponent} from './components/user/edit-ad/edit-ad.component';
 import {UserProfileComponent} from './components/user/user-profile/user-profile.component';
 import {MessagesComponent} from './components/user/messages/messages.component';
+import {AdminComponent} from './components/admin/admin.component';
+import {UsersComponent} from './components/admin/users/users.component';
+import {AdvertisementsComponent} from './components/admin/advertisements/advertisements.component';
+import {AdminGuard} from './guards/admin.guard';
 
 const routes: Routes = [
     {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -24,6 +28,7 @@ const routes: Routes = [
     },
     {
         path: 'user', component: HomeComponent, children: [
+            {path: '', redirectTo: 'advertisements', pathMatch: 'full'},
             {path: 'sign-in', component: SignInComponent, canActivate: [IsLoggedGuard]},
             {path: 'sign-up', component: SignUpComponent, canActivate: [IsLoggedGuard]},
             {path: 'advertisements/:id', component: EditAdComponent, canActivate: [AuthGuard]},
@@ -33,6 +38,13 @@ const routes: Routes = [
         ]
     },
     {path: 'add-ad', component: AddAdComponent, canActivate: [AuthGuard]},
+    {
+        path: 'admin', component: AdminComponent, canActivate: [AdminGuard], children: [
+            {path: '', redirectTo: 'advertisements', pathMatch: 'full'},
+            {path: 'users', component: UsersComponent, canActivate: [AuthGuard]},
+            {path: 'advertisements', component: AdvertisementsComponent, canActivate: [AuthGuard]}
+        ]
+    }
 
 ];
 
